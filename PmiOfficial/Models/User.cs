@@ -19,13 +19,13 @@ namespace PmiOfficial.Models
         public string LastName { get { return lastName; } set { lastName = value; } }
         private DateTime birthDate;
         public DateTime BirthDate { get { return birthDate; } set { birthDate = value; } }
-        private int image_id;
         private List<UsefulLink> usefulLinks;
         public List<UsefulLink> UsefulLinks { get { return usefulLinks; } set { usefulLinks = value; } }
         private List<InterestingVisit> interestingVisits;
         public List<InterestingVisit> InterestingVisits { get { return interestingVisits; } set { interestingVisits = value; } }
         private long phoneNumber;
         public long PhoneNumber { get { return phoneNumber; } set { phoneNumber = value; } }
+        private int image_id;
         public int Image_ID { get { return image_id; } set { image_id = value; } }
         private string fb_id;
         public string FB_ID { get { return fb_id; } set { fb_id = value; } }
