@@ -43,6 +43,7 @@
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\InterestingVisit.cs" />
     <Compile Include="Entities\UsefulLink.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
