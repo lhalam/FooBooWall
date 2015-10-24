@@ -9,6 +9,8 @@ namespace PmiOfficial.Models
     {
         private int id;
         public int ID { get { return id; } set { id = value; } }
+        private int image_id;
+        public int Image_ID { get { return image_id; } set { image_id = value; } }
         private string name;
         public string Name { get { return name; } set { name = value; } }
         private string location;
@@ -18,6 +20,6 @@ namespace PmiOfficial.Models
         private User organiser;
         public User Organiser { get { return organiser; } set { organiser = value; } }
         private DateTime time;
-        public DateTime Time { get { return time; } set { time = value; } }
+        public DateTime Time { get { return time; } set { time = value; } } 
     }
 }
