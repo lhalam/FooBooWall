@@ -1,0 +1,232 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<link type="stylesheet" rel="https://bootswatch.com/paper/bootstrap.min.css" />
+<style>
+    .img-profile.container {
+        margin-top: 50px;
+    }
+
+    .img-profile-foto-row {
+        padding: 10px;
+        box-shadow: 0 0 13px rgba(0,0,0, .5);
+        background-color: #212121;
+    }
+
+    .img-profile-fotos {
+        padding: 0;
+    }
+
+    .img-profile-fotos img {
+        height: 250px;
+        width: 100%;
+    }
+
+    body {
+        background-color: #EEEEEE;
+    }
+
+    .userName {
+        position: absolute;
+        top: 185px;
+        left: 10px;
+        color: white;
+        opacity: 0.9;
+        display: inline-block;
+        padding: 5px;
+        background-color: #006064;
+        border-radius: 7px;
+    }
+
+    .fotoChangeButton {
+        font-size: 30px;
+        border-radius: 50%;
+        width: 55px;
+        color: white;
+        background-color: black;
+        position: absolute;
+        opacity: 0.7;
+        top: 100px;
+        left: 43%;
+        display: inline-block;
+        padding: 5px;
+        -webkit-transition: all ease-out 10s;
+        -o-transition: all ease-out 10s;
+        -moz-transition: all ease-out 10s;
+        transition: all ease 10s;
+        transition-duration: 0.5s;
+    }
+
+    .fader {
+        height: 250px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        background-color: black;
+        opacity: 0;
+        -webkit-transition: all ease-out 10s;
+        -o-transition: all ease-out 10s;
+        -moz-transition: all ease-out 10s;
+        transition: all ease 10s;
+        transition-duration: 0.5s;
+    }
+
+    .fader:hover {
+        opacity: .5;
+    }
+
+    .img-profile-fotos img:hover + .fotoChangeButton {
+        opacity: 1;
+    }
+
+    .fotoChangeButton:hover {
+        opacity: 1;
+    }
+
+    .img-profile .glyphicon.glyphicon-edit {
+        cursor: pointer;
+    }
+
+    .row.img-profile-info .panel {
+        padding: 0 15px;
+        -webkit-transition: all ease-out 10s;
+        -o-transition: all ease-out 10s;
+        -moz-transition: all ease-out 10s;
+        transition: all ease 10s;
+        transition-duration: 0.5s;
+    }
+    .row.img-profile-info .panel:hover {
+        position: relative;
+        top: -2px;
+        z-index: 1000;
+        box-shadow: 0 0 7px rgba(0,0,0, .4);
+    }
+
+    p{
+       font-size:large;
+    }
+
+    .timetable-row h4{
+        text-align:center;
+        font-weight:bold;
+        top:10px;
+    }
+
+    .timetable-row .panel{
+         padding: 0 15px;
+        -webkit-transition: all ease-out 10s;
+        -o-transition: all ease-out 10s;
+        -moz-transition: all ease-out 10s;
+        transition: all ease 10s;
+        transition-duration: 0.5s;
+        background-color:#B2DFDB;
+    }
+
+    .timetable-row .panel:hover{
+        position: relative;
+        top: -2px;
+        z-index: 1000;
+        box-shadow: 0 0 7px rgba(0,0,0, .4);
+    }
+
+</style>
+
+<div class="container img-profile">
+    <div class="row panel panel-default img-profile-foto-row">
+        <div class="col-md-4 img-profile-fotos">
+            <img src="http://wallpapers-3d.ru/sstorage/53/2011/03/image_531903111627207792992.jpg" />
+            <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
+        </div>
+        <div class="col-md-4 img-profile-fotos">
+            <img src="https://pp.vk.me/c628627/v628627737/a31f/vj9H9uq3DY0.jpg" style="border: 5px solid #9E9E9E" />
+            <h3 class="userName">@ViewBag.User.FirstName @ViewBag.User.LastName</h3>
+            <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
+        </div>
+        <div class="col-md-4 img-profile-fotos" />
+        <img src="http://wallpapers-3d.ru/sstorage/53/2011/08/10708111152415828.jpg">
+        <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
+    </div>
+</div>
+<div class="row img-profile-info">
+    <div class=" col-md-4">
+        <div class="panel panel-default">
+            <h3 style="text-align: center">Useful links<span class="pull-right glyphicon glyphicon-edit"></span></h3>
+            <hr />
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <div class="panel-default panel">
+            <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit"></span></h3>
+            <hr />
+            <p>Birthday: </p>
+            <p>Mobile phone: </p>
+            <p>Skype:@ViewBag.User.Skype </p>
+            <p>Mail: @ViewBag.User.EMail</p>
+            <p>Facebook: @ViewBag.User.FB_ID</p>
+            <p>Vk: @ViewBag.User.VK_ID</p>
+            <p>Hobbies: @ViewBag.User.Hobbies</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <h3 style="text-align: center">Gonna visit<span class="pull-right glyphicon glyphicon-edit"></span></h3>
+            <hr />
+        </div>
+    </div>
+</div>
+<div class="row timetable-row">
+    <div class="col-md-offset-1 col-md-2 tasks-notes panel" style="background-color: #90CAF9">
+        <h4>
+            Monday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Monday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color:#B2DFDB">
+        <h4>
+            Tuesday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Tuesday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color:#E0E0E0">
+        <h4>
+            Wednesday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Wednesday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color: #D1C4E9">
+        <h4>
+            Thursday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Thursday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color:#CFD8DC">
+        <h4>
+            Friday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Friday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+</div>
+
