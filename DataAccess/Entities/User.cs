@@ -11,6 +11,9 @@ namespace DataAccess.Entities
         public int ID { get { return id; } set { id = value; } }
         private string login;
         public string Login { get { return login; } set { login = value; } }
+
+        public string Password { get; set; }
+
         private string email;
         public string EMail { get { return email; } set { email = value; } }
         private string firstName;
