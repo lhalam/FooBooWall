@@ -22,7 +22,7 @@ namespace PmiOfficial.Controllers
                 Skype = "skype",
                 Hobbies = "hobbies",
                 Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
-                    { "Tuesday", new List<string> {"Movie" } }, {"Wednessday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}
+                    { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}
                 }
             };
             return View();
