@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DataAccess.Entities;
-
+using System.Data.SqlClient;
+using DataAccess.DAO;
 namespace PmiOfficial.Controllers
 {
     public class UserProfileController : Controller
@@ -16,7 +17,10 @@ namespace PmiOfficial.Controllers
             {
                 FirstName = "Padus",
                 LastName = "Sofija",
+                Login = "PSofija",
                 EMail = "sofijaPadus@gmail.com",
+                Password = "qwertyqwerqwqrqw",
+                Image_ID = 1,
                 VK_ID = "vkiD",
                 FB_ID = "facebook",
                 Skype = "skype",
@@ -25,6 +29,8 @@ namespace PmiOfficial.Controllers
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}
                 }
             };
+            UserDAO u = new UserDAO();
+            u.Create(ViewBag.User);
             return View();
         }
     }
