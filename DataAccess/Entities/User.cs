@@ -17,13 +17,16 @@ namespace DataAccess.Entities
         public string FirstName { get { return firstName; } set { firstName = value; } }
         private string lastName;
         public string LastName { get { return lastName; } set { lastName = value; } }
-        private int age;
-        public int Age { get { return age; } set { age = value; } }
+        private DateTime birthday;
+        public DateTime Birthday { get { return birthday; } set { birthday = value; } }
         private int image_id;
         public int Image_ID { get { return image_id; } set { image_id = value; } }
-        private int fb_id;
-        public int FB_ID { get { return fb_id; } set { fb_id = value; } }
-        private int vk_id;
-        public int VK_ID { get { return vk_id; } set { vk_id = value; } }
+        private string fb_id;
+        public string FB_ID { get { return fb_id; } set { fb_id = value; } }
+        private string vk_id;
+        public string VK_ID { get { return vk_id; } set { vk_id = value; } }
+        public string Skype { get; set; }
+        public string Hobbies { get; set; }
+        public Dictionary<string, List<string>> Plans { get; set; }
     }
 }
