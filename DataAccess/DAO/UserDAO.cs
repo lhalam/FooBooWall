@@ -111,6 +111,7 @@ namespace DataAccess.DAO
                     reader.Read();
                     user = new User
                     {
+                        ID = (int)reader.GetValue(0),
                         FirstName = (string)reader.GetValue(1),
                         LastName = (string)reader.GetValue(2),
                         Login = (string)reader.GetValue(3),
@@ -131,7 +132,6 @@ namespace DataAccess.DAO
             string pass;
             using (SqlConnection connection = GetConnection())
             {
-                User user = null;
                 connection.Open();
                 string sql = "SELECT Password FROM PmiDatabase.dbo.users WHERE login = @param1";
                 SqlCommand cmd = new SqlCommand(sql, connection);

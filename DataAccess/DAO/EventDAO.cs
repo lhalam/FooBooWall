@@ -11,7 +11,7 @@ namespace DataAccess.DAO
 {
     class EventDAO: AbstractDAO<Event>
     {
-        public void Create(Event entity)
+        public override void Create(Event entity)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -30,7 +30,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public Event Read(int id)
+        public override Event Read(int id)
         {
             Event ev = null;
             using (SqlConnection connection = GetConnection())
@@ -44,6 +44,7 @@ namespace DataAccess.DAO
                     reader.Read();
                     ev = new Event
                     {
+                        ID = (int)reader.GetValue(0),
                         Name = (string)reader.GetValue(1),
                         Location = (string)reader.GetValue(2),
                         Decription = (string)reader.GetValue(3),
@@ -56,7 +57,7 @@ namespace DataAccess.DAO
             return ev;
         }
 
-        public void Update(Event entity)
+        public override void Update(Event entity)
         {
             using (SqlConnection connection = GetConnection())
             {
@@ -76,7 +77,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public void Delete(Event entity)
+        public override void Delete(Event entity)
         {
             using (SqlConnection connection = GetConnection())
             {
