@@ -151,13 +151,12 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT COUNT(*) FROM PmiDatabase.dbo.users WHERE login = @param1";
+                string sql = "SELECT * FROM PmiDatabase.dbo.users WHERE login = @param1";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    result = reader.HasRows;
-                   
+                    result = reader.HasRows;                   
                 }
             }
             return result;
