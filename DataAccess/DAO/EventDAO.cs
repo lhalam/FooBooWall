@@ -89,5 +89,62 @@ namespace DataAccess.DAO
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public List<Event> ReadAllEvents() {
+            List<Event> list = new List<Event>();
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string sql = "SELECT * FROM PmiDatabase.dbo.events";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while( reader.Read()) {
+                        Event ev = new Event
+                        {
+                            ID = (int)reader.GetValue(0),
+                            Name = (string)reader.GetValue(1),
+                            Location = (string)reader.GetValue(2),
+                            Decription = (string)reader.GetValue(3),
+                            Image_ID = (int)reader.GetValue(4),
+                            Organizer_id = (int)reader.GetValue(5),
+                            Time = (DateTime)reader.GetValue(6),
+                        };
+                        list.Add(ev);
+                    }
+                }
+            }
+            return list;
+        }
+
+        public List<Event> ReadEventsCreatedByUser(int userId)
+        {
+            List<Event> list = new List<Event>();
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string sql = "SELECT * FROM PmiDatabase.dbo.events WHERE Organizer_id = @param1";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = userId;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Event ev = new Event
+                        {
+                            ID = (int)reader.GetValue(0),
+                            Name = (string)reader.GetValue(1),
+                            Location = (string)reader.GetValue(2),
+                            Decription = (string)reader.GetValue(3),
+                            Image_ID = (int)reader.GetValue(4),
+                            Organizer_id = (int)reader.GetValue(5),
+                            Time = (DateTime)reader.GetValue(6),
+                        };
+                        list.Add(ev);
+                    }
+                }
+            }
+            return list;
+        }
     }
 }
