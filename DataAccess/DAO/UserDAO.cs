@@ -82,6 +82,7 @@ namespace DataAccess.DAO
                 cmd.ExecuteNonQuery();
             }
         }
+
         public override void Delete(User entity)
         {
             using (SqlConnection connection = GetConnection())

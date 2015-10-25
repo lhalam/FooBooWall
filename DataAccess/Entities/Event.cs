@@ -17,8 +17,8 @@ namespace DataAccess.Entities
         public string Location { get { return location; } set { location = value; } }
         private string description;
         public string Decription { get { return description; } set { description = value; } }
-        private User organiser;
-        public User Organiser { get { return organiser; } set { organiser = value; } }
+        private int organizer_id;
+        public int Organizer_id { get { return organizer_id; } set { organizer_id = value; } }
         private DateTime time;
         public DateTime Time { get { return time; } set { time = value; } } 
     }
