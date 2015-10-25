@@ -144,5 +144,23 @@ namespace DataAccess.DAO
             }
             return pass;
         }
+
+        public bool UserWithSpecifiedLoginExists(string login)
+        {
+            bool result = false;
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string sql = "SELECT * FROM PmiDatabase.dbo.users WHERE login = @param1";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    result = reader.HasRows;                   
+                }
+            }
+            return result;
+
+        }
     }
 }
