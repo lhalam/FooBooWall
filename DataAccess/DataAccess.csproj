@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\AbstractDAO.cs" />
+    <Compile Include="DAO\EventDAO.cs" />
+    <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Image.cs" />
