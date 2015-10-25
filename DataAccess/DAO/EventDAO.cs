@@ -9,7 +9,7 @@ using System.Data;
 
 namespace DataAccess.DAO
 {
-    class EventDAO: AbstractDAO<Event>
+    public class EventDAO: AbstractDAO<Event>
     {
         public override void Create(Event entity)
         {
