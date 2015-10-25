@@ -29,8 +29,7 @@ namespace PmiOfficial.Controllers
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}
                 }
             };
-            UserDAO u = new UserDAO();
-            u.Create(ViewBag.User);
+            
             return View();
         }
     }
