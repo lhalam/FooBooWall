@@ -9,7 +9,7 @@ using System.Data;
 
 namespace DataAccess.DAO
 {
-    class ImageDAO: AbstractDAO<Image>
+    public class ImageDAO: AbstractDAO<Image>
     {
         public override void Create(Image entity)
         {
