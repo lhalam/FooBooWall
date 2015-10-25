@@ -1,4 +1,6 @@
 ﻿using PmiOfficial.Models;
+using Services;
+using Services.Registration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +12,14 @@ namespace PmiOfficial.Controllers
 {
     public class AccountController : ApiController
     {
-        private readonly RegistrationService registrationService;
         // POST api/<controller>
         public IHttpActionResult Register([FromBody] RegistrationBindingModel model)
         {
-            if (!this.ModelState.IsValid())
+            if (!this.ModelState.IsValid)
             {
                 return BadRequest(this.ModelState);
             }
-            RegistrationResult result = registrationService.Register(model);
+            RegistrationResult result = RegistrationService.Register(model);
             if (result.Succeded)
             {
                 return Ok();
@@ -36,7 +37,7 @@ namespace PmiOfficial.Controllers
                 return InternalServerError();
             }
 
-            if (!result.Succeeded)
+            if (!result.Succeded)
             {
                 if (result.Errors != null)
                 {
