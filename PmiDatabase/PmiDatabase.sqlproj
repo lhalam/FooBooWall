@@ -64,4 +64,7 @@
     <Build Include="Tables\images.sql" />
     <Build Include="Tables\users.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PmiDatabase.refactorlog" />
+  </ItemGroup>
 </Project>
