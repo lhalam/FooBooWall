@@ -16,15 +16,15 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql =  "INSERT INTO PmiDatabase.dbo.users(FirstName, LastName, Login, Email, Password, BirthDate, Image_id, VK_ID, FB_ID)" +
-                    "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @param8, @param9)";
+                string sql =  "INSERT INTO PmiDatabase.dbo.users(FirstName, LastName, Login, Email, Password"/* + ", [BirthDate]"*/ + ", Image_id, VK_ID, FB_ID)" +
+                    "VALUES(@param1, @param2, @param3, @param4, @param5" + /*", @param6"+ */", @param7, @param8, @param9)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName;
                 cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName;
                 cmd.Parameters.Add("@param3", SqlDbType.VarChar, 255).Value = entity.Login;
                 cmd.Parameters.Add("@param4", SqlDbType.VarChar, 255).Value = entity.EMail;
                 cmd.Parameters.Add("@param5", SqlDbType.VarChar, 20).Value = entity.Password;
-                cmd.Parameters.Add("@param6", SqlDbType.Date).Value = entity.Birthday;
+                //cmd.Parameters.Add("@param6", SqlDbType.DateTime).Value = System.Data.SqlTypes.SqlDateTime.Null;
                 cmd.Parameters.Add("@param7", SqlDbType.Int).Value = entity.Image_ID;
                 cmd.Parameters.Add("@param8", SqlDbType.VarChar, 50).Value = entity.VK_ID;
                 cmd.Parameters.Add("@param9", SqlDbType.VarChar, 50).Value = entity.FB_ID;

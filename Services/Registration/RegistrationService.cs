@@ -19,10 +19,17 @@ namespace Services
             RegistrationResult result = new RegistrationResult();
             if (!userDAO.UserWithSpecifiedLoginExists(model.Login))
             {
+                ImageDAO imageDAO = new ImageDAO();
+                imageDAO.Create(new Image() { Name = "imageName1", ID = 1 });
                 User user = new User();
                 user.Login = model.Login;
                 user.Password = model.Password;
                 user.EMail = model.Email;
+                user.FirstName = "Johny";
+                user.FB_ID = "-1";
+                user.VK_ID = "0";
+                user.Image_ID = 1;
+                user.Birthday = DateTime.Now;
                 userDAO.Create(user);
                 result.Succeded = true;
             }
