@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    p {
+        font-size: medium;
+        padding-left: 20%;
+        text-align: justify;
+    }
+
+    .title {
+        font-size: larger;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    body {
+        background-color: #EEEEEE;
+        margin-top: 10%;
+        margin-right: 30%;
+        margin-bottom: 10%;
+        margin-left: 30%;
+        border-width: 2px;
+        border-style: ridge;
+        border-color: black;
+    }
+
+    .button {
+        font-size: medium;
+        padding-left: 60%;
+    }
+</style>
+
+
+
+<fieldset>
+    <div class="title">
+        <legend style="text-align: center">Реєстрація нового користувача</legend>
+    </div>
+    @using (Ajax.BeginForm("Register",
+                            new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
+    {
+        <div id="divInterestDeatils"></div>
+        <ol>
+            <p>
+                @Html.Label("Логін")
+                @Html.TextBox("txtLogin")
+            </p>
+
+            <p>
+                @Html.Label("Пароль")
+                @Html.TextBox("txtPassword")
+            </p>
+            <p>
+                @Html.Label("E-mail")
+                @Html.TextBox("txtEmail")
+            </p>
+        </ol>
+        <div class="button ">
+            <button>Створити аккаунт!</button>
+        </div>
+    }
+</fieldset>
