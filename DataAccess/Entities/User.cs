@@ -31,5 +31,15 @@ namespace DataAccess.Entities
         public string Skype { get; set; }
         public string Hobbies { get; set; }
         public Dictionary<string, List<string>> Plans { get; set; }
+
+        public User()
+        {
+            Login = String.Empty;
+            FirstName = String.Empty;
+            LastName = String.Empty;
+            FB_ID = String.Empty;
+            VK_ID = String.Empty;
+            EMail = String.Empty;
+        }
     }
 }
