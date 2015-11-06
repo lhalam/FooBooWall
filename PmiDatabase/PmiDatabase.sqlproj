@@ -67,4 +67,7 @@
   <ItemGroup>
     <RefactorLog Include="PmiDatabase.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.Seed.sql" />
+  </ItemGroup>
 </Project>

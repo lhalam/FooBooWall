@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SqlConnectionString" xml:space="preserve">
-    <value>Data Source=(localdb)\v11.0;Integrated Security=True;Pooling=False</value>
+    <value>Data Source=(localdb)\v11.0;Initial Catalog=PmiDatabase;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False</value>
   </data>
 </root>
