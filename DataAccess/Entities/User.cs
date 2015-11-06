@@ -13,7 +13,8 @@ namespace DataAccess.Entities
         private string login;
         public string Login { get { return login; } set { login = value; } }
 
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+        public string SecurityStamp { get; set; }
 
         private string email;
         public string EMail { get { return email; } set { email = value; } }

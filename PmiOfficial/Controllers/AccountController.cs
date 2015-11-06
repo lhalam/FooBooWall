@@ -1,4 +1,5 @@
-﻿using PmiOfficial.Models;
+﻿using Microsoft.AspNet.Identity;
+using PmiOfficial.Models;
 using Services;
 using Services.Registration;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace PmiOfficial.Controllers
@@ -13,14 +15,14 @@ namespace PmiOfficial.Controllers
     public class AccountController : ApiController
     {
         // POST api/<controller>
-        public IHttpActionResult Register([FromBody] RegistrationBindingModel model)
+        public async Task<IHttpActionResult> Register([FromBody] RegistrationBindingModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return BadRequest(this.ModelState);
             }
-            RegistrationResult result = RegistrationService.Register(model);
-            if (result.Succeded)
+            IdentityResult result = await RegistrationService.Register(model);
+            if (result.Succeeded)
             {
                 return Ok();
             }
@@ -30,14 +32,14 @@ namespace PmiOfficial.Controllers
             }
         }
 
-        private IHttpActionResult GetErrorResult(RegistrationResult result)
+        private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
             {
                 return InternalServerError();
             }
 
-            if (!result.Succeded)
+            if (!result.Succeeded)
             {
                 if (result.Errors != null)
                 {

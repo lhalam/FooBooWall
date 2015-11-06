@@ -13,7 +13,14 @@ namespace DataAccess.Identity
         public CustomUserManager()
             : base(new CustomUserStore())
         {
-
+            this.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 8
+            };
+            this.UserValidator = new UserValidator<User, int>(this)
+            {
+                AllowOnlyAlphanumericUserNames = true
+            };
         }
     }
 }
