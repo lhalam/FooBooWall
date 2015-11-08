@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using DataAccess.Identity;
 using Microsoft.AspNet.Identity;
 using PmiOfficial.Models;
@@ -10,7 +11,12 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+=======
+﻿using System.Threading.Tasks;
+>>>>>>> 318b6ae6d38342be5a6ee09d47601d28ded2f735
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
+using Services.Registration;
 
 namespace PmiOfficial.Controllers
 {
@@ -34,19 +40,16 @@ namespace PmiOfficial.Controllers
         // POST api/<controller>
         public async Task<IHttpActionResult> Register([FromBody] RegistrationBindingModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(this.ModelState);
+                return BadRequest(ModelState);
             }
             IdentityResult result = await RegistrationService.Register(model);
             if (result.Succeeded)
             {
                 return Ok();
             }
-            else
-            {
-                return GetErrorResult(result);
-            }
+            return GetErrorResult(result);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
@@ -60,7 +63,7 @@ namespace PmiOfficial.Controllers
             {
                 if (result.Errors != null)
                 {
-                    foreach (string error in result.Errors)
+                    foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("", error);
                     }

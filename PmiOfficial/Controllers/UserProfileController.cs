@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using DataAccess.Entities;
-using System.Data.SqlClient;
-using Services;
 using DataAccess.DAO;
+using Services;
 
 namespace PmiOfficial.Controllers
 {
     public class UserProfileController : Controller
     {
-        public IUserService _userService;
+        public IUserService UserService;
 
         public UserProfileController()
         {
-            _userService = new UserService(new UserDAO());
+            UserService = new UserService(new UserDAO());
         }
 
         // GET: UserProfile
-        public ActionResult Index(int userID)
+        public ActionResult Index(int userId)
         {
-            ViewBag.User = _userService.Get(userID);
+            ViewBag.User = UserService.Get(userId);
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};

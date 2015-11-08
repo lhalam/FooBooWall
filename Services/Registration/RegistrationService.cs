@@ -1,16 +1,10 @@
-﻿using PmiOfficial.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using DataAccess.Entities;
-using DataAccess.DAO;
-using Services.Registration;
 using DataAccess.Identity;
 using Microsoft.AspNet.Identity;
 
-namespace Services
+namespace Services.Registration
 {
     public class RegistrationService
     {
@@ -20,7 +14,7 @@ namespace Services
             {
                 Login = model.Login,
                 EMail = model.Email,
-                Image_ID = 1,
+                ImageId = 1,
                 Birthday = DateTime.Now
             };
             CustomUserManager userManager = new CustomUserManager();
