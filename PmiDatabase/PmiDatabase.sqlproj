@@ -63,5 +63,6 @@
     <Build Include="Tables\events.sql" />
     <Build Include="Tables\images.sql" />
     <Build Include="Tables\users.sql" />
+    <Build Include="Tables\comments.sql" />
   </ItemGroup>
 </Project>
