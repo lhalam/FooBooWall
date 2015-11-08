@@ -22,6 +22,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Your profile", "Index", "UserProfile", new { userID = 2 }, null)</li>
+                    @RenderSection("navbar", required: false)
                 </ul>
             </div>
         </div>
@@ -37,5 +39,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/editUserController.js"></script>
 </body>
 </html>

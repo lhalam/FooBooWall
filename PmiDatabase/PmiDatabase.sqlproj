@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{469f668b-d3ca-4308-a902-3e77bd3ed069}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -63,6 +63,12 @@
     <Build Include="Tables\events.sql" />
     <Build Include="Tables\images.sql" />
     <Build Include="Tables\users.sql" />
-    <Build Include="Tables\comments.sql" />
+    <Build Include="Tables\externalLogins.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PmiDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.Seed.sql" />
   </ItemGroup>
 </Project>

@@ -22,3 +22,18 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
     </div>
 </div>
+
+@section navbar
+{
+    @if (ViewBag.IsAuthenticated)
+    {
+        <li><a href="UserProfile/?userID=@ViewBag.Id">Hello @ViewBag.Name</a></li>
+        <li><a href="logout">LogOut</a></li>
+    }
+    else
+    {
+        <li><a href="ExternalLogin?provider=Facebook">Facebook</a></li>
+    }
+
+
+}

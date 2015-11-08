@@ -7,6 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PmiOfficial", "PmiOfficial\
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PmiDatabase", "PmiDatabase\PmiDatabase.sqlproj", "{469F668B-D3CA-4308-A902-3E77BD3ED069}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{46DFED16-EF62-4052-B302-D5656E57C1D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{817D2C43-989F-4A17-A252-2E9D70052539}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5A3F068D-70A1-4990-8422-31773D07CBAC}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +34,14 @@ Global
 		{469F668B-D3CA-4308-A902-3E77BD3ED069}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{469F668B-D3CA-4308-A902-3E77BD3ED069}.Release|Any CPU.Build.0 = Release|Any CPU
 		{469F668B-D3CA-4308-A902-3E77BD3ED069}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{46DFED16-EF62-4052-B302-D5656E57C1D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DFED16-EF62-4052-B302-D5656E57C1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DFED16-EF62-4052-B302-D5656E57C1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DFED16-EF62-4052-B302-D5656E57C1D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{817D2C43-989F-4A17-A252-2E9D70052539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817D2C43-989F-4A17-A252-2E9D70052539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817D2C43-989F-4A17-A252-2E9D70052539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817D2C43-989F-4A17-A252-2E9D70052539}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
