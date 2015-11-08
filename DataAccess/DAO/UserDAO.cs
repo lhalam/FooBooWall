@@ -27,7 +27,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@param4", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
                 cmd.Parameters.Add("@param5", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
                 cmd.Parameters.Add("@param6", SqlDbType.DateTime).Value = entity.Birthday;
-                cmd.Parameters.Add("@param7", SqlDbType.Int).Value = entity.Image_ID;
+                cmd.Parameters.Add("@param7", SqlDbType.Int).Value = entity.ImageId;
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
                 entity.Id = (int)cmd.ExecuteScalar();
@@ -54,8 +54,8 @@ namespace DataAccess.DAO
                         Login = Convert(reader.GetValue(3)),
                         EMail = Convert(reader.GetValue(4)),
                         PasswordHash = Convert(reader.GetValue(5)),
-                        Birthday = (DateTime)reader.GetValue(6),
-                        Image_ID = (int)reader.GetValue(7),
+                        Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
+                        ImageId = (int)reader.GetValue(7),
                         SecurityStamp = Convert(reader.GetValue(8))
                     };
                 }
@@ -76,7 +76,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@param3", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
                 cmd.Parameters.Add("@param4", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
                 cmd.Parameters.Add("@param5", SqlDbType.Date).Value = entity.Birthday;
-                cmd.Parameters.Add("@param6", SqlDbType.Int).Value = entity.Image_ID;
+                cmd.Parameters.Add("@param6", SqlDbType.Int).Value = entity.ImageId;
                 cmd.Parameters.Add("@param7", SqlDbType.VarChar, 255).Value = entity.Login;
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
@@ -119,7 +119,7 @@ namespace DataAccess.DAO
                         EMail = Convert(reader.GetValue(4)),
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (DateTime)reader.GetValue(6),
-                        Image_ID = (int)reader.GetValue(7),
+                        ImageId = (int)reader.GetValue(7),
                         SecurityStamp = Convert(reader.GetValue(8))
                     };
                 }
@@ -150,7 +150,7 @@ namespace DataAccess.DAO
                             EMail = Convert(reader.GetValue(4)),
                             PasswordHash = Convert(reader.GetValue(5)),
                             Birthday = (DateTime)reader.GetValue(6),
-                            Image_ID = (int)reader.GetValue(7),
+                            ImageId = (int)reader.GetValue(7),
                             SecurityStamp = Convert(reader.GetValue(8))
                         };
                     }

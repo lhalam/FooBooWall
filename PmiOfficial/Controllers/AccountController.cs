@@ -22,28 +22,6 @@ namespace PmiOfficial.Controllers
     {
         private readonly CustomUserManager userManager = new CustomUserManager();
         private readonly IAuthService _authService = new AuthService();
-        //
-        // POST: /Account/Login
-       
-        /*[HttpGet]
-        public async Task<IHttpActionResult> Login([FromUri]LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await userManager.FindAsync(model.Login, model.Password);
-                if (user != null)
-                {
-                    SignIn(user);
-                    return Ok();
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                    return BadRequest(ModelState);
-                }
-            }
-            return BadRequest(ModelState);
-        }*/
 
         [HttpGet]
         [Route("logout")]

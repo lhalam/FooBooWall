@@ -1,31 +1,20 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace DataAccess.Entities
 {
     public class User : IUser<int>
     {
-        private int id;
-        public int Id { get { return id; } set { id = value; } }
-        private string login;
-        public string Login { get { return login; } set { login = value; } }
-
+        public int Id { get; set; }
+        public string Login { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
-
-        private string email;
-        public string EMail { get { return email; } set { email = value; } }
-        private string firstName;
-        public string FirstName { get { return firstName; } set { firstName = value; } }
-        private string lastName;
-        public string LastName { get { return lastName; } set { lastName = value; } }
-        private DateTime birthday;
-        public DateTime Birthday { get { return birthday; } set { birthday = value; } }
-        private int image_id;
-        public int Image_ID { get { return image_id; } set { image_id = value; } }
+        public string EMail { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime Birthday { get; set; }
+        public int ImageId { get; set; }
         public string Skype { get; set; }
         public string Hobbies { get; set; }
         public Dictionary<string, List<string>> Plans { get; set; }
@@ -33,18 +22,19 @@ namespace DataAccess.Entities
         {
             get
             {
-                return this.Login;
+                return Login;
             }
             set
             {
-                this.Login = value;
+                Login = value;
             }
         }
 
         public User()
         {
+            Birthday = DateTime.Now;
             EMail = String.Empty;
-            Image_ID = 1;
+            ImageId = 1;
         }
     }
 }
