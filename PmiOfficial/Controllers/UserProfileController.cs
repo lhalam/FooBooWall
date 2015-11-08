@@ -7,6 +7,7 @@ using DataAccess.Entities;
 using System.Data.SqlClient;
 using Services;
 using DataAccess.DAO;
+using Services.DTO;
 
 namespace PmiOfficial.Controllers
 {
@@ -45,6 +46,12 @@ namespace PmiOfficial.Controllers
             //};
 
             return View();
+        }
+
+        [HttpPost]
+        public void Edit(EditUserDTO userDto)
+        {
+            _userService.Edit(userDto);
         }
     }
 }

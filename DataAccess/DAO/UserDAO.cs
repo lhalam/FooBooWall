@@ -45,18 +45,20 @@ namespace DataAccess.DAO
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
+
                     user = new User
                     {
-                        FirstName = (string)reader.GetValue(1),
-                        LastName = (string)reader.GetValue(2),
-                        Login = (string)reader.GetValue(3),
-                        EMail = (string)reader.GetValue(4),
-                        PasswordHash = (string)reader.GetValue(5),
-                        Birthday = (DateTime)reader.GetValue(6),
-                        Image_ID = (int)reader.GetValue(7),
-                        VK_ID = (String)reader.GetValue(8),
-                        FB_ID = (String)reader.GetValue(9),
-                        SecurityStamp = (string)reader.GetValue(10)
+                        Id = id,
+                        FirstName = reader.GetValue(1) == DBNull.Value ? "" : (string)reader.GetValue(1) ?? "",
+                        LastName = reader.GetValue(2) == DBNull.Value ? "" : (string)reader.GetValue(2) ?? "",
+                        Login = reader.GetValue(3) == DBNull.Value ? "" : (string)reader.GetValue(3),
+                        EMail = reader.GetValue(4) == DBNull.Value ? "" : (string)reader.GetValue(4) ?? "",
+                        PasswordHash = reader.GetValue(5) == DBNull.Value ? "" : (string)reader.GetValue(5),
+                        Birthday = reader.GetValue(6) == DBNull.Value ? DateTime.MinValue : (DateTime)reader.GetValue(6),
+                        Image_ID = reader.GetValue(7) == DBNull.Value ? 0 : (int)reader.GetValue(7),
+                        VK_ID = reader.GetValue(8) == DBNull.Value ? "" : (string)reader.GetValue(8) ?? "",
+                        FB_ID = reader.GetValue(9) == DBNull.Value ? "" : (string)reader.GetValue(9) ?? "",
+                        SecurityStamp = reader.GetValue(10) == DBNull.Value ? "" : (string)reader.GetValue(10) ?? ""
                     };
                 }
             }
