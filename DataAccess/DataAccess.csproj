@@ -75,9 +75,11 @@
   <ItemGroup>
     <Compile Include="DAO\AbstractDAO.cs" />
     <Compile Include="DAO\EventDAO.cs" />
+    <Compile Include="DAO\ExternalLoginDAO.cs" />
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="Entities\ExternalLogin.cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\InterestingVisit.cs" />
     <Compile Include="Entities\UsefulLink.cs" />
