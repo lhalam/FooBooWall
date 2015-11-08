@@ -44,6 +44,7 @@ namespace DataAccess.Entities
                 this.Login = value;
             }
         }
+        public string ImageUrl { get; set; }
 
         public User()
         {
