@@ -1,23 +1,24 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Owin;
 using Owin;
-<<<<<<< HEAD
 using System.Web.Http;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.AspNet.Identity;
-=======
-using PmiOfficial;
->>>>>>> 318b6ae6d38342be5a6ee09d47601d28ded2f735
+using Microsoft.Owin.Security;
 
-[assembly: OwinStartup(typeof(Startup))]
+[assembly: OwinStartup(typeof(PmiOfficial.Startup))]
 
 namespace PmiOfficial
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseWebApi(RegisterHttpConfiguration());
             ConfigureAuth(app);
+            //app.UseWebApi(RegisterHttpConfiguration());
+            
         }
 
 
@@ -27,16 +28,5 @@ namespace PmiOfficial
             WebApiConfig.Register(config);
             return config;
         }
-
-        public static void ConfigureAuth(IAppBuilder app)
-        {
-            app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions
-            {
-                LoginPath = new PathString("/api/Account/Login"),
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-            });
-            return;
-        }
-
     }
 }

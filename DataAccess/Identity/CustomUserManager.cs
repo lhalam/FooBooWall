@@ -1,5 +1,10 @@
-﻿using DataAccess.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using DataAccess.Entities;
 
 namespace DataAccess.Identity
 {
@@ -8,13 +13,13 @@ namespace DataAccess.Identity
         public CustomUserManager()
             : base(new CustomUserStore())
         {
-            PasswordValidator = new PasswordValidator
+            this.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 8
             };
-            UserValidator = new UserValidator<User, int>(this)
+            this.UserValidator = new UserValidator<User, int>(this)
             {
-                AllowOnlyAlphanumericUserNames = true
+                AllowOnlyAlphanumericUserNames = false
             };
         }
     }
