@@ -18,5 +18,10 @@ namespace DataAccess.DAO
         public abstract T Read(int id);
         public abstract void Update(T entity);
         public abstract void Delete(T entity);
+
+        protected string Convert(object str)
+        {
+            return (str is DBNull) ? null : (string)str;
+        }
     }
 }

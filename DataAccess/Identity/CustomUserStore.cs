@@ -12,6 +12,7 @@ namespace DataAccess.Identity
     public class CustomUserStore : IUserStore<User, int>, IUserLoginStore<User, int>, IUserPasswordStore<User, int>, IUserSecurityStampStore<User, int>
     {
         private readonly UserDAO userDAO = new UserDAO();
+        private readonly ExternalLoginDAO externalLoginDAO = new ExternalLoginDAO();
         #region IUserStore
         public Task CreateAsync(User user)
         {
@@ -50,29 +51,25 @@ namespace DataAccess.Identity
         #region IUserLoginStore
         public Task AddLoginAsync(User user, UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.AddLoginAsync(user, login);
         }
 
         public Task<User> FindAsync(UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.FindAsync(login);
         }
 
         public Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.GetLoginsAsync(user);
         }
 
         public Task RemoveLoginAsync(User user, UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.RemoveLoginAsync(user, login);
         }
 
 
-        public Task<User> FindByIdAsync(string userId)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
         
         #region IUserPasswordStore

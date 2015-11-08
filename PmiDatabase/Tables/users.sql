@@ -8,9 +8,6 @@
 	PasswordHash	varchar(MAX) NULL,
 	[BirthDate]			DATE,
 	Image_id	INT	FOREIGN KEY REFERENCES images(ID),
-	VK_ID		VARCHAR(50) NULL,
-	FB_ID		VARCHAR(50) NULL,
-	[SecurityStamp] VARCHAR(MAX) NULL, 
-    CONSTRAINT	uc_SocialNetworkID UNIQUE (VK_ID, FB_ID)
+	[SecurityStamp] VARCHAR(MAX) NULL
 )
 

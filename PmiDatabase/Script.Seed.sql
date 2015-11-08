@@ -11,8 +11,12 @@ Post-Deployment Script Template
 */
 
 INSERT INTO images 
-VALUES( 'https://i.ytimg.com/vi/GlcaoHxi5p4/maxresdefault.jpg' );
+VALUES('https://i.ytimg.com/vi/GlcaoHxi5p4/maxresdefault.jpg' );
+INSERT INTO images 
+VALUES('https://pp.vk.me/c628627/v628627737/a321/2uk5TUqgz6E.jpg' );
 
-SET IDENTITY_INSERT [dbo].[users] ON
-INSERT INTO [dbo].[users] ([ID], [FirstName], [LastName], [Login], [Email], [Password], [BirthDate], [Image_id], [VK_ID], [FB_ID]) VALUES (1005, N'Name', N'Lame', N'looogian', N'lal@mail.co.uk', N'qwerty123', N'1990-10-10', 1, N'1', N'1')
-SET IDENTITY_INSERT [dbo].[users] OFF
+INSERT INTO users(FirstName, LastName, Login, Email, Image_id)
+VALUES('John', 'McKein', 'YourTree', 'mcKeinTheKing@ukr.net', 1);
+
+INSERT INTO users(FirstName, LastName, Login, Email, Image_id)
+VALUES('Sofiya', 'Padus', 'YourQeen', 'sofija_padus@ukr.net', 2);

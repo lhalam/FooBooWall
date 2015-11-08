@@ -4,6 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 
 [assembly: OwinStartup(typeof(PmiOfficial.Startup))]
 
@@ -13,7 +16,9 @@ namespace PmiOfficial
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseWebApi(RegisterHttpConfiguration());
+            ConfigureAuth(app);
+            //app.UseWebApi(RegisterHttpConfiguration());
+            
         }
 
 

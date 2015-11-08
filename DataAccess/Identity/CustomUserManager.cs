@@ -19,7 +19,7 @@ namespace DataAccess.Identity
             };
             this.UserValidator = new UserValidator<User, int>(this)
             {
-                AllowOnlyAlphanumericUserNames = true
+                AllowOnlyAlphanumericUserNames = false
             };
         }
     }
