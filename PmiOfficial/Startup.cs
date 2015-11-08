@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Web.Http;
 using Microsoft.Owin;
 using Owin;
-using System.Web.Http;
+using PmiOfficial;
 
-[assembly: OwinStartup(typeof(PmiOfficial.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
 namespace PmiOfficial
 {
-    public partial class Startup
+    public class Startup
     {
         public void Configuration(IAppBuilder app)
         {

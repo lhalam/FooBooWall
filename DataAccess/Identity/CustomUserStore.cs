@@ -1,43 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using DataAccess.Entities;
 using DataAccess.DAO;
+using DataAccess.Entities;
+using Microsoft.AspNet.Identity;
 
 namespace DataAccess.Identity
 {
     public class CustomUserStore : IUserStore<User, int>, IUserLoginStore<User, int>, IUserPasswordStore<User, int>, IUserSecurityStampStore<User, int>
     {
-        private readonly UserDAO userDAO = new UserDAO();
+        private readonly UserDAO _userDao = new UserDAO();
         #region IUserStore
         public Task CreateAsync(User user)
         {
-            userDAO.Create(user);
+            _userDao.Create(user);
             return Task.FromResult(1);
         }
 
         public Task DeleteAsync(User user)
         {
-            userDAO.Delete(user);
+            _userDao.Delete(user);
             return Task.FromResult(1);
         }
 
         public Task<User> FindByIdAsync(int userId)
         {
-            return Task<User>.FromResult(userDAO.Read(userId));
+            return Task.FromResult(_userDao.Read(userId));
         }
 
         public Task<User> FindByNameAsync(string userName)
         {
-            return Task<User>.FromResult(userDAO.GetUserByLogin(userName));
+            return Task.FromResult(_userDao.GetUserByLogin(userName));
         }
 
         public Task UpdateAsync(User user)
         {
-            userDAO.Update(user);
+            _userDao.Update(user);
             return Task.FromResult(1);
         }
 

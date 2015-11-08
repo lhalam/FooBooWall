@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
+using DataAccess.Properties;
 
 namespace DataAccess.DAO
 {
@@ -11,7 +7,7 @@ namespace DataAccess.DAO
     {
         protected SqlConnection GetConnection()
 	    {
-	        return new SqlConnection(Properties.Resources.SqlConnectionString);
+	        return new SqlConnection(Resources.SqlConnectionString);
 	    }
 
         public abstract void Create(T entity);
