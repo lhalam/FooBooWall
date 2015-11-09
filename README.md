@@ -1,7 +1,7 @@
-## It's pmi 31 group project
+## The group project of PMI-31 (2015/16)!
 
-**Project text chat [Flowdock chat](https://www.flowdock.com/app/lnu-pmi-group/lnu-pmi-group)**
+- *[The project's text chat (via Flowdock)](https://www.flowdock.com/app/lnu-pmi-group/lnu-pmi-group)*
 
-**Guide how to work with git could be found here [Git workflow](https://github.com/lhalam/FooBooWall/wiki/Git-workflow)**
+- *[Git workflow guide](https://github.com/lhalam/FooBooWall/wiki/Git-workflow)*
 
-**Guide how to do pull requests could be found here [Pull requests help](https://help.github.com/articles/using-pull-requests/)**
+- *[GitHub pull request documentation](https://help.github.com/articles/using-pull-requests/)*
