@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 
 ﻿using DataAccess.Identity;
+=======
+﻿using DataAccess.Entities;
+using DataAccess.Identity;
+>>>>>>> be2add5eb8689c972eb400cbb01d90260a042fa7
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using PmiOfficial.Models;
+using PmiOfficial.Results;
 using Services;
+using Services.Auth;
 using Services.Registration;
 using System;
 using System.Collections.Generic;
@@ -17,36 +25,89 @@ namespace PmiOfficial.Controllers
 {
     public class AccountController : ApiController
     {
-        [Route("a")]
-        public async Task<int> Login(string userName, string userPassword)
+        private readonly CustomUserManager userManager = new CustomUserManager();
+        private readonly IAuthService _authService = new AuthService();
+
+        [HttpGet]
+        [Route("logout")]
+        [Authorize]
+        public IHttpActionResult Logout()
         {
-            CustomUserManager c = new CustomUserManager();
-            var user = await c.FindAsync(userName, userPassword);
-            if (user == null)
-            {
-                return 0;
-            }
-            var id = new ClaimsIdentity(new List<Claim>(), DefaultAuthenticationTypes.ApplicationCookie);
-            var ctx = Request.GetOwinContext();
-            ctx.Authentication.SignIn(id);
-            return 1;
-            
+            LogOut();
+            string urlBase = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+            return Redirect(urlBase);
         }
+
         // POST api/<controller>
         public async Task<IHttpActionResult> Register([FromBody] RegistrationBindingModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(this.ModelState);
             }
             IdentityResult result = await RegistrationService.Register(model);
             if (result.Succeeded)
             {
                 return Ok();
             }
-            return GetErrorResult(result);
+            else
+            {
+                return GetErrorResult(result);
+            }
         }
 
+        
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        [Route("ExternalLogin", Name = "ExternalLogin")]
+        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        {
+            string redirectUri = string.Empty;
+
+            if (error != null)
+            {
+                return BadRequest(Uri.EscapeDataString(error));
+            }
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return new ChallengeResult(provider, this);
+            }
+
+            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+
+            if (externalLogin == null)
+            {
+                return InternalServerError();
+            }
+
+            if (externalLogin.LoginProvider != provider)
+            {
+                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                return new ChallengeResult(provider, this);
+            }
+
+            UserLoginInfo info = new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey);
+            User user = await _authService.ExternalAuthentication(externalLogin, info);
+            if(user == null)
+            {
+                return InternalServerError();
+            }
+           
+            Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            SignIn(user);
+            string urlBase = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+            return Redirect(urlBase);
+        }
+
+        
+        #region HelperMethods
+        private IAuthenticationManager Authentication 
+        { 
+            get 
+            {
+                return this.Request.GetOwinContext().Authentication;
+            }
+        }
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
@@ -58,7 +119,7 @@ namespace PmiOfficial.Controllers
             {
                 if (result.Errors != null)
                 {
-                    foreach (var error in result.Errors)
+                    foreach (string error in result.Errors)
                     {
                         ModelState.AddModelError("", error);
                     }
@@ -75,5 +136,31 @@ namespace PmiOfficial.Controllers
 
             return null;
         }
+
+        private void SignIn(User user)
+        {
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.Login));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.Integer));
+            var id = new ClaimsIdentity(claims,
+                                        DefaultAuthenticationTypes.ApplicationCookie);
+            Authentication.SignIn(new AuthenticationProperties
+                {
+                    AllowRefresh = true,
+                    IsPersistent = false,
+                    ExpiresUtc = DateTime.UtcNow.AddDays(7)
+                }, id);
+        }
+
+        private void LogOut()
+        {
+            var ctx = Request.GetOwinContext();
+            var authenticationManager = ctx.Authentication;
+            authenticationManager.SignOut();
+        }
+
+       
+
     }
+        #endregion
 }

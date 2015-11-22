@@ -1,41 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using DataAccess.DAO;
-using DataAccess.Entities;
 using Microsoft.AspNet.Identity;
+using DataAccess.Entities;
+using DataAccess.DAO;
 
 namespace DataAccess.Identity
 {
     public class CustomUserStore : IUserStore<User, int>, IUserLoginStore<User, int>, IUserPasswordStore<User, int>, IUserSecurityStampStore<User, int>
     {
-        private readonly UserDAO _userDao = new UserDAO();
+        private readonly UserDAO userDAO = new UserDAO();
+        private readonly ExternalLoginDAO externalLoginDAO = new ExternalLoginDAO();
         #region IUserStore
         public Task CreateAsync(User user)
         {
-            _userDao.Create(user);
+            userDAO.Create(user);
             return Task.FromResult(1);
         }
 
         public Task DeleteAsync(User user)
         {
-            _userDao.Delete(user);
+            userDAO.Delete(user);
             return Task.FromResult(1);
         }
 
         public Task<User> FindByIdAsync(int userId)
         {
-            return Task.FromResult(_userDao.Read(userId));
+            return Task<User>.FromResult(userDAO.Read(userId));
         }
 
         public Task<User> FindByNameAsync(string userName)
         {
-            return Task.FromResult(_userDao.GetUserByLogin(userName));
+            return Task<User>.FromResult(userDAO.GetUserByLogin(userName));
         }
 
         public Task UpdateAsync(User user)
         {
-            _userDao.Update(user);
+            userDAO.Update(user);
             return Task.FromResult(1);
         }
 
@@ -48,29 +51,25 @@ namespace DataAccess.Identity
         #region IUserLoginStore
         public Task AddLoginAsync(User user, UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.AddLoginAsync(user, login);
         }
 
         public Task<User> FindAsync(UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.FindAsync(login);
         }
 
         public Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.GetLoginsAsync(user);
         }
 
         public Task RemoveLoginAsync(User user, UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return externalLoginDAO.RemoveLoginAsync(user, login);
         }
 
 
-        public Task<User> FindByIdAsync(string userId)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
         
         #region IUserPasswordStore

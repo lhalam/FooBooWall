@@ -1,48 +1,55 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using DataAccess.Entities;
+using System.Data.SqlClient;
+using System.Data;
+using System.Data.SqlTypes;
 
 namespace DataAccess.DAO
 {
-    public class UserDAO : AbstractDAO<User>
+    public class UserDAO: AbstractDAO<User>
     {
         public override void Create(User entity)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, VK_ID, FB_ID, SecurityStamp)" +
-                                   "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @param8, @param9, @SecurityStamp)";
+                string sql =  "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp)" +
+                    " OUTPUT Inserted.ID " +
+                    "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @SecurityStamp)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName;
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
+                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
                 cmd.Parameters.Add("@param3", SqlDbType.VarChar, 255).Value = entity.Login;
-                cmd.Parameters.Add("@param4", SqlDbType.VarChar, 255).Value = entity.EMail;
-                cmd.Parameters.Add("@param5", SqlDbType.VarChar, -1).Value = entity.PasswordHash;
+                cmd.Parameters.Add("@param4", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
+                cmd.Parameters.Add("@param5", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
                 cmd.Parameters.Add("@param6", SqlDbType.DateTime).Value = entity.Birthday;
                 cmd.Parameters.Add("@param7", SqlDbType.Int).Value = entity.ImageId;
-                cmd.Parameters.Add("@param8", SqlDbType.VarChar, 50).Value = entity.VkId;
-                cmd.Parameters.Add("@param9", SqlDbType.VarChar, 50).Value = entity.FbId;
-                cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp;
+                cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
-                cmd.ExecuteNonQuery();
+                entity.Id = (int)cmd.ExecuteScalar();
+                
             }
         }
         public override User Read(int id)
         {
-            User user;
+            User user = null;
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM users WHERE id = @param1";
+                string sql = "SELECT * FROM users WHERE id = @param1";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.Int).Value = id;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
+
                     user = new User
                     {
+<<<<<<< HEAD
                         FirstName = reader.GetValue(1) is DBNull ? null : (string)reader.GetValue(1),
                         LastName = reader.GetValue(2) is DBNull ? null : (string)reader.GetValue(2),
                         Login = reader.GetValue(3) is DBNull ? null : (string)reader.GetValue(3),
@@ -53,6 +60,18 @@ namespace DataAccess.DAO
                         VkId = reader.GetValue(8) is DBNull ? null : (String)reader.GetValue(8),
                         FbId = reader.GetValue(9) is DBNull ? null : (String)reader.GetValue(9),
                         SecurityStamp = reader.GetValue(10) is DBNull ? null : (string)reader.GetValue(10)
+=======
+                        Id = id,
+
+                        FirstName = Convert(reader.GetValue(1)),
+                        LastName = Convert(reader.GetValue(2)),
+                        Login = Convert(reader.GetValue(3)),
+                        EMail = Convert(reader.GetValue(4)),
+                        PasswordHash = Convert(reader.GetValue(5)),
+                        Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
+                        ImageId = (int)reader.GetValue(7),
+                        SecurityStamp = Convert(reader.GetValue(8))
+>>>>>>> be2add5eb8689c972eb400cbb01d90260a042fa7
                     };
                 }
             }
@@ -64,19 +83,17 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "UPDATE users SET FirstName = @param1, LastName = @param2, Email = @param3," +
-                                   " PasswordHash = @param4, BirthDate = @param5, Image_id = @param6, VK_ID = @param7, FB_ID = @param8, SecurityStamp = @SecurityStamp WHERE Login = @param9";
+                string sql = "UPDATE users SET FirstName = @param1, LastName = @param2, Email = @param3," +
+                    " PasswordHash = @param4, BirthDate = @param5, Image_id = @param6, SecurityStamp = @SecurityStamp WHERE Login = @param7";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName;
-                cmd.Parameters.Add("@param3", SqlDbType.VarChar, 255).Value = entity.EMail;
-                cmd.Parameters.Add("@param4", SqlDbType.VarChar, -1).Value = entity.PasswordHash;
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
+                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
+                cmd.Parameters.Add("@param3", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
+                cmd.Parameters.Add("@param4", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
                 cmd.Parameters.Add("@param5", SqlDbType.Date).Value = entity.Birthday;
                 cmd.Parameters.Add("@param6", SqlDbType.Int).Value = entity.ImageId;
-                cmd.Parameters.Add("@param7", SqlDbType.VarChar, 50).Value = entity.VkId;
-                cmd.Parameters.Add("@param8", SqlDbType.VarChar, 50).Value = entity.FbId;
-                cmd.Parameters.Add("@param9", SqlDbType.VarChar, 255).Value = entity.Login;
-                cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp;
+                cmd.Parameters.Add("@param7", SqlDbType.VarChar, 255).Value = entity.Login;
+                cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -87,7 +104,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "DELETE FROM users WHERE Login = @param1";
+                string sql = "DELETE FROM users WHERE Login = @param1";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.Login;
                 cmd.CommandType = CommandType.Text;
@@ -95,32 +112,30 @@ namespace DataAccess.DAO
             }
         }
 
-        public User GetUserByLoginAndPassword(string login, string passwordHash)
+        public User GetUserByLoginAndPassword(string login, string PasswordHash)
         {
+            User user = null;
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM users WHERE Login = @param1 AND PasswordHash = @param2";
+                string sql = "SELECT * FROM users WHERE Login = @param1 AND PasswordHash = @param2";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, -1).Value = passwordHash;
-                User user;
+                cmd.Parameters.Add("@param2", SqlDbType.VarChar, -1).Value = PasswordHash ?? SqlString.Null;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
                     user = new User
                     {
                         Id = (int)reader.GetValue(0),
-                        FirstName = (string)reader.GetValue(1),
-                        LastName = (string)reader.GetValue(2),
+                        FirstName = Convert(reader.GetValue(1)),
+                        LastName = Convert(reader.GetValue(2)),
                         Login = (string)reader.GetValue(3),
-                        EMail = (string)reader.GetValue(4),
-                        PasswordHash = (string)reader.GetValue(5),
+                        EMail = Convert(reader.GetValue(4)),
+                        PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (DateTime)reader.GetValue(6),
                         ImageId = (int)reader.GetValue(7),
-                        VkId = (String)reader.GetValue(8),
-                        FbId = (String)reader.GetValue(9),
-                        SecurityStamp = (string)reader.GetValue(10)
+                        SecurityStamp = Convert(reader.GetValue(8))
                     };
                 }
                 return user;
@@ -129,13 +144,13 @@ namespace DataAccess.DAO
 
         public User GetUserByLogin(string login)
         {
+            User user = null;
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM users WHERE Login = @param1";
+                string sql = "SELECT * FROM users WHERE Login = @param1";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
-                User user;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -144,25 +159,19 @@ namespace DataAccess.DAO
                         user = new User
                         {
                             Id = (int)reader.GetValue(0),
-                            FirstName = (string)reader.GetValue(1),
-                            LastName = (string)reader.GetValue(2),
-                            Login = (string)reader.GetValue(3),
-                            EMail = (string)reader.GetValue(4),
-                            PasswordHash = (string)reader.GetValue(5),
+                            FirstName = Convert(reader.GetValue(1)),
+                            LastName = Convert(reader.GetValue(2)),
+                            Login = Convert(reader.GetValue(3)),
+                            EMail = Convert(reader.GetValue(4)),
+                            PasswordHash = Convert(reader.GetValue(5)),
                             Birthday = (DateTime)reader.GetValue(6),
                             ImageId = (int)reader.GetValue(7),
-                            VkId = (String)reader.GetValue(8),
-                            FbId = (String)reader.GetValue(9),
-                            SecurityStamp = (string)reader.GetValue(10)
+                            SecurityStamp = Convert(reader.GetValue(8))
                         };
                     }
-                    else
-                    {
-                        return new User();
-                    }
 
+                    return user;
                 }
-                return user;
             }
         }
 
@@ -172,7 +181,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT PasswordHash FROM users WHERE login = @param1";
+                string sql = "SELECT PasswordHash FROM users WHERE login = @param1";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -186,20 +195,24 @@ namespace DataAccess.DAO
 
         public bool UserWithSpecifiedLoginExists(string login)
         {
-            bool result;
+            bool result = false;
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM users WHERE login = @param1";
+                string sql = "SELECT * FROM users WHERE login = @param1";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    result = reader.HasRows;
+                    result = reader.HasRows;                   
                 }
             }
             return result;
 
         }
+
+       
+
+        
     }
 }

@@ -4,6 +4,7 @@
 }
 
 <link type="stylesheet" rel="https://bootswatch.com/paper/bootstrap.min.css" />
+
 <style>
     .img-profile.container {
         margin-top: 50px;
@@ -130,6 +131,9 @@
         z-index: 1000;
         box-shadow: 0 0 7px rgba(0,0,0, .4);
     }
+    .row {
+        margin-bottom: 5px;
+    }
 
 </style>
 
@@ -159,17 +163,53 @@
     </div>
     <div class="col-md-4">
         <div class="panel-default panel">
-            <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit"></span></h3>
+            <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#editUserModal"></span></h3>
             <hr />
-            <p>Birthday: </p>
+            <script>
+                var userId = @ViewBag.User.Id;
+            </script>
+            <p>Birthday: @ViewBag.User.Birthday</p>
             <p>Mobile phone: </p>
             <p>Skype:@ViewBag.User.Skype </p>
             <p>Mail: @ViewBag.User.EMail</p>
-            <p>Facebook: @ViewBag.User.FB_ID</p>
-            <p>Vk: @ViewBag.User.VK_ID</p>
             <p>Hobbies: @ViewBag.User.Hobbies</p>
         </div>
     </div>
+
+    <div class="modal fade" id="editUserModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit info</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4">First name</div>
+                        <input type="text" class="form-control" id="FirstName" value="@ViewBag.User.FirstName">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Last name</div>
+                        <input type="text" class="form-control" id="LastName" value="@ViewBag.User.LastName">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Email</div>
+                        <input type="text" class="form-control" id="Email" value="@ViewBag.User.EMail">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Birth date</div>
+                        <input type="text" class="form-control" id="BirthDate" value="@ViewBag.User.Birthday">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="editUserSubmit" onclick="saveEditedUser();" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-md-4">
         <div class="panel panel-default">
             <h3 style="text-align: center">Gonna visit<span class="pull-right glyphicon glyphicon-edit"></span></h3>

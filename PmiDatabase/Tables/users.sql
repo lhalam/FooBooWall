@@ -8,8 +8,6 @@
 	PasswordHash	varchar(MAX) NULL,
 	[BirthDate]			DATE,
 	Image_id	INT	FOREIGN KEY REFERENCES images(ID),
-	VK_ID		VARCHAR(50) NULL UNIQUE,
-	FB_ID		VARCHAR(50) NULL UNIQUE,
 	[SecurityStamp] VARCHAR(MAX) NULL
 )
 
