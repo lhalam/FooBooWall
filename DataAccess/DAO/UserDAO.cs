@@ -194,11 +194,6 @@ namespace DataAccess.DAO
                 }
             }
             return result;
-
         }
-
-       
-
-        
     }
 }

@@ -60,11 +60,11 @@
     <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Events.sql" />
-    <Build Include="Tables\Images.sql" />
-    <Build Include="Tables\Users.sql" />
-    <Build Include="Tables\ExternalLogins.sql" />
-    <Build Include="Tables\ForeignKeys.sql" />
+    <Build Include="Tables\events.sql" />
+    <Build Include="Tables\images.sql" />
+    <Build Include="Tables\users.sql" />
+    <Build Include="Tables\externalLogins.sql" />
+    <Build Include="Tables\usefulLinks.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PmiDatabase.refactorlog" />
