@@ -52,6 +52,29 @@ namespace PmiOfficial.Controllers
             }
         }
 
+
+        //
+        // POST: /Account/Login
+
+        [HttpPost]
+        public async Task<IHttpActionResult> Login([FromBody] LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindAsync(model.UserName, model.Password);
+                if (user != null)
+                {
+                    SignIn(user);
+                    return Ok();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                    return BadRequest(ModelState);
+                }
+            }
+            return BadRequest(ModelState);
+        }
         
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [Route("ExternalLogin", Name = "ExternalLogin")]
