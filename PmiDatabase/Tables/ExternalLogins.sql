@@ -1,8 +1,7 @@
-﻿CREATE TABLE [dbo].[externalLogins]
+﻿CREATE TABLE [dbo].[ExternalLogins]
 (
     [ID] INT Identity(1, 1) NOT NULL PRIMARY KEY, 
-    [User_id] INT NOT NULL, 
-    [LoginProvider] VARCHAR(MAX) NOT NULL, 
-    [ProviderKey] VARCHAR(MAX) NOT NULL, 
-    CONSTRAINT [FK_ExternalLogins_Users] FOREIGN KEY ([User_id]) REFERENCES [users]([ID])
+    [User_id] INT NOT NULL DEFAULT 0, 
+    [LoginProvider] VARCHAR(MAX) NOT NULL DEFAULT '', 
+    [ProviderKey] VARCHAR(MAX) NOT NULL DEFAULT ''
 )
