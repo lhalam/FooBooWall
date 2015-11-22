@@ -49,6 +49,7 @@ namespace DataAccess.DAO
 
                     user = new User
                     {
+        
                         Id = id,
                         FirstName = Convert(reader.GetValue(1)),
                         LastName = Convert(reader.GetValue(2)),
