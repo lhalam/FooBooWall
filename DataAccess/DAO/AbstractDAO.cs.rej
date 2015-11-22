@@ -1,6 +1,0 @@
-diff a/DataAccess/DAO/AbstractDAO.cs b/DataAccess/DAO/AbstractDAO.cs	(rejected hunks)
-@@ -1,4 +0,3 @@
--﻿using System;
- ﻿using System.Data.SqlClient;
- using DataAccess.Properties;
- 
