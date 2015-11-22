@@ -7,6 +7,8 @@
         Birthday: $("#BirthDate").val()
     }
    
+    //TODO: add image upload to service
+
     $.post("UserProfile/Edit", editedUser)
       .success(function (data) {
           alert("User was edited successfully!");

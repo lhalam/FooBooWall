@@ -1,6 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
+}
+
+@section Scripts{
+    <!-- Fetch the image addition script -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    <script src="~/Scripts/user.profile.js"></script>
 }
 
 <link type="stylesheet" rel="https://bootswatch.com/paper/bootstrap.min.css" />
@@ -20,10 +28,10 @@
         padding: 0;
     }
 
-    .img-profile-fotos img {
-        height: 250px;
-        width: 100%;
-    }
+        .img-profile-fotos img {
+            height: 250px;
+            width: 100%;
+        }
 
     body {
         background-color: #EEEEEE;
@@ -74,9 +82,9 @@
         transition-duration: 0.5s;
     }
 
-    .fader:hover {
-        opacity: .5;
-    }
+        .fader:hover {
+            opacity: .5;
+        }
 
     .img-profile-fotos img:hover + .fotoChangeButton {
         opacity: 1;
@@ -98,43 +106,78 @@
         transition: all ease 10s;
         transition-duration: 0.5s;
     }
-    .row.img-profile-info .panel:hover {
-        position: relative;
-        top: -2px;
-        z-index: 1000;
-        box-shadow: 0 0 7px rgba(0,0,0, .4);
+
+        .row.img-profile-info .panel:hover {
+            position: relative;
+            top: -2px;
+            z-index: 1000;
+            -webkit-box-shadow: 0 0 7px rgba(0,0,0, .4);
+            -ms-box-shadow: 0 0 7px rgba(0,0,0, .4);
+            box-shadow: 0 0 7px rgba(0,0,0, .4);
+        }
+
+    p {
+        font-size: large;
     }
 
-    p{
-       font-size:large;
+    .timetable-row h4 {
+        text-align: center;
+        font-weight: bold;
+        top: 10px;
     }
 
-    .timetable-row h4{
-        text-align:center;
-        font-weight:bold;
-        top:10px;
-    }
-
-    .timetable-row .panel{
-         padding: 0 15px;
+    .timetable-row .panel {
+        padding: 0 15px;
         -webkit-transition: all ease-out 10s;
         -o-transition: all ease-out 10s;
         -moz-transition: all ease-out 10s;
+        -ms-transition: all ease 10s;
         transition: all ease 10s;
+        -webkit-transition-duration: 0.5s;
+        -moz-transition-duration: 0.5s;
+        -ms-transition-duration: 0.5s;
+        -o-transition-duration: 0.5s;
         transition-duration: 0.5s;
-        background-color:#B2DFDB;
+        background-color: #B2DFDB;
     }
 
-    .timetable-row .panel:hover{
-        position: relative;
-        top: -2px;
-        z-index: 1000;
-        box-shadow: 0 0 7px rgba(0,0,0, .4);
-    }
+        .timetable-row .panel:hover {
+            position: relative;
+            top: -2px;
+            z-index: 1000;
+            -webkit-box-shadow: 0 0 7px rgba(0,0,0, .4);
+            -ms-box-shadow: 0 0 7px rgba(0,0,0, .4);
+            box-shadow: 0 0 7px rgba(0,0,0, .4);
+        }
+
     .row {
         margin-bottom: 5px;
     }
 
+    .image-preview-input {
+        position: relative;
+        overflow: hidden;
+        margin: 0px;
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+
+        .image-preview-input input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+    .image-preview-input-title {
+        margin-left: 2px;
+    }
 </style>
 
 <div class="container img-profile">
@@ -148,18 +191,20 @@
             <h3 class="userName">@ViewBag.User.FirstName @ViewBag.User.LastName</h3>
             <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
         </div>
-        <div class="col-md-4 img-profile-fotos" />
-        <img src="http://wallpapers-3d.ru/sstorage/53/2011/08/10708111152415828.jpg">
-        <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
+        <div class="col-md-4 img-profile-fotos">
+            <img src="http://wallpapers-3d.ru/sstorage/53/2011/08/10708111152415828.jpg">
+            <div class="fader">
+                <button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row img-profile-info">
-    <div class=" col-md-4">
+    <div class="col-md-4">
         <div class="panel panel-default">
             <h3 style="text-align: center">Useful links<span class="pull-right glyphicon glyphicon-edit"></span></h3>
             <hr />
         </div>
-
     </div>
     <div class="col-md-4">
         <div class="panel-default panel">
@@ -199,6 +244,19 @@
                     <div class="row">
                         <div class="col-lg-4">Birth date</div>
                         <input type="text" class="form-control" id="BirthDate" value="@ViewBag.User.Birthday">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Change Image</div>
+                        <div class="input-group image-preview">
+                            <input type="text" class="form-control image-preview-filename" disabled="disabled">
+                            <span class="input-group-btn">
+                                <div class="btn btn-default image-preview-input">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-preview-input-title">Browse</span>
+                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview" id="UserImage" />
+                                </div>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -269,4 +327,3 @@
         }
     </div>
 </div>
-
