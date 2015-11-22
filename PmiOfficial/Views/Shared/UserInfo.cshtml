@@ -1,0 +1,11 @@
+﻿@model PmiOfficial.Models.UserInfo
+@if (Model.IsAuthenticated)
+{
+    <li><a href="UserProfile/?userID=@Model.Id">Hello @Model.Name</a></li>
+    <li><a href="/logout">LogOut</a></li>
+}
+else
+{
+    <li>@Html.ActionLink("Sign in", "Index", "Login", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("Sign up", "Index", "Registration", new { area = "" }, null)</li>
+}
