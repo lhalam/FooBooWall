@@ -187,6 +187,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\UserProfile.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.datepick.css" />
     <Content Include="favicon.ico" />
@@ -210,6 +211,7 @@
     <Content Include="Scripts\registration.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\UserProfile.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

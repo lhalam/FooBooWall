@@ -1,141 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
+}
+@section AddToLayout
+{
+    <link href="@Url.Content("~/Content/UserProfile.css")" rel="stylesheet" type="text/css"/>
 }
 
 <link type="stylesheet" rel="https://bootswatch.com/paper/bootstrap.min.css" />
 
-<style>
-    .img-profile.container {
-        margin-top: 50px;
-    }
 
-    .img-profile-foto-row {
-        padding: 10px;
-        box-shadow: 0 0 13px rgba(0,0,0, .5);
-        background-color: #212121;
-    }
-
-    .img-profile-fotos {
-        padding: 0;
-    }
-
-    .img-profile-fotos img {
-        height: 250px;
-        width: 100%;
-    }
-
-    body {
-        background-color: #EEEEEE;
-    }
-
-    .userName {
-        position: absolute;
-        top: 185px;
-        left: 10px;
-        color: white;
-        opacity: 0.9;
-        display: inline-block;
-        padding: 5px;
-        background-color: #006064;
-        border-radius: 7px;
-    }
-
-    .fotoChangeButton {
-        font-size: 30px;
-        border-radius: 50%;
-        width: 55px;
-        color: white;
-        background-color: black;
-        position: absolute;
-        opacity: 0.7;
-        top: 100px;
-        left: 43%;
-        display: inline-block;
-        padding: 5px;
-        -webkit-transition: all ease-out 10s;
-        -o-transition: all ease-out 10s;
-        -moz-transition: all ease-out 10s;
-        transition: all ease 10s;
-        transition-duration: 0.5s;
-    }
-
-    .fader {
-        height: 250px;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        background-color: black;
-        opacity: 0;
-        -webkit-transition: all ease-out 10s;
-        -o-transition: all ease-out 10s;
-        -moz-transition: all ease-out 10s;
-        transition: all ease 10s;
-        transition-duration: 0.5s;
-    }
-
-    .fader:hover {
-        opacity: .5;
-    }
-
-    .img-profile-fotos img:hover + .fotoChangeButton {
-        opacity: 1;
-    }
-
-    .fotoChangeButton:hover {
-        opacity: 1;
-    }
-
-    .img-profile .glyphicon.glyphicon-edit {
-        cursor: pointer;
-    }
-
-    .row.img-profile-info .panel {
-        padding: 0 15px;
-        -webkit-transition: all ease-out 10s;
-        -o-transition: all ease-out 10s;
-        -moz-transition: all ease-out 10s;
-        transition: all ease 10s;
-        transition-duration: 0.5s;
-    }
-    .row.img-profile-info .panel:hover {
-        position: relative;
-        top: -2px;
-        z-index: 1000;
-        box-shadow: 0 0 7px rgba(0,0,0, .4);
-    }
-
-    p{
-       font-size:large;
-    }
-
-    .timetable-row h4{
-        text-align:center;
-        font-weight:bold;
-        top:10px;
-    }
-
-    .timetable-row .panel{
-         padding: 0 15px;
-        -webkit-transition: all ease-out 10s;
-        -o-transition: all ease-out 10s;
-        -moz-transition: all ease-out 10s;
-        transition: all ease 10s;
-        transition-duration: 0.5s;
-        background-color:#B2DFDB;
-    }
-
-    .timetable-row .panel:hover{
-        position: relative;
-        top: -2px;
-        z-index: 1000;
-        box-shadow: 0 0 7px rgba(0,0,0, .4);
-    }
-    .row {
-        margin-bottom: 5px;
-    }
-
-</style>
 
 <div class="container img-profile">
     <div class="row panel panel-default img-profile-foto-row">
@@ -156,11 +29,46 @@
 <div class="row img-profile-info">
     <div class=" col-md-4">
         <div class="panel panel-default">
-            <h3 style="text-align: center">Useful links<span class="pull-right glyphicon glyphicon-edit"></span></h3>
-            <hr />
+            <h3 style="text-align: center">Useful links
+                <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#addUsefulLinkModal"></span>
+            </h3>
+            <!-- <button type="button" class="vcenter btn btn-default btn-lg pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModal"></button> -->
+            <hr/>
         </div>
-
     </div>
+
+    <div class="modal fade" id="addUsefulLinkModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add useful link</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4">Useful Link Name</div>
+                        <input type="text" class="form-control" id="UsefulLinkName" value="">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Url</div>
+                        <input type="text" class="form-control" id="UsefulLinkUrl" value="">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Image</div>
+                        <input type="text" class="form-control" id="UsefulLinkImageUrl" value="" onkeyup="usefulLinkImageUrlChanged()">
+                    </div>
+                    <div class="row">
+                        <img class="form-control" id="UsefulLinkImage" src="http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg" onerror="if (this.src != 'http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg') this.src = 'http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg';">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="addUsefulLinkSubmit" onclick="saveAddedUsefulLink();" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-4">
         <div class="panel-default panel">
             <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#editUserModal"></span></h3>
