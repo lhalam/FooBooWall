@@ -1,45 +1,64 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-@section Scripts
-{
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-
-    <script src="~/Scripts/registration.js"></script>
-}
-
 
 <style>
+    p {
+        font-size: medium;
+        padding-left: 20%;
+        text-align: justify;
+    }
+
+    .title {
+        font-size: larger;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
     body {
-        margin-top: 5%;
+        background-color: #EEEEEE;
+        margin-top: 10%;
         margin-right: 30%;
         margin-bottom: 10%;
-        margin-left: 37.5%;
+        margin-left: 30%;
+        border-width: 2px;
+        border-style: ridge;
+        border-color: black;
+    }
+
+    .button {
+        font-size: medium;
+        padding-left: 60%;
     }
 </style>
 
 
-<form role="form">
-    <div class="form-group">   
-        <label for="login">Login</label>
-        <input type="login" class="form-control" id="login" placeholder="Enter login">
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Enter password">
-        <p class="help-block">Password should contain at least 8 characters</p>
-    </div>
-    <div class="form-group">
-        <label for="rpassword">Enter password</label>
-        <input type="password" class="form-control" id="rpassword" placeholder="Repeat password">
-        <p class="help-block"> Passwords should match!</p>
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <button type="button" class="btn btn-primary" id="okbutton">ОК</button>
-    <div id="list"></div>
-</form>
 
+<fieldset>
+    <div class="title">
+        <legend style="text-align: center">Реєстрація нового користувача</legend>
+    </div>
+    @using (Ajax.BeginForm("Register",
+                            new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
+    {
+        <div id="divInterestDeatils"></div>
+        <ol>
+            <p>
+                @Html.Label("Логін")
+                @Html.TextBox("txtLogin")
+            </p>
+
+            <p>
+                @Html.Label("Пароль")
+                @Html.TextBox("txtPassword")
+            </p>
+            <p>
+                @Html.Label("E-mail")
+                @Html.TextBox("txtEmail")
+            </p>
+        </ol>
+        <div class="button ">
+            <button>Створити аккаунт!</button>
+        </div>
+    }
+</fieldset>
