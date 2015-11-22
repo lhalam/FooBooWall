@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using DataAccess.DAO;
+using Microsoft.AspNet.Identity;
+using PmiOfficial.Models;
 using Services;
 using Services.DTO;
 
@@ -48,5 +50,18 @@ namespace PmiOfficial.Controllers
         {
             _userService.Edit(userDto);
         }
+
+
+        public PartialViewResult UserInfo()
+        {
+            UserInfo info = new UserInfo
+            {
+                Id = User.Identity.GetUserId<int>(),
+                Name = User.Identity.Name,
+                IsAuthenticated = User.Identity.IsAuthenticated
+            };
+            return PartialView("UserInfo", info);
+        }
+
     }
 }
