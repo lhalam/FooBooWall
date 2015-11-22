@@ -1,10 +1,8 @@
-﻿CREATE TABLE events
+﻿CREATE TABLE [dbo].[Events]
 (
 	ID				int IDENTITY(1,1) PRIMARY KEY,
-	Name			text, 
-	Location		varchar(200),
-	Description		text,
-	Image_id		int FOREIGN KEY REFERENCES images(ID),
-	Organizer_id	int FOREIGN KEY REFERENCES users(ID),
-	Event_time		datetime
+	Name			text DEFAULT '', 
+	Location		varchar(200) DEFAULT '',
+	Description		text DEFAULT '',
+	Event_time		datetime DEFAULT ''
 )

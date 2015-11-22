@@ -4,7 +4,7 @@
         FirstName: $("#FirstName").val(),
         LastName: $("#LastName").val(),
         EMail: $("#Email").val(),
-        Birthday: $("#BirthDate").val()
+        Birthday: new Date($("#BirthDate").val()).getTime()
     }
    
     $.post("UserProfile/Edit", editedUser)
@@ -12,4 +12,10 @@
           alert("User was edited successfully!");
           window.location.reload(true);
       });
+}
+
+var pickDate = function () {
+    $('#BirthDate').datepick({
+        maxDate: new Date()
+    });
 }

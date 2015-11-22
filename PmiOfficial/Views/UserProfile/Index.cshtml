@@ -106,7 +106,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-4">Birth date</div>
-                        <input type="text" class="form-control" id="BirthDate" value="@ViewBag.User.Birthday">
+                        <input type="text" class="form-control clsDatePicker" onclick="pickDate()" readonly="readonly" id="BirthDate" value="@ViewBag.User.Birthday.Date">
                     </div>
                 </div>
                 <div class="modal-footer">
