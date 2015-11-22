@@ -64,6 +64,7 @@
     <Build Include="Tables\images.sql" />
     <Build Include="Tables\users.sql" />
     <Build Include="Tables\externalLogins.sql" />
+    <Build Include="Tables\usefulLinks.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PmiDatabase.refactorlog" />
