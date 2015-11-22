@@ -1,5 +1,6 @@
+
+﻿using DataAccess.Identity;
 ﻿using DataAccess.Entities;
-using DataAccess.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using PmiOfficial.Models;
