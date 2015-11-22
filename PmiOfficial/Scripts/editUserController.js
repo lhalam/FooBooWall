@@ -26,7 +26,7 @@ var checkValid = function (editedUser) {
     return result;
 }
 
-$(window).on('shown.bs.modal', function () {
+$(function () {
     $('#BirthDate').datepick({
         maxDate: new Date()
     });
