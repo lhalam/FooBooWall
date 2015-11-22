@@ -1,13 +1,12 @@
-﻿CREATE TABLE users
+﻿CREATE TABLE [dbo].[Users]
 (
 	ID			int IDENTITY(1,1) PRIMARY KEY,
-	FirstName	varchar(255) NULL, --add some other check ???
-	LastName	varchar(255),
-	Login		varchar(255) NOT NULL UNIQUE, 
-	Email		varchar(255) NOT NULL,
-	PasswordHash	varchar(MAX) NULL,
-	[BirthDate]			DATE,
-	Image_id	INT	FOREIGN KEY REFERENCES images(ID),
-	[SecurityStamp] VARCHAR(MAX) NULL
+	FirstName	varchar(255) NULL DEFAULT '', --add some other check ???
+	LastName	varchar(255) DEFAULT '',
+	Login		varchar(255) NOT NULL UNIQUE DEFAULT '', 
+	Email		varchar(255) NOT NULL DEFAULT '',
+	PasswordHash	varchar(MAX) NULL DEFAULT '',
+	[BirthDate]			DATE DEFAULT '',
+	[SecurityStamp] VARCHAR(MAX) NULL DEFAULT ''
 )
 

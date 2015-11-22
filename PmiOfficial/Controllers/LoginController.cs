@@ -10,7 +10,7 @@ namespace PmiOfficial.Controllers
     public class LoginController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Index(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();

@@ -1,0 +1,19 @@
+﻿ALTER TABLE [Users]
+ADD CONSTRAINT [Foto_id]
+FOREIGN KEY ([ID])
+REFERENCES [Images]([ID])
+GO
+ALTER TABLE [ExternalLogins]
+ADD CONSTRAINT [FK_ExternalLogins_Users]
+FOREIGN KEY ([User_id])
+REFERENCES [Users]([ID])
+GO
+ALTER TABLE [Events]
+ADD CONSTRAINT [Image_id]
+FOREIGN KEY ([ID])
+REFERENCES [Images]([ID])
+GO
+ALTER TABLE [Events]
+ADD CONSTRAINT [Organizer_id]
+FOREIGN KEY ([ID])
+REFERENCES [Users]([ID])
