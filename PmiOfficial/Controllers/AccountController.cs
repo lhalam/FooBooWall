@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ﻿using DataAccess.Identity;
 using Microsoft.AspNet.Identity;
 using PmiOfficial.Models;
@@ -11,12 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-=======
-﻿using System.Threading.Tasks;
->>>>>>> 318b6ae6d38342be5a6ee09d47601d28ded2f735
 using System.Web.Http;
-using Microsoft.AspNet.Identity;
-using Services.Registration;
 
 namespace PmiOfficial.Controllers
 {
