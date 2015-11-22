@@ -11,4 +11,10 @@ namespace PmiOfficial.Models
         public int Id { get; set; }
         public bool IsAuthenticated { get; set; }
     }
+
+    public class UserInfoHub
+    {
+        public string Name { get; set; }
+        public string ConnectionId { get; set; }
+    }
 }

@@ -10,7 +10,7 @@
                 (function (data) {
                     alert("User registered successfully!");
                     $("#list").text(' ');
-                    document.location.href = "/Login/Login";
+                    document.location.href = "/Login";
                 }, function (error) {
 
                     var errors = [];

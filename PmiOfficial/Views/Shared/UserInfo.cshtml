@@ -3,6 +3,25 @@
 {
     <li><a href="UserProfile/?userID=@Model.Id">Hello @Model.Name</a></li>
     <li><a href="/logout">LogOut</a></li>
+    <div id="chatBody" class="panel panel-primary panel-body well" style="position: fixed; bottom: 60px; left: 0px;">
+        <div id="header"></div>
+        <div id="inputForm" class="form-group form-inline">
+            <input type="text" id="message" class="form-control" />
+            <input type="button" class="btn btn-default" id="sendmessage" value="Send" />
+        </div>
+        <div id="chatroom" style="max-height: 400px; max-width: 300px;overflow-y: scroll"></div>
+
+        <div id="chatusers">
+            <p><b>All users:</b></p>
+        </div>
+    </div>
+    <input id="hdId" type="hidden" />
+    <input id="username" type="hidden" />
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+      userName = "@Model.Name";
+    </script>
 }
 else
 {
