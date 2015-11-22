@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 
 ﻿using DataAccess.Identity;
-=======
 ﻿using DataAccess.Entities;
-using DataAccess.Identity;
->>>>>>> be2add5eb8689c972eb400cbb01d90260a042fa7
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using PmiOfficial.Models;

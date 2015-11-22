@@ -49,20 +49,7 @@ namespace DataAccess.DAO
 
                     user = new User
                     {
-<<<<<<< HEAD
-                        FirstName = reader.GetValue(1) is DBNull ? null : (string)reader.GetValue(1),
-                        LastName = reader.GetValue(2) is DBNull ? null : (string)reader.GetValue(2),
-                        Login = reader.GetValue(3) is DBNull ? null : (string)reader.GetValue(3),
-                        EMail = reader.GetValue(4) is DBNull ? null : (string)reader.GetValue(4),
-                        PasswordHash = reader.GetValue(5) is DBNull ? null : (string)reader.GetValue(5),
-                        Birthday = reader.GetValue(6) is DBNull ? DateTime.Now : (DateTime)reader.GetValue(6),
-                        ImageId = reader.GetValue(7) is DBNull ? 1 : (int)reader.GetValue(7),
-                        VkId = reader.GetValue(8) is DBNull ? null : (String)reader.GetValue(8),
-                        FbId = reader.GetValue(9) is DBNull ? null : (String)reader.GetValue(9),
-                        SecurityStamp = reader.GetValue(10) is DBNull ? null : (string)reader.GetValue(10)
-=======
                         Id = id,
-
                         FirstName = Convert(reader.GetValue(1)),
                         LastName = Convert(reader.GetValue(2)),
                         Login = Convert(reader.GetValue(3)),
@@ -71,7 +58,6 @@ namespace DataAccess.DAO
                         Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
                         ImageId = (int)reader.GetValue(7),
                         SecurityStamp = Convert(reader.GetValue(8))
->>>>>>> be2add5eb8689c972eb400cbb01d90260a042fa7
                     };
                 }
             }
