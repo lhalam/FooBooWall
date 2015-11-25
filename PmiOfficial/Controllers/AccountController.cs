@@ -57,6 +57,7 @@ namespace PmiOfficial.Controllers
         // POST: /Account/Login
 
         [HttpPost]
+        [Route("Account/Login")]
         public async Task<IHttpActionResult> Login([FromBody] LoginModel model)
         {
             if (ModelState.IsValid)
@@ -65,7 +66,8 @@ namespace PmiOfficial.Controllers
                 if (user != null)
                 {
                     SignIn(user);
-                    return Ok();
+                    string urlBase = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                    return Redirect(urlBase);
                 }
                 else
                 {
