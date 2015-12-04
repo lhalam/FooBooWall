@@ -10,19 +10,38 @@ namespace PmiOfficial.Controllers
     public class EventController : Controller
     {
         public ActionResult Index() 
-        { 
+        {
+            //ViewBag.Event = _eventService.GetEvent(eventId);
+           // ViewBag.Comments = _eventService.GetComments(eventId);
             Event dummyEvent = new Event();
 
-            dummyEvent.Decription = "Description";
+            dummyEvent.Decription = "This is event example";
             dummyEvent.Id = 0;
             dummyEvent.ImageId = 1001;
-            dummyEvent.Location = "Location";
-            dummyEvent.Name = "EventName";
+            dummyEvent.Location = "Lwiw";
+            dummyEvent.Name = "event example";
             dummyEvent.OrganizerId = 1;
             dummyEvent.Time = DateTime.Now;
 
             ViewBag.Event = dummyEvent;
-
+            Comment c1 = new Comment();
+            c1.AuthorId = 1;
+            c1.AuthorName = "Author 1";
+            c1.Id = 100;
+            c1.ImageName = "https://static.pexels.com/photos/6550/nature-sky-sunset-man.jpeg";
+            c1.WritingDate = DateTime.Now;
+            c1.Text = "Very nice comment 1";
+            Comment c2 = new Comment();
+            c1.AuthorId = 2;
+            c1.AuthorName = "Author 2";
+            c1.Id = 101;
+            c1.ImageName = "https://static.pexels.com/photos/6550/nature-sky-sunset-man.jpeg";
+            c1.WritingDate = DateTime.Now;
+            c1.Text = "Very nice comment 2";
+            List<Comment> c = new List<Comment>();
+            c.Add(c1);
+            c.Add(c2);
+            ViewBag.Comments = c;
             return View();
         }
     }

@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@section AddToLayout
+{
+    <link href="@Url.Content("~/Content/Event.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    <!-- Fetch the image addition script -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    <script src="~/Scripts/user.profile.js"></script>
+}
+
+
+   
+
+   <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <link type="stylesheet" rel="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link type="stylesheet" rel="bower_components/ionicons/css/ionicons.min.css"/>
+
+<body data-spy="scroll" data-target="#site-nav">
+   <!-- <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
+        <div class="container">
+            <div class="navbar-header">
+
+                
+                <div class="site-branding">
+
+
+                        
+                        <span class="glyphicon glyphicon-globe"></span>
+
+                        @ViewBag.Event.Name
+                </div>
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-items" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-items">
+                <ul class="nav navbar-nav navbar-right">
+
+                    
+                    <li class="active"><a data-scroll href="#about">About</a></li>
+                    <li><a data-scroll href="#speakers">Speakers</a></li>
+
+                </ul>
+            </div>
+        </div><!-- /.container 
+    </nav>-->
+
+    <div id="site-header" class="site-header valign-center">
+        <div class="intro">
+
+            <h2>@ViewBag.Event.Time / @ViewBag.Event.Location</h2>
+
+            <h1>@ViewBag.Event.Name</h1>
+
+        </div>
+    </div>
+
+    <div id="about" class="section about">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <h3 class="section-title">About Event</h3>
+
+                    <p>@ViewBag.Event.Decription</p>
+
+                    <figure>
+                        <img alt="" class="img-responsive" src="assets/images/about-us.jpg">
+                    </figure>
+
+                </div><!-- /.col-sm-12 -->
+
+                
+
+               
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div>
+
+    <div id="facts" class="section bg-image-1 facts text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+
+                    <i class="ion-ios-calendar"></i>
+                    <h3>2015<br>June 25</h3>
+
+                </div>
+                <div class="col-sm-3">
+
+                    <i class="ion-ios-location"></i>
+                    <h3>California<br>USA</h3>
+
+                </div>
+                <div class="col-sm-3">
+
+                    <i class="ion-pricetags"></i>
+                    <h3>150<br>Tickets</h3>
+
+                </div>
+                <div class="col-sm-3">
+
+                    <i class="ion-speakerphone"></i>
+                    <h3>06<br>Speakers</h3>
+
+                </div>
+            </div><!-- row -->
+        </div><!-- container -->
+    </div>
+
+    <div id="speakers" class="section speakers">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h3 class="section-title">TITLE</h3>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="location" class="section location">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3 class="section-title">Event Location</h3>
+                    <address>
+                        <p>Eardenia<br> The Grand Hall<br> House # 08, Road #52, Street<br> Phone: +1159t3764<br> Email: example@mail.com</p>
+                    </address>
+                </div>
+                <div class="col-sm-9">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96706.50013548559!2d-78.9870674333782!3d40.76030630398601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sbd!4v1436299406518" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
