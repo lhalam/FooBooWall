@@ -80,7 +80,7 @@ var saveEditedUser = function () {
     }
 
     if (checkValid(editedUser)) {
-        $.post("UserProfile/Edit", editedUser)
+        $.post(editUserUrl, editedUser)
           .success(function (data) {
               alert("User was edited successfully!");
               window.location.reload(true);

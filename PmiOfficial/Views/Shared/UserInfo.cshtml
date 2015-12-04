@@ -1,7 +1,7 @@
 ﻿@model PmiOfficial.Models.UserInfo
 @if (Model.IsAuthenticated)
 {
-    <li><a href="UserProfile/?userID=@Model.Id">Hello @Model.Name</a></li>
+    <li><a href="@Url.Action("Index", "UserProfile", new { userID = Model.Id })">Hello @Model.Name</a></li>
     <li><a href="/logout">LogOut</a></li>
     <div id="chatBody" class="panel panel-primary panel-body well" style="position: fixed; bottom: 60px; left: 0px;">
         <div id="header"></div>
