@@ -6,22 +6,21 @@
         // Объявление функции, которая хаб вызывает при получении сообщений
         chat.client.addMessage = function (name, message) {
             // Добавление сообщений на веб-страницу 
-            $('#chatroom').append('<p><b>' + htmlEncode(name)
-                + '</b>: ' + htmlEncode(message) + '</p>');
+            $('#globalChat').find('#divMessage').append('<div class="message"><span>' + name + '</span>: ' + message + '</div>');
         };
 
         // Добавляем нового пользователя
         chat.client.onlineUserCount = function (count) {
-            $("#usersCount").text(count);
+            $("#userCount").text(count);
         }
         // Открываем соединение
         $.connection.hub.start().done(function () {
 
-            $('#sendmessage').click(function () {
-                if ($('#message').val() != '') {
+            $('#globalSendMessage').click(function () {
+                if ($('#globalMessage').val() != '') {
                     // Вызываем у хаба метод Send
-                    chat.server.send($('#username').val(), $('#message').val());
-                    $('#message').val('');
+                    chat.server.send($('#username').val(), $('#globalMessage').val());
+                    $('#globalMessage').val('');
                 }
             });
         });
@@ -38,18 +37,23 @@ $(function () {
     if (userName) {
         var chat = $.connection.chatHub;
 
-        chat.client.addMessage = function (name, message) {
-            $('#chatroom').append('<p><b>' + htmlEncode(name)
-                + '</b>: ' + htmlEncode(message) + '</p>');
-        };
 
         chat.client.onConnected = function (id, userName, allUsers) {
-            $('#chatBody').show();
+            $('#globalTitle').click(function () {
+                $('#globalChat')
+                    .show()
+                    .draggable({
+                        handle: ".header",
+                        stop: function () {
+                        }
+                    });
+            });
+            $('#globalChat').find('#imgDelete').click(function () {
+                $('#globalChat').hide();
+            });
             // установка в скрытых полях имени и id текущего пользователя
-            $('#hdId').val(id);
-            $('#username').val(userName);
-            $('#header').html('<h5>Hello, ' + userName + '</h5>');
-            $("#usersCount").text(usersCount);
+          //  $('#header').html('<h5>Hello, ' + userName + '</h5>');
+          //  $("#userCount").text(allUsers.length);
             $('#chatHhUserID').val(id);
             $('#chatHhUserName').val(userName);
 
@@ -69,9 +73,9 @@ $(function () {
         }
 
         chat.client.onUserDisconnected = function (id, userName) {
-            $('#' + id).remove();
+            $('#' + userName).remove();
 
-            var ctrId = 'private_' + id;
+            var ctrId = 'private_' + userName;
             $('#' + ctrId).remove();
             var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
             $(disc).hide();
@@ -79,12 +83,12 @@ $(function () {
             $(disc).fadeIn(200).delay(2000).fadeOut(200);
         }
 
-        chat.client.sendPrivateMessage = function (windowId, fromUserName, message) {
+        chat.client.sendPrivateMessage = function (fromUserName, chatWindowID, message) {
 
-            var ctrId = 'private_' + windowId;
+            var ctrId = 'private_' + chatWindowID;
 
             if ($('#' + ctrId).length == 0) {
-                createPrivateChatWindow(chat, windowId, ctrId, fromUserName);
+                createPrivateChatWindow(chat, fromUserName, ctrId, chatWindowID);
             }
 
             $('#' + ctrId).find('#divMessage').append('<div class="message"><span>' + fromUserName + '</span>: ' + message + '</div>');
@@ -110,16 +114,17 @@ $(function () {
 
 function AddUser(chatHub, id, name) {
     var userId = $('#chatHhUserID').val();
+    var userName = $('#chatHhUserName').val();
     var code = "";
-    if (userId == id) {
+    if (userName == name) {
 
         code = $('<div class="loginUser">' + name + "</div>");
     }
     else {
-        code = $('<a id="' + id + '" class="user" >' + name + '<a>');
+        code = $('<a id="' + name + '" class="user" >' + name + '<a>');
         $(code).click(function () {
             var id = $(this).attr('id');
-            if (userId != id)
+            if (userName != name)
                 OpenPrivateChatWindow(chatHub, id, name);
         });
     }
@@ -145,27 +150,25 @@ function registerEvents(chatHub) {
 }
 
 function OpenPrivateChatWindow(chatHub, id, name) {
-    var ctrId = 'private_' + id;
+    var ctrId = 'private_' + name;
     if ($('#' + ctrId).length > 0) return;
     createPrivateChatWindow(chatHub, id, ctrId, name);
 }
 
 function createPrivateChatWindow(chatHub, userId, ctrId, name) {
 
-    var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
-               '<div class="header">' +
-                  '<div  style="float:right;">' +
-                      '<img id="imgDelete"  style="cursor:pointer;" src="/Images/delete.png"/>' +
-                   '</div>' +
+    var div = '<div id="' + ctrId + '" class="ui-widget-content panel panel-primary draggable" rel="0">' +
+               '<div class="header panel-heading">' +
+                  '<span id="imgDelete" class="glyphicon glyphicon-remove pull-right"></span>' +
 
                    '<span class="selText" rel="0">' + name + '</span>' +
                '</div>' +
                '<div id="divMessage" class="messageArea">' +
 
                '</div>' +
-               '<div class="buttonBar">' +
-                  '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
-                  '<input id="btnSendMessage" class="submitButton button" type="button" value="Send"   />' +
+               '<div class="buttonBar panel-footer form-inline">' +
+                  '<input id="txtPrivateMessage" class="msgText form-control" type="text"   />' +
+                  '<input id="btnSendMessage" class="btn btn-primary" type="button" value="Send"   />' +
                '</div>' +
             '</div>';
     var $div = $(div);

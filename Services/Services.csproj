@@ -67,6 +67,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,6 +85,8 @@
     <Compile Include="DTO\EventDTO.cs" />
     <Compile Include="Event\EventService.cs" />
     <Compile Include="Event\IEventService.cs" />
+    <Compile Include="ImageServices\IImageService.cs" />
+    <Compile Include="ImageServices\ImageService.cs" />
     <Compile Include="Statistics\IStatService.cs" />
     <Compile Include="Statistics\StatService.cs" />
     <Compile Include="User\IUserService.cs" />
@@ -108,7 +111,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UsersImages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

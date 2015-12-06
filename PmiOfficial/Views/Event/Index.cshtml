@@ -2,19 +2,20 @@
 @{
     ViewBag.Title = "Index";
 }
-@section AddToLayout
-{
-    <link href="@Url.Content("~/Content/Event.css")" rel="stylesheet" type="text/css" />
-}
-
 @section Scripts{
     <!-- Fetch the image addition script -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
-
-    <script src="~/Scripts/user.profile.js"></script>
+    <script src="~/Scripts/comment.js"></script>
 }
+
+
+@section AddToLayout
+{
+    <link href="@Url.Content("~/Content/Event.css")" rel="stylesheet" type="text/css" />
+}
+
 
 
    
@@ -108,18 +109,48 @@
         </div><!-- container -->
     </div>
 
-    <div id="speakers" class="section speakers">
+
+
+    <div id="comments" class="section speakers">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-
-                    <h3 class="section-title">TITLE</h3>
-
+                    <h3 class="section-title">Comments </h3>
                 </div>
-            </div>
-
-
-        </div>
+                @foreach (var ev in @ViewBag.Comments)
+                {
+                    <div class="container">
+                        <div class="col-sm-1">
+                            <div class="thumbnail">
+                                <img class="img-responsive user-photo" src="@ev.ImageName">
+                            </div><!-- /thumbnail -->
+                        </div><!-- /col-sm-1 -->
+                        <div class="col-sm-5">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong><a href="http://localhost:26589/UserProfile/?userID=@ev.AuthorId">@ev.AuthorName</a></strong> <span class="text-muted">commented @ev.WritingDate</span>
+                                </div>
+                                <div class="panel-body">
+                                    @ev.Text
+                                </div><!-- /panel-body -->
+                            </div><!-- /panel panel-default -->
+                        </div><!-- /col-sm-5 -->
+                    </div><!-- /container -->
+                }
+                <div class="container">
+                    <div class="col-sm-1">
+                    </div><!-- /col-sm-1 -->
+                    <div class="col-sm-4">
+                            <input type="text" class="form-control" id="newcomment" placeholder="Write your comment">
+                    </div><!-- /col-sm-4 -->
+                    <button type="
+                            button" class="btn btn-primary" id="commentbutton">Add</button>
+                    <input id="eventidinfo" value="@ViewBag.Event.Id" style="display: none;">
+                    
+                    <input id="useridinfo"  value="@ViewBag.UserId" style="display: none;">
+                    </div><!-- container -->
+                </div>
+          </div>
     </div>
 
     <div id="location" class="section location">
