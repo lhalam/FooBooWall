@@ -4,49 +4,125 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using PmiOfficial.Models;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace PmiOfficial.Hubs
 {
     public class ChatHub : Hub
     {
-        static List<UserInfoHub> Users = new List<UserInfoHub>();
+        private readonly static ConcurrentDictionary<string, UserInfoHub> Users
+                   = new ConcurrentDictionary<string, UserInfoHub>();
 
-        // Отправка сообщений
+        static IEnumerable<UserInfoHub> UsersList 
+        {
+            get
+            {
+                return Users.Values.ToList();
+            }
+        }
+
         public void Send(string name, string message)
         {
             Clients.All.addMessage(name, message);
         }
 
+
         // Подключение нового пользователя
-        public void Connect(string name)
+        override public Task OnConnected()
         {
             var id = Context.ConnectionId;
+            string name = GetCurrentUserLoginName();
 
 
-            if (!Users.Any(x => x.ConnectionId == id))
+            UserInfoHub user = new UserInfoHub
             {
-                Users.Add(new UserInfoHub { ConnectionId = id, Name = name });
+                ConnectedTime = DateTime.Now,
+                Name = name,
+                UserId = GetUserId()
+            };
 
-                // Посылаем сообщение текущему пользователю
-                Clients.Caller.onConnected(id, name, Users);
-
-                // Посылаем сообщение всем пользователям, кроме текущего
-                Clients.AllExcept(id).onNewUserConnected(id, name);
-            }
+            AddOrUpdateUserInDictionary(user);
+            return Clients.All.onlineUserCount(Users.Count);
         }
 
-        // Отключение пользователя
+        private void AddOrUpdateUserInDictionary(UserInfoHub user)
+        {
+            if (!Users.ContainsKey(user.Name))
+            {
+                Users.AddOrUpdate(user.Name, user, (key, oldValue) => user);
+                 Clients.AllExcept(Context.ConnectionId).onNewUserConnected(user.UserId, user.Name);
+            }
+            AddConnectionIdToUser(user);
+        }
+
+        private void AddConnectionIdToUser(UserInfoHub user)
+        {
+            if (Users.ContainsKey(user.Name))
+            {
+                Users[user.Name].ConnectionsIdList.Add(Context.ConnectionId);
+            }
+
+            Clients.Caller.onConnected(user.UserId, user.Name, UsersList);
+        }
+
+        public void SendPrivateMessage(string toUserName, string message)
+        {
+
+            string fromUserId = Context.ConnectionId;
+
+            var toUser = Users[toUserName];
+            var fromUser = Users[GetCurrentUserLoginName()];
+
+            if (toUser != null && fromUser != null)
+            {
+                foreach (var id in toUser.ConnectionsIdList)
+                {
+                    Clients.Client(id).sendPrivateMessage(fromUser.Name, fromUser.Name, message);
+                }
+
+                foreach (var id in fromUser.ConnectionsIdList)
+                {
+                    Clients.Client(id).sendPrivateMessage(fromUser.Name, toUser.Name, message);
+                }
+            }
+
+        }
+
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {
-            var item = Users.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (item != null)
+            if (Users[GetCurrentUserLoginName()].ConnectionsIdList.Count > 1)
             {
-                Users.Remove(item);
-                var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.Name);
+                DeleteCurrentConnectionIdInList();
             }
-
-            return base.OnDisconnected(stopCalled);
+            else
+            {
+                UserInfoHub removedUser;
+                Users.TryRemove(GetCurrentUserLoginName(), out removedUser);
+                Clients.All.onUserDisconnected(GetUserId(), GetCurrentUserLoginName());
+            }
+            return Clients.All.onlineUserCount(Users.Count);
         }
+
+        private int GetUserId()
+        {
+            return Context.User.Identity.GetUserId<int>();
+        }
+
+        private void DeleteCurrentConnectionIdInList()
+        {
+            int indexOfCurrentConnectionId = Users[GetCurrentUserLoginName()]
+                .ConnectionsIdList.FindIndex(s => s.Contains(Context.ConnectionId));
+
+            Users[GetCurrentUserLoginName()].ConnectionsIdList.RemoveAt(indexOfCurrentConnectionId);
+        }
+
+        private string GetCurrentUserLoginName()
+        {
+            return Context.Request.User.Identity.Name;
+        }
+
+
     }
 }

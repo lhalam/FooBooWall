@@ -254,14 +254,14 @@ ul li {
 }
 
 .bg-image-1 {
-  background: url(../images/backgrounds/bg-1.jpg) no-repeat center center/cover;
+  background: url(https://pp.vk.me/c631123/v631123205/363d/04hvVP0MKJY.jpg) no-repeat center center/cover;
 }
 .bg-image-1::before {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
 .bg-image-2 {
-  background: url(../images/backgrounds/bg-2.jpg) no-repeat center bottom/cover;
+  background: url(https://pp.vk.me/c631123/v631123205/3647/21aIpZgDF-Y.jpg) no-repeat center bottom/cover;
 }
 .bg-image-2::before {
   background-color: rgba(0, 0, 0, 0.7);

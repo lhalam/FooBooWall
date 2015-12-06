@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,8 @@ namespace Services.DTO
         public string LastName { get; set; }
         public string Email { get; set; }
         public long Birthday { get; set; }
+        public string SkypeName { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
+
     }
 }

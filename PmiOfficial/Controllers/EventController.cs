@@ -4,16 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Services;
+using DataAccess.DAO;
 
 namespace PmiOfficial.Controllers
 {
     public class EventController : Controller
     {
-        public ActionResult Index() 
+        private EventService _eventService = new EventService(new EventDAO());
+        private CommentService _commentsService = new CommentService(new EventCommentsDao());
+
+        public ActionResult Index(int? userId, int? eventId) 
         {
-            //ViewBag.Event = _eventService.GetEvent(eventId);
-           // ViewBag.Comments = _eventService.GetComments(eventId);
-            //
+            //uncomment when CommentsDao is implemented
+
+            //ViewBag.Event = _eventService.Get(eventId);
+            //ViewBag.Comments = _commentsService.GetEventComments(eventId);
+            //ViewBag.UserId = userId;
+
             Event dummyEvent = new Event();
 
             dummyEvent.Decription = "This is event example";
@@ -33,12 +41,12 @@ namespace PmiOfficial.Controllers
             c1.WritingDate = DateTime.Now;
             c1.Text = "Very nice comment 1";
             Comment c2 = new Comment();
-            c2.AuthorId = 2;
-            c2.AuthorName = "Author 2";
-            c2.Id = 101;
-            c2.ImageName = "https://static.pexels.com/photos/6550/nature-sky-sunset-man.jpeg";
-            c2.WritingDate = DateTime.Now;
-            c2.Text = "Very nice comment 2";
+            c1.AuthorId = 2;
+            c1.AuthorName = "Author 2";
+            c1.Id = 101;
+            c1.ImageName = "https://static.pexels.com/photos/6550/nature-sky-sunset-man.jpeg";
+            c1.WritingDate = DateTime.Now;
+            c1.Text = "Very nice comment 2";
             List<Comment> c = new List<Comment>();
             c.Add(c1);
             c.Add(c2);
@@ -46,18 +54,9 @@ namespace PmiOfficial.Controllers
             return View();
         }
 
-        [HttpPost]
-        public void AddComment(int EventId,int UserId,string Text)
+        public void AddComment(Comment comment)
         {
-            int a = 0;
-            return;
-            //Index(EventId, UserId);
-        }
-        [HttpPost]
-        public void AddComment( string Text)
-        {
-            int a = 0;
-            return;
+            _commentsService.Create(comment);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿      
-$(function (evId,usId) {
+$(function () {
     $("#commentbutton").click(function () {
         if (validateComment()) {
             $.post("/api/Event/AddComment",

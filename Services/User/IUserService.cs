@@ -7,6 +7,6 @@ namespace Services
     {
         User Get(int id);
 
-        void Edit(EditUserDTO user);
+        void Edit(EditUserDTO user, System.Web.HttpServerUtilityBase serverObj);
     }
 }
