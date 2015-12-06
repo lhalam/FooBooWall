@@ -5,9 +5,11 @@ using Microsoft.AspNet.Identity;
 using PmiOfficial.Models;
 using Services;
 using Services.DTO;
+using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
+    [RequireSecureConnection]
     public class UserProfileController : Controller
     {
         public IUserService _userService;

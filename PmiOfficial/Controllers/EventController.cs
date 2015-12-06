@@ -6,9 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using Services;
 using DataAccess.DAO;
+using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
+    [RequireSecureConnection]
     public class EventController : Controller
     {
         private EventService _eventService = new EventService(new EventDAO());
