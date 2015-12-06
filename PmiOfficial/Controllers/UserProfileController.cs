@@ -47,5 +47,20 @@ namespace PmiOfficial.Controllers
             return PartialView("UserInfo", info);
         }
 
+        private string ConvertLocalServerPathToUrl(string localPath)
+        {
+            var url = new StringBuilder(localPath);
+
+            url.Replace(@"\", @"/");
+
+            int index = localPath.IndexOf(ImageService.LOCAL_FOLDER_TO_SAVE_IMAGES);
+
+            url.Remove(0, index);
+
+            url.Insert(0, @"~/");
+
+            return url.ToString();
+        }
+
     }
 }

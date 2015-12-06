@@ -29,7 +29,7 @@
 .chatMultipleUsers
 {
     position:fixed;
-    bottom:0px;
+    bottom:0px !important;
     right:-240px;
     width: 240px;
     margin-left: auto;

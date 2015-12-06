@@ -182,6 +182,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\VerificationController.cs" />
@@ -192,7 +193,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Results\ChallangeResult.cs" />
+    <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +245,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\chart.min.js" />
+    <Content Include="Scripts\comment.js" />
     <Content Include="Scripts\editUserController.js" />
     <Content Include="Scripts\globalChat.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -263,12 +266,15 @@
     <Content Include="Scripts\registration.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\stats.page.js" />
     <Content Include="Scripts\user.profile.js" />
     <Content Include="Scripts\UserProfile.js" />
     <Content Include="Views\Event\Photos\bg-1.jpg" />
     <Content Include="Views\Event\Photos\bg-2.jpg" />
     <Content Include="Views\Event\Photos\header.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -288,9 +294,11 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\UserInfo.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UsersImages\" />
     <Folder Include="Views\AccountTest\" />
   </ItemGroup>
   <ItemGroup>
