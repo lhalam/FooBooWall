@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section AddToLayout
+{
+    <link href="@Url.Content("~/Content/UserProfile.css")" rel="stylesheet" type="text/css"/>
+}
+
+@section Scripts{
+
+
+    <script src="~/Scripts/editUserController.js"></script>
+    <script src="~/Scripts/UserProfile.js"></script>
+    <script src="~/Scripts/user.profile.js"></script>
+
+}
+
+<link type="stylesheet" rel="https://bootswatch.com/paper/bootstrap.min.css" />
+
+<div class="container img-profile">
+    <div class="row panel panel-default img-profile-foto-row">
+        <div class="col-md-4 img-profile-fotos">
+            <img src="http://wallpapers-3d.ru/sstorage/53/2011/03/image_531903111627207792992.jpg" />
+            <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
+        </div>
+        <div class="col-md-4 img-profile-fotos">
+            <img src="https://pp.vk.me/c628627/v628627737/a31f/vj9H9uq3DY0.jpg" style="border: 5px solid #9E9E9E" />
+            <h3 class="userName">@ViewBag.User.FirstName @ViewBag.User.LastName</h3>
+            <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
+        </div>
+        <div class="col-md-4 img-profile-fotos">
+            <img src="http://wallpapers-3d.ru/sstorage/53/2011/08/10708111152415828.jpg">
+            <div class="fader">
+                <button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row img-profile-info">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <h3 style="text-align: center">Useful links
+                <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#addUsefulLinkModal"></span>
+            </h3>
+            <!-- <button type="button" class="vcenter btn btn-default btn-lg pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModal"></button> -->
+            <hr/>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addUsefulLinkModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add useful link</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4">Useful Link Name</div>
+                        <input type="text" class="form-control" id="UsefulLinkName" value="">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Url</div>
+                        <input type="text" class="form-control" id="UsefulLinkUrl" value="">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Image</div>
+                        <input type="text" class="form-control" id="UsefulLinkImageUrl" value="" onkeyup="usefulLinkImageUrlChanged()">
+                    </div>
+                    <div class="row">
+                        <img class="form-control" id="UsefulLinkImage" src="http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg" onerror="if (this.src != 'http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg') this.src = 'http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg';">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="addUsefulLinkSubmit" onclick="saveAddedUsefulLink();" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel-default panel">
+            <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#editUserModal"></span></h3>
+            <hr />
+            <script>
+                var userId = @ViewBag.User.Id;
+                var editUserUrl = '@Url.Action("Edit", "UserProfile")';
+            </script>
+            <p>Birthday: @ViewBag.User.Birthday</p>
+            @*<p>Mobile phone: </p>
+            <p>Skype:@ViewBag.User.Skype </p>*@
+            <p>Mail: @ViewBag.User.EMail</p>
+            @*<p>Hobbies: @ViewBag.User.Hobbies</p>*@
+        </div>
+    </div>
+
+    <div class="modal fade" id="editUserModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit info</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4">First name</div>
+                        <input type="text" class="form-control" id="FirstName" value="@ViewBag.User.FirstName">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Last name</div>
+                        <input type="text" class="form-control" id="LastName" value="@ViewBag.User.LastName">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Email</div>
+                        <input type="text" class="form-control" id="Email" value="@ViewBag.User.EMail">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Birth date</div>
+                        <input type="text" class="form-control clsDatePicker" onclick="pickDate()" readonly="readonly" id="BirthDate" value="@ViewBag.User.Birthday.Date">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Change Image</div>
+                        <div class="input-group image-preview">
+                            <input type="text" class="form-control image-preview-filename" disabled="disabled">
+                            <span class="input-group-btn">
+                                <div class="btn btn-default image-preview-input">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-preview-input-title">Browse</span>
+                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview" id="UserImage" />
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="editUserSubmit" onclick="saveEditedUser();" class="btn btn-success" >Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <h3 style="text-align: center">Gonna visit<span class="pull-right glyphicon glyphicon-edit"></span></h3>
+            <hr />
+        </div>
+    </div>
+</div>
+<div class="row timetable-row">
+    <div class="col-md-offset-1 col-md-2 tasks-notes panel" style="background-color: #90CAF9">
+        <h4>
+            Monday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Monday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color:#B2DFDB">
+        <h4>
+            Tuesday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Tuesday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color:#E0E0E0">
+        <h4>
+            Wednesday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Wednesday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color: #D1C4E9">
+        <h4>
+            Thursday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Thursday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+    <div class="col-md-2 panel" style="background-color:#CFD8DC">
+        <h4>
+            Friday:
+        </h4>
+        <hr />
+        @foreach (var x in ViewBag.User.Plans["Friday"])
+        {
+            <p>@x</p>
+        }
+    </div>
+</div>

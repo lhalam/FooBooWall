@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="dc31d350-dc56-4c97-8e64-cfc271fd77f0" ChangeDateTime="10/25/2015 18:46:31">
+    <Property Name="ElementName" Value="[dbo].[users].[Age]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BirthDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0bfc959f-a0ea-4d6e-a133-45097d0287ab" ChangeDateTime="11/08/2015 13:52:48">
+    <Property Name="ElementName" Value="[dbo].[externalLogins].[UserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[externalLogins]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="User_Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2d7ab35e-5dcf-4a4e-a5ec-8113b637afc5" ChangeDateTime="11/08/2015 13:53:06">
+    <Property Name="ElementName" Value="[dbo].[externalLogins].[User_Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[externalLogins]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="User_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="078e61dc-6345-45ea-8153-0ddaafd19d74" ChangeDateTime="11/22/2015 20:09:49">
+    <Property Name="ElementName" Value="[dbo].[UsefulLinks].[ID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UsefulLinks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="aa69b2c3-733e-49c5-81a1-3d8c0f6c7b56" ChangeDateTime="11/22/2015 20:09:52">
+    <Property Name="ElementName" Value="[dbo].[UsefulLinks].[OwnerUserID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UsefulLinks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OwnerUserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cb29ee1a-1df8-41ef-9fb4-a62e30e6fa10" ChangeDateTime="11/22/2015 20:09:57">
+    <Property Name="ElementName" Value="[dbo].[UsefulLinks].[ImageID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UsefulLinks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ImageId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="372dfa62-6217-4e88-bd3d-52e4f24545bc" ChangeDateTime="12/05/2015 20:27:02">
+    <Property Name="ElementName" Value="[dbo].[Users].[Image_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Foto_id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="038c23ad-4fd8-4995-b345-b086e0f6367f" ChangeDateTime="12/05/2015 20:37:07">
+    <Property Name="ElementName" Value="[dbo].[Users].[Foto_id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Image_id" />
+  </Operation>
+</Operations>
