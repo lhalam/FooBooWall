@@ -129,17 +129,42 @@
 
     .draggable .buttonBar
     {
-        width: 250px;
+       width: 250px;
        padding:4px;
     }
 
-        .draggable .buttonBar .msgText
-        {
-            width: 172px;
-        }
+    .draggable .buttonBar .msgText
+    {
+        width: 172px;
+    }
 
-        .draggable .buttonBar .button
-        {
-           margin-left:4px;
-            width: 55px;
-        }
+    .draggable .buttonBar .button
+    {
+        margin-left:4px;
+        width: 55px;
+    }
+
+    #imgDelete {
+        cursor: pointer;
+    }
+
+    .panel-heading>.selText {
+        color: white;
+        opacity: 0.85;
+    }
+
+    .panel-primary>.header.panel-heading {
+        background-color: #25354C;
+    }
+
+    #globalChat {
+        display: none;
+    }
+
+    .messageArea.panel-body {
+        background-color: whitesmoke;
+    }
+
+    #imgDelete.glyphicon.glyphicon-remove {
+        opacity: 0.85;
+    }

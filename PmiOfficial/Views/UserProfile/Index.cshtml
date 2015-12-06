@@ -7,12 +7,9 @@
 }
 
 @section Scripts{
-
-
     <script src="~/Scripts/editUserController.js"></script>
     <script src="~/Scripts/UserProfile.js"></script>
     <script src="~/Scripts/user.profile.js"></script>
-
 }
 
 <link type="stylesheet" rel="https://bootswatch.com/paper/bootstrap.min.css" />
@@ -79,22 +76,22 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="panel-default panel">
-                <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#editUserModal"></span></h3>
-                <hr />
-                <script>
-                    var userId = @ViewBag.User.Id;
-                    var editUserUrl = '@Url.Action("Edit", "UserProfile")';
-                </script>
-                <p>Birthday: @ViewBag.User.Birthday</p>
-                @*<p>Mobile phone: </p>*@
-                @*<p>Skype: @ViewBag.User.Skype </p>*@
-                <p>Skype: <a href="skype:@ViewBag.User.Skype?add">@ViewBag.User.Skype</a> </p>
 
-                <p>Mail: @ViewBag.User.EMail</p>
-                @*<p>Hobbies: @ViewBag.User.Hobbies</p>*@
-            </div>
+    <div class="col-md-4">
+        <div class="panel-default panel">
+            <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#editUserModal"></span></h3>
+            <hr />
+            <script>
+                var userId = @ViewBag.User.Id;
+                var editUserUrl = '@Url.Action("Edit", "UserProfile")';
+            </script>
+            <p>Birthday: @ViewBag.User.Birthday</p>
+            @*<p>Mobile phone: </p>*@
+            @*<p>Skype: @ViewBag.User.Skype </p>*@
+            <p>Skype: <a href="skype:@ViewBag.User.Skype?add">@ViewBag.User.Skype</a> </p> 
+            
+            <p>Mail: <a href="mailto:@ViewBag.User.EMail?add">@ViewBag.User.EMail</a> </p>
+            @*<p>Hobbies: @ViewBag.User.Hobbies</p>*@
         </div>
 
         <div class="modal fade" id="editUserModal" role="dialog">
