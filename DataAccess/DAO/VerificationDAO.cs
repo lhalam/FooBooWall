@@ -42,7 +42,7 @@ namespace DataAccess.DAO
                 {
                     reader.Read();
 
-                    vlt = new VerificationLetter
+                   vlt = new VerificationLetter
                     {
                         Id = id,
                         Code = Convert(reader.GetValue(1).ToString()),

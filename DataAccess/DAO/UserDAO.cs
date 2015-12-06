@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace DataAccess.DAO
 {
-    public class UserDAO: AbstractDAO<User>
+    public class UserDAO : AbstractDAO<User>
     {
         public override void Create(User entity)
         {
@@ -33,7 +33,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@SkypeName", SqlDbType.VarChar, 120).Value = entity.Skype ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
                 entity.Id = (int)cmd.ExecuteScalar();
-                
+
             }
         }
         public override User Read(int id)
@@ -59,7 +59,9 @@ namespace DataAccess.DAO
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
                         SecurityStamp = Convert(reader.GetValue(7)),
+
                         Skype = Convert(reader.GetValue(8)),
+
                         ImageId = (int)reader.GetValue(10)
                     };
                 }
@@ -128,6 +130,7 @@ namespace DataAccess.DAO
                         SecurityStamp = Convert(reader.GetValue(7)),
                         Skype = Convert(reader.GetValue(8)),
                         ImageId = (int)reader.GetValue(10)             
+
                     };
                 }
                 return user;
@@ -161,6 +164,7 @@ namespace DataAccess.DAO
                             SecurityStamp = Convert(reader.GetValue(7)),
                             Skype = Convert(reader.GetValue(8)),
                             ImageId = (int)reader.GetValue(10)
+
                         };
                     }
 
@@ -198,7 +202,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    result = reader.HasRows;                   
+                    result = reader.HasRows;
                 }
             }
             return result;
