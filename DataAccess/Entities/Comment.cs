@@ -9,6 +9,7 @@ namespace DataAccess.Entities
     public class Comment
     {
         public int Id { get; set; }
+        public int EventId { get; set; }
         public int AuthorId { get;set;}
         public string AuthorName { get; set; }
         public string ImageName { get; set; }
