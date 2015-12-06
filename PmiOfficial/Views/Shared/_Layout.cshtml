@@ -8,10 +8,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/themes/base/all.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Chat.css" />
     @Styles.Render("~/Content/css")
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.plugin.min.js"></script>
-    <script src="~/Scripts/jquery.datepick.js"></script>
-    <script src="~/Scripts/editUserController.js"></script>
+ 
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("AddToLayout", required: false)
 </head>
@@ -44,10 +41,16 @@
         </footer>
     </div>
 
+    <!-- Fetch the image addition script -->
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/jquery.plugin.min.js"></script>
+    <script src="~/Scripts/jquery.datepick.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/editUserController.js"></script>
-    <script src="~/Scripts/UserProfile.js"></script>
+    <script src="~/Scripts/globalChat.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

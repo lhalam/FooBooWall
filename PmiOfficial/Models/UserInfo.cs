@@ -15,7 +15,11 @@ namespace PmiOfficial.Models
     public class UserInfoHub
     {
         public string Name { get; set; }
-        public string ConnectionId { get; set; }
+
+        public DateTime ConnectedTime { get; set; }
+
+        public List<string> ConnectionsIdList = new List<string>();
+
         public int UserId { get; set; }
     }
 }
