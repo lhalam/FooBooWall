@@ -57,7 +57,7 @@ namespace DataAccess.DAO
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
                         SecurityStamp = Convert(reader.GetValue(7)),
-                        ImageId = (int)reader.GetValue(8)
+                        ImageId = (int)reader.GetValue(10)
                     };
                 }
             }
@@ -119,9 +119,10 @@ namespace DataAccess.DAO
                         Login = (string)reader.GetValue(3),
                         EMail = Convert(reader.GetValue(4)),
                         PasswordHash = Convert(reader.GetValue(5)),
-                        Birthday = (DateTime)reader.GetValue(6),
+                        Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
                         SecurityStamp = Convert(reader.GetValue(7)),
-                        ImageId = (int)reader.GetValue(8)                    };
+                        ImageId = (int)reader.GetValue(10)             
+                    };
                 }
                 return user;
             }
@@ -141,17 +142,18 @@ namespace DataAccess.DAO
                     if (reader.HasRows)
                     {
                         reader.Read();
+
                         user = new User
                         {
                             Id = (int)reader.GetValue(0),
                             FirstName = Convert(reader.GetValue(1)),
                             LastName = Convert(reader.GetValue(2)),
-                            Login = Convert(reader.GetValue(3)),
+                            Login = (string)reader.GetValue(3),
                             EMail = Convert(reader.GetValue(4)),
                             PasswordHash = Convert(reader.GetValue(5)),
-                            Birthday = (DateTime)reader.GetValue(6),
-                            ImageId = (int)reader.GetValue(8),
-                            SecurityStamp = Convert(reader.GetValue(7))
+                            Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
+                            SecurityStamp = Convert(reader.GetValue(7)),
+                            ImageId = (int)reader.GetValue(10)
                         };
                     }
 
