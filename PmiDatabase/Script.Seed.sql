@@ -10,9 +10,9 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-INSERT INTO images 
+INSERT INTO images (Name)
 VALUES('https://i.ytimg.com/vi/GlcaoHxi5p4/maxresdefault.jpg' );
-INSERT INTO images 
+INSERT INTO images (Name)
 VALUES('https://pp.vk.me/c628627/v628627737/a321/2uk5TUqgz6E.jpg' );
 
 INSERT INTO users(FirstName, LastName, Login, Email, Image_id)
