@@ -87,19 +87,19 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<Event> ReadAllEvents()
+        public override List<Event> ReadAll()
         {
-            var list = new List<Event>();
+            var result = new List<Event>();
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM PmiDatabase.dbo.events";
-                SqlCommand cmd = new SqlCommand(sql, connection);
+                const string commandString = "SELECT * FROM PmiDatabase.dbo.events";
+                SqlCommand cmd = new SqlCommand(commandString, connection);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        Event ev = new Event
+                        result.Add(new Event
                         {
                             Id = (int)reader.GetValue(0),
                             Name = (string)reader.GetValue(1),
@@ -108,12 +108,11 @@ namespace DataAccess.DAO
                             ImageId = (int)reader.GetValue(4),
                             OrganizerId = (int)reader.GetValue(5),
                             Time = ((reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6])
-                        };
-                        list.Add(ev);
+                        });
                     }
                 }
             }
-            return list;
+            return result;
         }
 
         public List<Event> ReadEventsCreatedByUser(int userId)

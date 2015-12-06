@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Website Statistics";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/chart.min.js"></script>
+
+    <!-- Fetch some values from ViewBag - these are later used in stats.page.js-->
+    <script>
+        var userlabels = "@ViewBag.UserStatsLabels";
+        var userdata = "@ViewBag.UserStatsData";
+        var eventlabels = "@ViewBag.EventStatsLabels";
+        var eventdata = "@ViewBag.EventStatsData";
+    </script>
+
+    <script src="~/Scripts/stats.page.js"></script>
+}
+
+<div class="row" style="padding-top: 20px;">
+    <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                User Birthday Stats
+            </div>
+            <div class="panel-body">
+                <div>
+                    <canvas id="userStatsCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Event Time Stats
+            </div>
+            <div class="panel-body">
+                <h3>No statistics since there aren't any events at all. Need to improve seeding</h3>
+                <!--
+                <div>
+                    <canvas id="eventStatsCanvas"></canvas>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccess.Entities;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using DataAccess.Entities;
 
 namespace DataAccess.DAO
 {
-    public class UserDAO: AbstractDAO<User>
+    public class UserDAO : AbstractDAO<User>
     {
         public override void Create(User entity)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql =  "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp)" +
+                string sql = "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp)" +
                     " OUTPUT Inserted.ID " +
                     "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @SecurityStamp)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
@@ -31,12 +28,12 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
                 entity.Id = (int)cmd.ExecuteScalar();
-                
+
             }
         }
         public override User Read(int id)
         {
-            User user = null;
+            User user;
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
@@ -98,16 +95,44 @@ namespace DataAccess.DAO
             }
         }
 
-        public User GetUserByLoginAndPassword(string login, string PasswordHash)
+        public override List<User> ReadAll()
         {
-            User user = null;
+            var result = new List<User>();
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                const string commandString = "SELECT * FROM users";
+                SqlCommand cmd = new SqlCommand(commandString, connection);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new User
+                        {
+                            Id = (int)reader.GetValue(0),
+                            FirstName = Convert(reader.GetValue(1)),
+                            LastName = Convert(reader.GetValue(2)),
+                            Login = (string)reader.GetValue(3),
+                            EMail = Convert(reader.GetValue(4)),
+                            PasswordHash = Convert(reader.GetValue(5)),
+                            Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6]
+                        });
+                    }
+                }
+            }
+            return result;
+        }
+
+        public User GetUserByLoginAndPassword(string login, string passwordHash)
+        {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
                 string sql = "SELECT * FROM users WHERE Login = @param1 AND PasswordHash = @param2";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, -1).Value = PasswordHash ?? SqlString.Null;
+                cmd.Parameters.Add("@param2", SqlDbType.VarChar, -1).Value = passwordHash ?? SqlString.Null;
+                User user;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
@@ -121,7 +146,7 @@ namespace DataAccess.DAO
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
                         SecurityStamp = Convert(reader.GetValue(7)),
-                        ImageId = (int)reader.GetValue(10)             
+                        ImageId = (int)reader.GetValue(10)
                     };
                 }
                 return user;
@@ -182,7 +207,7 @@ namespace DataAccess.DAO
 
         public bool UserWithSpecifiedLoginExists(string login)
         {
-            bool result = false;
+            bool result;
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
@@ -191,7 +216,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    result = reader.HasRows;                   
+                    result = reader.HasRows;
                 }
             }
             return result;
