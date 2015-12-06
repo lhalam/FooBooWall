@@ -6,22 +6,21 @@
         // Объявление функции, которая хаб вызывает при получении сообщений
         chat.client.addMessage = function (name, message) {
             // Добавление сообщений на веб-страницу 
-            $('#chatroom').append('<p><b>' + htmlEncode(name)
-                + '</b>: ' + htmlEncode(message) + '</p>');
+            $('#globalChat').find('#divMessage').append('<div class="message"><span>' + name + '</span>: ' + message + '</div>');
         };
 
         // Добавляем нового пользователя
         chat.client.onlineUserCount = function (count) {
-            $("#usersCount").text(count);
+            $("#userCount").text(count);
         }
         // Открываем соединение
         $.connection.hub.start().done(function () {
 
-            $('#sendmessage').click(function () {
-                if ($('#message').val() != '') {
+            $('#globalSendMessage').click(function () {
+                if ($('#globalMessage').val() != '') {
                     // Вызываем у хаба метод Send
-                    chat.server.send($('#username').val(), $('#message').val());
-                    $('#message').val('');
+                    chat.server.send($('#username').val(), $('#globalMessage').val());
+                    $('#globalMessage').val('');
                 }
             });
         });
@@ -38,18 +37,23 @@ $(function () {
     if (userName) {
         var chat = $.connection.chatHub;
 
-        chat.client.addMessage = function (name, message) {
-            $('#chatroom').append('<p><b>' + htmlEncode(name)
-                + '</b>: ' + htmlEncode(message) + '</p>');
-        };
 
         chat.client.onConnected = function (id, userName, allUsers) {
-            $('#chatBody').show();
+            $('#globalTitle').click(function () {
+                $('#globalChat')
+                    .show()
+                    .draggable({
+                        handle: ".header",
+                        stop: function () {
+                        }
+                    });
+            });
+            $('#globalChat').find('#imgDelete').click(function () {
+                $('#globalChat').hide();
+            });
             // установка в скрытых полях имени и id текущего пользователя
-            $('#hdId').val(id);
-            $('#username').val(userName);
-            $('#header').html('<h5>Hello, ' + userName + '</h5>');
-            $("#usersCount").text(usersCount);
+          //  $('#header').html('<h5>Hello, ' + userName + '</h5>');
+          //  $("#userCount").text(allUsers.length);
             $('#chatHhUserID').val(id);
             $('#chatHhUserName').val(userName);
 

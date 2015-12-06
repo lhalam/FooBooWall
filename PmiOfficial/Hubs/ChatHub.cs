@@ -40,7 +40,7 @@ namespace PmiOfficial.Hubs
             {
                 ConnectedTime = DateTime.Now,
                 Name = name,
-                UserId = Context.User.Identity.GetUserId<int>()
+                UserId = GetUserId()
             };
 
             AddOrUpdateUserInDictionary(user);
@@ -102,8 +102,13 @@ namespace PmiOfficial.Hubs
                 Users.TryRemove(GetCurrentUserLoginName(), out removedUser);
 
             }
-            Clients.All.onUserDisconnected(Context.ConnectionId, GetCurrentUserLoginName());
+            Clients.All.onUserDisconnected(GetUserId(), GetCurrentUserLoginName());
             return Clients.All.onlineUserCount(Users.Count);
+        }
+
+        private int GetUserId()
+        {
+            return Context.User.Identity.GetUserId<int>();
         }
 
         private void DeleteCurrentConnectionIdInList()
