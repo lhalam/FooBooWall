@@ -4,7 +4,7 @@ using Services.DTO;
 
 namespace Services
 {
-    class EventService: IEventService
+    public class EventService: IEventService
     {
         private EventDAO _dao;
 

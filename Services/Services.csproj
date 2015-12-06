@@ -74,6 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comment\CommentService.cs" />
+    <Compile Include="Comment\ICommentService.cs" />
+    <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\EditUserDTO.cs" />
     <Compile Include="Auth\AuthService.cs" />
     <Compile Include="Auth\ExternalLoginData.cs" />
