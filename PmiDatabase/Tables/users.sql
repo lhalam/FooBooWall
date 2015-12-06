@@ -8,6 +8,8 @@
 	PasswordHash	varchar(MAX) NULL DEFAULT '',
 	[BirthDate]			DATE DEFAULT '',
 	[SecurityStamp] VARCHAR(MAX) NULL DEFAULT '', 
+	[SkypeName] varchar(120),
+	[Hobbies]	varchar(255),
     [Image_id] INT NOT NULL
 )
 

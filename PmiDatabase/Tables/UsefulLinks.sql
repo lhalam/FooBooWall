@@ -1,8 +1,9 @@
 ﻿CREATE TABLE [dbo].[usefulLinks]
 (
 	[Id] int IDENTITY(1,1) PRIMARY KEY,
-	[OwnerUserId] INT FOREIGN KEY REFERENCES users(ID) NOT NULL,
+	[Name] varchar(255),
+	[User_id] INT NOT NULL,
 	[Url] VARCHAR(120) NOT NULL,
-	[ImageId] INT FOREIGN KEY REFERENCES images(ID) NULL,
+	[Image_id] INT NULL,
 	[Comment] TEXT NULL
 )

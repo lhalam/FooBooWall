@@ -69,6 +69,7 @@
     <Build Include="Verification.sql" />
     <Build Include="Tables\comments.sql" />
     <Build Include="Tables\ForeignKeys.sql" />
+    <Build Include="Tables\InterestingVisits.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PmiDatabase.refactorlog" />
