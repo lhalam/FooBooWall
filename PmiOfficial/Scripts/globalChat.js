@@ -69,9 +69,9 @@ $(function () {
         }
 
         chat.client.onUserDisconnected = function (id, userName) {
-            $('#' + id).remove();
+            $('#' + userName).remove();
 
-            var ctrId = 'private_' + id;
+            var ctrId = 'private_' + userName;
             $('#' + ctrId).remove();
             var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
             $(disc).hide();
@@ -79,12 +79,12 @@ $(function () {
             $(disc).fadeIn(200).delay(2000).fadeOut(200);
         }
 
-        chat.client.sendPrivateMessage = function (windowId, fromUserName, message) {
+        chat.client.sendPrivateMessage = function (fromUserName, chatWindowID, message) {
 
-            var ctrId = 'private_' + windowId;
+            var ctrId = 'private_' + chatWindowID;
 
             if ($('#' + ctrId).length == 0) {
-                createPrivateChatWindow(chat, windowId, ctrId, fromUserName);
+                createPrivateChatWindow(chat, fromUserName, ctrId, chatWindowID);
             }
 
             $('#' + ctrId).find('#divMessage').append('<div class="message"><span>' + fromUserName + '</span>: ' + message + '</div>');
@@ -110,16 +110,17 @@ $(function () {
 
 function AddUser(chatHub, id, name) {
     var userId = $('#chatHhUserID').val();
+    var userName = $('#chatHhUserName').val();
     var code = "";
-    if (userId == id) {
+    if (userName == name) {
 
         code = $('<div class="loginUser">' + name + "</div>");
     }
     else {
-        code = $('<a id="' + id + '" class="user" >' + name + '<a>');
+        code = $('<a id="' + name + '" class="user" >' + name + '<a>');
         $(code).click(function () {
             var id = $(this).attr('id');
-            if (userId != id)
+            if (userName != name)
                 OpenPrivateChatWindow(chatHub, id, name);
         });
     }
@@ -145,7 +146,7 @@ function registerEvents(chatHub) {
 }
 
 function OpenPrivateChatWindow(chatHub, id, name) {
-    var ctrId = 'private_' + id;
+    var ctrId = 'private_' + name;
     if ($('#' + ctrId).length > 0) return;
     createPrivateChatWindow(chatHub, id, ctrId, name);
 }

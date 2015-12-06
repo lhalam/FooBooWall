@@ -79,12 +79,12 @@ namespace PmiOfficial.Hubs
             {
                 foreach (var id in toUser.ConnectionsIdList)
                 {
-                    Clients.Client(id).sendPrivateMessage(fromUser.UserId, fromUser.Name, message);
+                    Clients.Client(id).sendPrivateMessage(fromUser.Name, fromUser.Name, message);
                 }
 
                 foreach (var id in fromUser.ConnectionsIdList)
                 {
-                    Clients.Client(id).sendPrivateMessage(toUser.UserId, fromUser.Name, message);
+                    Clients.Client(id).sendPrivateMessage(fromUser.Name, toUser.Name, message);
                 }
             }
 
@@ -100,9 +100,8 @@ namespace PmiOfficial.Hubs
             {
                 UserInfoHub removedUser;
                 Users.TryRemove(GetCurrentUserLoginName(), out removedUser);
-
+                Clients.All.onUserDisconnected(Context.ConnectionId, GetCurrentUserLoginName());
             }
-            Clients.All.onUserDisconnected(Context.ConnectionId, GetCurrentUserLoginName());
             return Clients.All.onlineUserCount(Users.Count);
         }
 
