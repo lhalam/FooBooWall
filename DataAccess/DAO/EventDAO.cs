@@ -107,7 +107,7 @@ namespace DataAccess.DAO
                             Decription = (string)reader.GetValue(3),
                             ImageId = (int)reader.GetValue(4),
                             OrganizerId = (int)reader.GetValue(5),
-                            Time = (DateTime)reader.GetValue(6),
+                            Time = ((reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6])
                         };
                         list.Add(ev);
                     }

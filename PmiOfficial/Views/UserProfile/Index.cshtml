@@ -7,11 +7,8 @@
 }
 
 @section Scripts{
-    <!-- Fetch the image addition script -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-
-
+    <script src="~/Scripts/editUserController.js"></script>
+    <script src="~/Scripts/UserProfile.js"></script>
     <script src="~/Scripts/user.profile.js"></script>
 }
 
@@ -89,12 +86,15 @@
             <hr />
             <script>
                 var userId = @ViewBag.User.Id;
+                var editUserUrl = '@Url.Action("Edit", "UserProfile")';
             </script>
             <p>Birthday: @ViewBag.User.Birthday</p>
-            <p>Mobile phone: </p>
-            <p>Skype:@ViewBag.User.Skype </p>
-            <p>Mail: @ViewBag.User.EMail</p>
-            <p>Hobbies: @ViewBag.User.Hobbies</p>
+            @*<p>Mobile phone: </p>*@
+            @*<p>Skype: @ViewBag.User.Skype </p>*@
+            <p>Skype: <a href="skype:@ViewBag.User.Skype?add">@ViewBag.User.Skype</a> </p> 
+            
+            <p>Mail: <a href="mailto:@ViewBag.User.EMail?add">@ViewBag.User.EMail</a> </p>
+            @*<p>Hobbies: @ViewBag.User.Hobbies</p>*@
         </div>
     </div>
 
@@ -117,6 +117,10 @@
                     <div class="row">
                         <div class="col-lg-4">Email</div>
                         <input type="text" class="form-control" id="Email" value="@ViewBag.User.EMail">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Skype</div>
+                        <input type="text" class="form-control" id="SkypeName" value="@ViewBag.User.Skype">
                     </div>
                     <div class="row">
                         <div class="col-lg-4">Birth date</div>

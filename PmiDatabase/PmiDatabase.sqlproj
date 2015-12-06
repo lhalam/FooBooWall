@@ -65,6 +65,11 @@
     <Build Include="Tables\users.sql" />
     <Build Include="Tables\externalLogins.sql" />
     <Build Include="Tables\usefulLinks.sql" />
+    <Build Include="Tables\verification.sql" />
+    <Build Include="Verification.sql" />
+    <Build Include="Tables\comments.sql" />
+    <Build Include="Tables\ForeignKeys.sql" />
+    <Build Include="Tables\InterestingVisits.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PmiDatabase.refactorlog" />

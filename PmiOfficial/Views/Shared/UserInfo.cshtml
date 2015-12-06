@@ -1,9 +1,26 @@
 ﻿@model PmiOfficial.Models.UserInfo
 @if (Model.IsAuthenticated)
 {
-    <li><a href="UserProfile/?userID=@Model.Id">Hello @Model.Name</a></li>
+    <li><a href="@Url.Action("Index", "UserProfile", new { userID = Model.Id })">Hello @Model.Name</a></li>
     <li><a href="/logout">LogOut</a></li>
-    <div id="chatBody" class="panel panel-primary panel-body well" style="position: fixed; bottom: 60px; left: 0px;">
+    
+   
+    <div id="globalChat" class="ui-widget-content panel panel-primary draggable" rel="0">
+        <div class="header panel-heading">
+            <span id="imgDelete" class="glyphicon glyphicon-remove pull-right"></span>
+            <span class="selText" rel="0"> All users </span>
+        </div>
+   
+            <div id="divMessage" class="messageArea panel-body">
+
+            </div>
+            <div class="buttonBar panel-footer form-inline">
+                <input id="globalMessage" class="msgText form-control" type="text" />
+                <button id="globalSendMessage" class="btn btn-primary"> Send </button>
+            </div>
+        </div>
+
+    <div id="chatBody" class="panel panel-primary panel-body well" style="display: none; position: fixed; bottom: 60px; left: 0px;">
         <div id="header"></div>
         <div id="inputForm" class="form-group form-inline">
             <input type="text" id="message" class="form-control" />
@@ -12,19 +29,39 @@
         <div id="chatroom" style="max-height: 400px; max-width: 300px;overflow-y: scroll"></div>
 
         <div id="chatusers">
-            <p><b>All users:</b></p>
+            <p><b>Amount of users: <span id="userCount"></span></b></p>
         </div>
+    </div>
+    <div id="divContainer">
+        <div id="chatMultUsersDiv" class="ui-widget-content panel panel-primary chatMultipleUsers">
+            <div class="title header panel-heading">
+                Logged Users
+            </div>
+            <div id="divusers" class="users">
+                <a id="globalTitle" class="user">Global chat</a>
+            </div>
+        </div>
+        <div id="toggleChatButtonDiv" class="toggleButton">
+            <button id="toggleChatButton" class="btn btn-default">
+                <span class="glyphicon glyphicon-minus"></span>
+            </button>
+        </div>
+        <input id="chatHhUserID" type="hidden" />
+        <input id="chatHhUserName" type="hidden" />
     </div>
     <input id="hdId" type="hidden" />
     <input id="username" type="hidden" />
-    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-    <script src="~/signalr/hubs"></script>
+
     <script>
-      userName = "@Model.Name";
+        userName = "@Model.Name";
+        loggedUserID = @Model.Id;
+
     </script>
+  
 }
 else
 {
     <li>@Html.ActionLink("Sign in", "Index", "Login", new { area = "" }, null)</li>
     <li>@Html.ActionLink("Sign up", "Index", "Registration", new { area = "" }, null)</li>
+    
 }

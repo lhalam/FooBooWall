@@ -7,6 +7,7 @@ using DataAccess.Entities;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 
 namespace DataAccess.DAO
 {
@@ -17,9 +18,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql =  "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp)" +
+                string sql =  "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp, SkypeName)" +
                     " OUTPUT Inserted.ID " +
-                    "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @SecurityStamp)";
+                    "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @SecurityStamp, @SkypeName)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
                 cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
@@ -29,6 +30,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@param6", SqlDbType.DateTime).Value = entity.Birthday;
                 cmd.Parameters.Add("@param7", SqlDbType.Int).Value = entity.ImageId;
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
+                cmd.Parameters.Add("@SkypeName", SqlDbType.VarChar, 120).Value = entity.Skype ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
                 entity.Id = (int)cmd.ExecuteScalar();
                 
@@ -56,8 +58,9 @@ namespace DataAccess.DAO
                         EMail = Convert(reader.GetValue(4)),
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
-                        ImageId = (int)reader.GetValue(7),
-                        SecurityStamp = Convert(reader.GetValue(8))
+                        SecurityStamp = Convert(reader.GetValue(7)),
+                        Skype = Convert(reader.GetValue(8)),
+                        ImageId = (int)reader.GetValue(10)
                     };
                 }
             }
@@ -70,7 +73,8 @@ namespace DataAccess.DAO
             {
                 connection.Open();
                 string sql = "UPDATE users SET FirstName = @param1, LastName = @param2, Email = @param3," +
-                    " PasswordHash = @param4, BirthDate = @param5, Image_id = @param6, SecurityStamp = @SecurityStamp WHERE Login = @param7";
+                    " PasswordHash = @param4, BirthDate = @param5, Image_id = @param6, " +
+                    " SecurityStamp = @SecurityStamp, SkypeName = @SkypeName WHERE Login = @param7";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
                 cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
@@ -80,6 +84,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@param6", SqlDbType.Int).Value = entity.ImageId;
                 cmd.Parameters.Add("@param7", SqlDbType.VarChar, 255).Value = entity.Login;
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
+                cmd.Parameters.Add("@SkypeName", SqlDbType.VarChar, 120).Value = entity.Skype ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -119,9 +124,10 @@ namespace DataAccess.DAO
                         Login = (string)reader.GetValue(3),
                         EMail = Convert(reader.GetValue(4)),
                         PasswordHash = Convert(reader.GetValue(5)),
-                        Birthday = (DateTime)reader.GetValue(6),
-                        ImageId = (int)reader.GetValue(7),
-                        SecurityStamp = Convert(reader.GetValue(8))
+                        Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
+                        SecurityStamp = Convert(reader.GetValue(7)),
+                        Skype = Convert(reader.GetValue(8)),
+                        ImageId = (int)reader.GetValue(10)             
                     };
                 }
                 return user;
@@ -142,17 +148,19 @@ namespace DataAccess.DAO
                     if (reader.HasRows)
                     {
                         reader.Read();
+
                         user = new User
                         {
                             Id = (int)reader.GetValue(0),
                             FirstName = Convert(reader.GetValue(1)),
                             LastName = Convert(reader.GetValue(2)),
-                            Login = Convert(reader.GetValue(3)),
+                            Login = (string)reader.GetValue(3),
                             EMail = Convert(reader.GetValue(4)),
                             PasswordHash = Convert(reader.GetValue(5)),
-                            Birthday = (DateTime)reader.GetValue(6),
-                            ImageId = (int)reader.GetValue(7),
-                            SecurityStamp = Convert(reader.GetValue(8))
+                            Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
+                            SecurityStamp = Convert(reader.GetValue(7)),
+                            Skype = Convert(reader.GetValue(8)),
+                            ImageId = (int)reader.GetValue(10)
                         };
                     }
 

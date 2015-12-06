@@ -25,11 +25,12 @@ namespace Services
             u.FirstName = userDto.FirstName;
             u.LastName = userDto.LastName;
             u.EMail = userDto.Email;
+            u.Skype = userDto.SkypeName;
 
-            long ticks = new DateTime(1970, 1, 1).Ticks;
+            long ticks = new DateTime(1970, 1, 2).Ticks;
             DateTime dt = new DateTime(ticks);
 
-            u.Birthday = dt.AddMilliseconds(userDto.Birthday); ;
+            u.Birthday = dt.AddMilliseconds(userDto.Birthday);
             _dao.Update(u);
         }
     }

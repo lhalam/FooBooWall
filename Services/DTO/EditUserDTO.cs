@@ -13,5 +13,6 @@ namespace Services.DTO
         public string LastName { get; set; }
         public string Email { get; set; }
         public long Birthday { get; set; }
+        public string SkypeName { get; set; }
     }
 }

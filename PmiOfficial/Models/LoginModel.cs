@@ -9,11 +9,11 @@ namespace PmiOfficial.Models
 {
     public class LoginModel
     {
-        [Required]
-        [Display(Name = "User name")]
+        [Required(ErrorMessage = "@Login is required")]
+        [Display(Name = "Login")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
