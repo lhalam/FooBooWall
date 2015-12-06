@@ -106,16 +106,15 @@ $(function () {
 
 $(function () {
     $("#password").focusout(function () {
+        validatePassword();
         if($("#password").val() != null && $("#password").val().length < 8)
         {
+            $("#passwordmessage").text("Password should contain at least 8 characters");
             document.getElementById("passwordmessage").className += " errors";
             passwordok = false;
         }
         else
         {
-            document.getElementById("repeatpasswordmessage").className =
-                    document.getElementById("repeatpasswordmessage").className.replace
-                        (/(?:^|\s)errors(?!\S)/g, '');
             $("#passwordmessage").text(' ');
             document.getElementById("empty1").className =
    document.getElementById("empty1").className.replace
@@ -137,6 +136,10 @@ $(function () {
             document.getElementById("emailrequired").className =
    document.getElementById("emailrequired").className.replace
       (/(?:^|\s)invisible(?!\S)/g, '');
+            if (document.getElementById("emailinvalid").className.indexOf("invisible") == -1)
+            {
+                document.getElementById("emailinvalid").className += " invisible";
+            }
             emailok = false;
         }
         else
@@ -160,7 +163,9 @@ $(function () {
 
 function validatePassword() {
     if ($("#rpassword").val() != $("#password").val()) {
-        document.getElementById("repeatpasswordmessage").className += " errors";
+        if (document.getElementById("repeatpasswordmessage").className.indexOf("errors") == -1) {
+            document.getElementById("repeatpasswordmessage").className += " errors";
+        }
         document.getElementById("repeatpasswordmessage").className =
                     document.getElementById("repeatpasswordmessage").className.replace
                         (/(?:^|\s)invisible(?!\S)/g, '');
