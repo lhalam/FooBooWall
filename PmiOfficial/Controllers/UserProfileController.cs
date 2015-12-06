@@ -4,6 +4,7 @@ using DataAccess.DAO;
 using Microsoft.AspNet.Identity;
 using PmiOfficial.Models;
 using Services;
+using DataAccess.Entities;
 using Services.DTO;
 
 namespace PmiOfficial.Controllers
@@ -24,23 +25,6 @@ namespace PmiOfficial.Controllers
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};
-                
-            //ViewBag.User = new User
-            //{
-            //    FirstName = "Padus",
-            //    LastName = "Sofija",
-            //    Login = "PSofija",
-            //    EMail = "sofijaPadus@gmail.com",
-            //    Password = "qwertyqwerqwqrqw",
-            //    Image_ID = 1,
-            //    VK_ID = "vkiD",
-            //    FB_ID = "facebook",
-            //    Skype = "skype",
-            //    Hobbies = "hobbies",
-            //    Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
-            //        { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}
-            //    }
-            //};
 
             return View();
         }

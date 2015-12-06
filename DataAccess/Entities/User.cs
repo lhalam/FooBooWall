@@ -34,7 +34,7 @@ namespace DataAccess.Entities
         {
             Birthday = DateTime.Now;
             EMail = String.Empty;
-            ImageId = 1;
+            ImageId = 1;           
         }
     }
 }

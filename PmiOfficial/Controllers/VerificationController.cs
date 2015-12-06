@@ -1,5 +1,5 @@
-﻿﻿using DataAccess.Identity;
-﻿using DataAccess.Entities;
+﻿using DataAccess.Identity;
+using DataAccess.Entities;
 using DataAccess.DAO;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
