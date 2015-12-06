@@ -22,5 +22,9 @@ namespace DataAccess.Identity
                 AllowOnlyAlphanumericUserNames = false
             };
         }
+        public Task SendAsync()
+        {
+            return Task.FromResult(1);
+        }
     }
 }

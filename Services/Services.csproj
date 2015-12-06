@@ -84,6 +84,12 @@
     <Compile Include="Registration\RegistrationBindingModel.cs" />
     <Compile Include="Registration\RegistrationResult.cs" />
     <Compile Include="Registration\RegistrationService.cs" />
+    <Compile Include="Verification\SendingBindingModel.cs" />
+    <Compile Include="Verification\SendingResult.cs" />
+    <Compile Include="Verification\SendingService.cs" />
+    <Compile Include="Verification\VerificationBindingModel.cs" />
+    <Compile Include="Verification\VerificationResult.cs" />
+    <Compile Include="Verification\VerificationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
@@ -94,6 +100,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

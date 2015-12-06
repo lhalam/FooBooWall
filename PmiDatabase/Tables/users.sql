@@ -7,6 +7,7 @@
 	Email		varchar(255) NOT NULL DEFAULT '',
 	PasswordHash	varchar(MAX) NULL DEFAULT '',
 	[BirthDate]			DATE DEFAULT '',
-	[SecurityStamp] VARCHAR(MAX) NULL DEFAULT ''
+	[SecurityStamp] VARCHAR(MAX) NULL DEFAULT '', 
+    [Image_id] INT NULL
 )
 
