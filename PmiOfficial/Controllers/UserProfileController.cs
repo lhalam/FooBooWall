@@ -1,28 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using DataAccess.DAO;
 using Microsoft.AspNet.Identity;
 using PmiOfficial.Models;
 using Services;
-using DataAccess.Entities;
 using Services.DTO;
-using PmiOfficial.Filters;
+using Services.ImageServices;
 
 namespace PmiOfficial.Controllers
 {
     public class UserProfileController : Controller
     {
-        public IUserService _userService;
+        public IUserService UserService;
 
         public UserProfileController()
         {
-            _userService = new UserService(new UserDAO());
+            UserService = new UserService(new UserDAO());
         }
 
         // GET: UserProfile
         public ActionResult Index(int userId)
         {
-            ViewBag.User = _userService.Get(userId);
+            ViewBag.User = UserService.Get(userId);
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};
@@ -33,7 +34,7 @@ namespace PmiOfficial.Controllers
         [HttpPost]
         public void Edit(EditUserDTO userDto)
         {
-            _userService.Edit(userDto);
+            UserService.Edit(userDto, new HttpServerUtilityWrapper(System.Web.HttpContext.Current.Server));
         }
 
 
