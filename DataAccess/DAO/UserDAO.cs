@@ -10,14 +10,14 @@ using System.Data.SqlTypes;
 
 namespace DataAccess.DAO
 {
-    public class UserDAO: AbstractDAO<User>
+    public class UserDAO : AbstractDAO<User>
     {
         public override void Create(User entity)
         {
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql =  "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp)" +
+                string sql = "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp)" +
                     " OUTPUT Inserted.ID " +
                     "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @SecurityStamp)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
@@ -31,7 +31,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
                 entity.Id = (int)cmd.ExecuteScalar();
-                
+
             }
         }
         public override User Read(int id)
@@ -57,7 +57,7 @@ namespace DataAccess.DAO
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
                         SecurityStamp = Convert(reader.GetValue(7)),
-                        ImageId = (int)reader.GetValue(8)
+                        ImageId = (int)reader.GetValue(10)
                     };
                 }
             }
@@ -121,7 +121,8 @@ namespace DataAccess.DAO
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (DateTime)reader.GetValue(6),
                         SecurityStamp = Convert(reader.GetValue(7)),
-                        ImageId = (int)reader.GetValue(8)                    };
+                        ImageId = (int)reader.GetValue(10)
+                    };
                 }
                 return user;
             }
@@ -150,7 +151,7 @@ namespace DataAccess.DAO
                             EMail = Convert(reader.GetValue(4)),
                             PasswordHash = Convert(reader.GetValue(5)),
                             Birthday = (DateTime)reader.GetValue(6),
-                            ImageId = (int)reader.GetValue(8),
+                            ImageId = (int)reader.GetValue(10),
                             SecurityStamp = Convert(reader.GetValue(7))
                         };
                     }
@@ -189,7 +190,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    result = reader.HasRows;                   
+                    result = reader.HasRows;
                 }
             }
             return result;

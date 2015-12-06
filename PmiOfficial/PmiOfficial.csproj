@@ -268,7 +268,9 @@
     <Content Include="Views\Event\Photos\bg-1.jpg" />
     <Content Include="Views\Event\Photos\bg-2.jpg" />
     <Content Include="Views\Event\Photos\header.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -291,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UsersImages\" />
     <Folder Include="Views\AccountTest\" />
   </ItemGroup>
   <ItemGroup>
