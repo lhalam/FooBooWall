@@ -7,12 +7,9 @@
 }
 
 @section Scripts{
-
-
     <script src="~/Scripts/editUserController.js"></script>
     <script src="~/Scripts/UserProfile.js"></script>
     <script src="~/Scripts/user.profile.js"></script>
-
 }
 
 <link type="stylesheet" rel="https://bootswatch.com/paper/bootstrap.min.css" />
@@ -88,8 +85,10 @@
                 var editUserUrl = '@Url.Action("Edit", "UserProfile")';
             </script>
             <p>Birthday: @ViewBag.User.Birthday</p>
-            @*<p>Mobile phone: </p>
-            <p>Skype:@ViewBag.User.Skype </p>*@
+            @*<p>Mobile phone: </p>*@
+            @*<p>Skype: @ViewBag.User.Skype </p>*@
+            <p>Skype: <a href="skype:@ViewBag.User.Skype?add">@ViewBag.User.Skype</a> </p> 
+            
             <p>Mail: @ViewBag.User.EMail</p>
             @*<p>Hobbies: @ViewBag.User.Hobbies</p>*@
         </div>
@@ -114,6 +113,10 @@
                     <div class="row">
                         <div class="col-lg-4">Email</div>
                         <input type="text" class="form-control" id="Email" value="@ViewBag.User.EMail">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">Skype</div>
+                        <input type="text" class="form-control" id="SkypeName" value="@ViewBag.User.Skype">
                     </div>
                     <div class="row">
                         <div class="col-lg-4">Birth date</div>

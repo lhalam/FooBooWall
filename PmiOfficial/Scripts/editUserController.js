@@ -6,7 +6,8 @@ var saveEditedUser = function () {
         FirstName: $("#FirstName").val(),
         LastName: $("#LastName").val(),
         EMail: $("#Email").val(),
-        Birthday: new Date($("#BirthDate").val()).getTime()
+        Birthday: new Date($("#BirthDate").val()).getTime(),
+        SkypeName: $("#SkypeName").val()
     }
 
     if (checkValid(editedUser)) {
