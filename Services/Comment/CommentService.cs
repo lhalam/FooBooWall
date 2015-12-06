@@ -3,9 +3,9 @@ using DataAccess.DAO;
 using Services.DTO;
 using System.Collections.Generic;
 
-namespace Services.Comments
+namespace Services
 {
-    public class CommentService
+    public class CommentService : ICommentService
     {
         private EventCommentsDao _commentsDao;
 
