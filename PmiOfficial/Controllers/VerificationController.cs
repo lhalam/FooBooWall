@@ -20,7 +20,6 @@ using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
-    [RequireSecureConnection]
     public class VerificationController : ApiController
     {
         // POST api/<controller>

@@ -8,7 +8,6 @@ using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
-    [RequireSecureConnection]
     public class HomeController : Controller
     {
         public ActionResult Index()

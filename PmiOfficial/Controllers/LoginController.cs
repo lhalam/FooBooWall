@@ -8,7 +8,6 @@ using PmiOfficial.Models;
 
 namespace PmiOfficial.Controllers
 {
-    [RequireSecureConnection]
     public class LoginController : Controller
     {
         [AllowAnonymous]

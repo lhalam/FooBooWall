@@ -20,7 +20,6 @@ using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
-    [RequireSecureConnection]
     public class AccountController : ApiController
     {
         private readonly CustomUserManager userManager = new CustomUserManager();

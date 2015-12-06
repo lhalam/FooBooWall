@@ -10,7 +10,6 @@ using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
-    [RequireSecureConnection]
     public class EventController : Controller
     {
         private EventService _eventService = new EventService(new EventDAO());

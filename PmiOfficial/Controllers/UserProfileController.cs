@@ -9,7 +9,6 @@ using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
-    [RequireSecureConnection]
     public class UserProfileController : Controller
     {
         public IUserService _userService;

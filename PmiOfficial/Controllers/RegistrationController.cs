@@ -7,7 +7,6 @@ using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
-    [RequireSecureConnection]
     public class RegistrationController : Controller
     {
         //
