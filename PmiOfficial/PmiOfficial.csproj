@@ -247,6 +247,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chart.min.js" />
     <Content Include="Scripts\comment.js" />
+    <Content Include="Scripts\createEventController.js" />
     <Content Include="Scripts\editUserController.js" />
     <Content Include="Scripts\globalChat.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

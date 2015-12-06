@@ -6,6 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using Services;
 using DataAccess.DAO;
+using Services.DTO;
+using PmiOfficial.Models;
+using Microsoft.AspNet.Identity;
 
 namespace PmiOfficial.Controllers
 {
@@ -52,6 +55,15 @@ namespace PmiOfficial.Controllers
             c.Add(c2);
             ViewBag.Comments = c;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(EventDTO eventViewModel)
+        {
+            int currentUserId = User.Identity.GetUserId<int>();
+
+            _eventService.Create(eventViewModel, currentUserId);
+            return RedirectToAction("Index", "UserProfile", new { userId = currentUserId });
         }
 
         public void AddComment(Comment comment)
