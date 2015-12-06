@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" type="text/css" href="~/Content/jquery.datepick.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/themes/base/all.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Chat.css" />
     @Styles.Render("~/Content/css")
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.plugin.min.js"></script>
@@ -44,6 +46,7 @@
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/editUserController.js"></script>
     <script src="~/Scripts/UserProfile.js"></script>
 </body>
