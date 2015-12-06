@@ -13,6 +13,7 @@ namespace PmiOfficial.Controllers
         {
             //ViewBag.Event = _eventService.GetEvent(eventId);
            // ViewBag.Comments = _eventService.GetComments(eventId);
+            //
             Event dummyEvent = new Event();
 
             dummyEvent.Decription = "This is event example";
@@ -32,17 +33,31 @@ namespace PmiOfficial.Controllers
             c1.WritingDate = DateTime.Now;
             c1.Text = "Very nice comment 1";
             Comment c2 = new Comment();
-            c1.AuthorId = 2;
-            c1.AuthorName = "Author 2";
-            c1.Id = 101;
-            c1.ImageName = "https://static.pexels.com/photos/6550/nature-sky-sunset-man.jpeg";
-            c1.WritingDate = DateTime.Now;
-            c1.Text = "Very nice comment 2";
+            c2.AuthorId = 2;
+            c2.AuthorName = "Author 2";
+            c2.Id = 101;
+            c2.ImageName = "https://static.pexels.com/photos/6550/nature-sky-sunset-man.jpeg";
+            c2.WritingDate = DateTime.Now;
+            c2.Text = "Very nice comment 2";
             List<Comment> c = new List<Comment>();
             c.Add(c1);
             c.Add(c2);
             ViewBag.Comments = c;
             return View();
+        }
+
+        [HttpPost]
+        public void AddComment(int EventId,int UserId,string Text)
+        {
+            int a = 0;
+            return;
+            //Index(EventId, UserId);
+        }
+        [HttpPost]
+        public void AddComment( string Text)
+        {
+            int a = 0;
+            return;
         }
     }
 }
