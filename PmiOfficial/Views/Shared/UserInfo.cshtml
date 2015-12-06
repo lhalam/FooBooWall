@@ -3,6 +3,23 @@
 {
     <li><a href="@Url.Action("Index", "UserProfile", new { userID = Model.Id })">Hello @Model.Name</a></li>
     <li><a href="/logout">LogOut</a></li>
+    
+   
+    <div id="globalChat" class="ui-widget-content panel panel-primary draggable" rel="0">
+        <div class="header panel-heading">
+            <span id="imgDelete" class="glyphicon glyphicon-remove pull-right"></span>
+            <span class="selText" rel="0"> All users </span>
+        </div>
+   
+            <div id="divMessage" class="messageArea panel-body">
+
+            </div>
+            <div class="buttonBar panel-footer form-inline">
+                <input id="globalMessage" class="msgText form-control" type="text" />
+                <button id="globalSendMessage" class="btn btn-primary"> Send </button>
+            </div>
+        </div>
+
     <div id="chatBody" class="panel panel-primary panel-body well" style="display: none; position: fixed; bottom: 60px; left: 0px;">
         <div id="header"></div>
         <div id="inputForm" class="form-group form-inline">
@@ -12,7 +29,7 @@
         <div id="chatroom" style="max-height: 400px; max-width: 300px;overflow-y: scroll"></div>
 
         <div id="chatusers">
-            <p><b>Amount of users: <span id="usersCount"></span></b></p>
+            <p><b>Amount of users: <span id="userCount"></span></b></p>
         </div>
     </div>
         <div id="divContainer">
@@ -21,6 +38,7 @@
                 Logged Users
             </div>
             <div id="divusers" class="users">
+                <a id="globalTitle" class="user">Global chat</a>
             </div>
         </div>
         <div id="toggleChatButtonDiv" class="toggleButton">
