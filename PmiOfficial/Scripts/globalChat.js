@@ -90,7 +90,10 @@ $(function () {
             if ($('#' + ctrId).length == 0) {
                 createPrivateChatWindow(chat, fromUserName, ctrId, chatWindowID);
             }
-
+            if ($('#' + ctrId).is(':hidden'))
+            {
+                $('#' + ctrId).show();
+            }
             $('#' + ctrId).find('#divMessage').append('<div class="message"><span>' + fromUserName + '</span>: ' + message + '</div>');
 
             var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
@@ -151,7 +154,12 @@ function registerEvents(chatHub) {
 
 function OpenPrivateChatWindow(chatHub, id, name) {
     var ctrId = 'private_' + name;
-    if ($('#' + ctrId).length > 0) return;
+    if ($('#' + ctrId).length > 0) {
+        if ($('#' + ctrId).is(':hidden')) {
+            $('#' + ctrId).show();
+        }
+        return;
+    }
     createPrivateChatWindow(chatHub, id, ctrId, name);
 }
 
@@ -174,7 +182,7 @@ function createPrivateChatWindow(chatHub, userId, ctrId, name) {
     var $div = $(div);
     // DELETE BUTTON IMAGE
     $div.find('#imgDelete').click(function () {
-        $('#' + ctrId).remove();
+        $('#' + ctrId).hide();
     });
     // Send Button event
     $div.find("#btnSendMessage").click(function () {
