@@ -11,12 +11,14 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "INSERT INTO PmiDatabase.dbo.images(Name)" +
-                                   "VALUES(@param1)";
+                const string sql = "INSERT INTO PmiDatabase.dbo.images(Name,PathToLocalImage)" +
+                                   " OUTPUT Inserted.ID " +
+                                   "VALUES(@param1,@param2)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.Name;
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.Name ?? string.Empty;
+                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.PathToLocalImage ?? string.Empty;
                 cmd.CommandType = CommandType.Text;
-                cmd.ExecuteNonQuery();
+                entity.Id = (int)cmd.ExecuteScalar();
             }
         }
 
@@ -35,7 +37,12 @@ namespace DataAccess.DAO
                     image = new Image
                     {
                         Id = (int)reader.GetValue(0),
-                        Name = (string)reader.GetValue(1)
+                        Name = reader.IsDBNull(1) ?
+                            string.Empty :
+                            reader.GetString(1),
+                        PathToLocalImage = reader.IsDBNull(2) ?
+                            string.Empty :
+                            reader.GetString(2)
                     };
                 }
             }

@@ -73,7 +73,7 @@ namespace DataAccess.DAO
                         EMail = Convert(reader.GetValue(4)),
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (DateTime)reader.GetValue(6),
-                        ImageId = (int)reader.GetValue(8),
+                        ImageId = (int)reader.GetValue(10),
                         SecurityStamp = Convert(reader.GetValue(7))
                     };
                     return user;
