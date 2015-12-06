@@ -14,18 +14,22 @@ namespace PmiOfficial.Hubs
         private readonly static ConcurrentDictionary<string, UserInfoHub> Users
                    = new ConcurrentDictionary<string, UserInfoHub>();
 
-        // Отправка сообщений
         public void Send(string name, string message)
         {
             Clients.All.addMessage(name, message);
         }
 
+<<<<<<< HEAD
         // Подключение нового пользователя
         override public Task OnConnected()
+=======
+        public void Connect(string name, int userId)
+>>>>>>> e69b3341a9f15008c7757579401cac5d21d4a2a2
         {
             var id = Context.ConnectionId;
             string name = GetCurrentUserLoginName();
 
+<<<<<<< HEAD
             UserInfoHub user = new UserInfoHub
             {
                 ConnectedTime = DateTime.Now,
@@ -50,12 +54,35 @@ namespace PmiOfficial.Hubs
             if (Users.ContainsKey(user.Name))
             {
                 Users[user.Name].ConnectionsIdList.Add(Context.ConnectionId);
+=======
+            if (!Users.Any(x => x.UserId == userId))
+            {
+                Users.Add(new UserInfoHub { ConnectionId = id, Name = name, UserId = userId });
+                Clients.Caller.onConnected(id, name, Users);
+                Clients.AllExcept(id).onNewUserConnected(id, name);
+>>>>>>> e69b3341a9f15008c7757579401cac5d21d4a2a2
             }
         }
 
-        // Отключение пользователя
+        public void SendPrivateMessage(string toUserId, string message)
+        {
+
+            string fromUserId = Context.ConnectionId;
+
+            var toUser = Users.FirstOrDefault(x => x.ConnectionId == toUserId);
+            var fromUser = Users.FirstOrDefault(x => x.ConnectionId == fromUserId);
+
+            if (toUser != null && fromUser != null)
+            {
+                Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.Name, message);
+                Clients.Caller.sendPrivateMessage(toUserId, fromUser.Name, message);
+            }
+
+        }
+
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {
+<<<<<<< HEAD
             if (stopCalled = true && Users[GetCurrentUserLoginName()].ConnectionsIdList.Count > 1)
             {
                 DeleteCurrentConnectionIdInList();
@@ -64,6 +91,17 @@ namespace PmiOfficial.Hubs
             {
                 UserInfoHub removedUser;
                 Users.TryRemove(GetCurrentUserLoginName(), out removedUser);
+=======
+            if (stopCalled)
+            {
+                var item = Users.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+                if (item != null)
+                {
+                    Users.Remove(item);
+                    var id = Context.ConnectionId;
+                    Clients.All.onUserDisconnected(id, item.Name);
+                }
+>>>>>>> e69b3341a9f15008c7757579401cac5d21d4a2a2
             }
             return Clients.All.onlineUserCount(Users.Count, Users);
         }

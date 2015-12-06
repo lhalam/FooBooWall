@@ -17,6 +17,23 @@
         margin-bottom: 10%;
         margin-left: 37.5%;
     }
+    .registerbutton{
+        margin-left: 46%;
+        margin-right: 10%;
+    }
+    .checkbutton {
+        margin-left: 48.5%;
+        margin-right: 10%;
+    }
+    .errors{
+        color: red;
+    }
+    .invisible{
+        display:none;
+    }
+    .goodres{
+        color:green;
+    }
 </style>
 
 
@@ -24,22 +41,38 @@
     <div class="form-group">
         <label for="login">Login</label>
         <input type="login" class="form-control" id="login" placeholder="Enter login">
+        <p class="help-block errors invisible" id="loginmessage">Login is required!</p>
     </div>
     <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" placeholder="Enter password">
-        <p class="help-block">Password should contain at least 8 characters</p>
-    </div>
-    <div class="form-group">
-        <label for="rpassword">Enter password</label>
+        <p class="help-block" id="passwordmessage">Password should contain at least 8 characters</p>
+        <p class="help-block invisible" id="empty1"><br></p>
         <input type="password" class="form-control" id="rpassword" placeholder="Repeat password">
-        <p class="help-block"> Passwords should match!</p>
+        <p class="help-block errors invisible" id="repeatpasswordmessage"> Passwords should match!</p>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" placeholder="Enter email">
+        <p class="help-block errors invisible" id="emailrequired">Email is required!</p>
+        <p class="help-block errors invisible" id="emailinvalid">Invalid Email format!</p>
     </div>
-    <button type="button" class="btn btn-primary" id="okbutton">ОК</button>
-    <div id="list"></div>
+    <button type="button" class="btn btn-primary registerbutton" id="okbutton">Register</button>
 </form>
+
+<div id="listsend" class="errors"></div>
+
+<div class="form-group invisible" id="verificationform">
+    <p>The letter with verification code has been sent to stated e-mail. Please enter it to complete registration process</p>
+    <label for="verification">Verification code</label>
+    <input type="text" class="form-control" id="verification" placeholder="Enter verification code">
+    <button type="button" class="btn btn-primary checkbutton" id="okbutton2">Check</button>
+</div>
+
+<div id="verificationresult" class="invisible"> </div>
+
+<div id="registerbtn" class="invisible"> 
+    <button type="button" class="btn btn-primary registerbutton" id="okbutton3">Register</button>
+</div>
+<div id="listreg" class="errors"></div>
 

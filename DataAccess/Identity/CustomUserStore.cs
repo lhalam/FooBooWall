@@ -102,6 +102,5 @@ namespace DataAccess.Identity
             return Task.FromResult(1);
         }
         #endregion
-        
     }
 }
