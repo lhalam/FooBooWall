@@ -4,12 +4,15 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using PmiOfficial.Models;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace PmiOfficial.Hubs
 {
     public class ChatHub : Hub
     {
-        static List<UserInfoHub> Users = new List<UserInfoHub>();
+        private readonly static ConcurrentDictionary<string, UserInfoHub> Users
+                   = new ConcurrentDictionary<string, UserInfoHub>();
 
         // Отправка сообщений
         public void Send(string name, string message)
@@ -18,35 +21,66 @@ namespace PmiOfficial.Hubs
         }
 
         // Подключение нового пользователя
-        public void Connect(string name)
+        override public Task OnConnected()
         {
             var id = Context.ConnectionId;
+            string name = GetCurrentUserLoginName();
 
-
-            if (!Users.Any(x => x.ConnectionId == id))
+            UserInfoHub user = new UserInfoHub
             {
-                Users.Add(new UserInfoHub { ConnectionId = id, Name = name });
+                ConnectedTime = DateTime.Now,
+                Name = name
+            };
+            AddOrUpdateUserInDictionary(user);
+            Clients.Caller.userConnected(id, name, Users.Count);
+            return Clients.All.onlineUserCount(Users.Count);
+        }
 
-                // Посылаем сообщение текущему пользователю
-                Clients.Caller.onConnected(id, name, Users);
+        private void AddOrUpdateUserInDictionary(UserInfoHub user)
+        {
+            if (!Users.ContainsKey(user.Name))
+            {
+                Users.AddOrUpdate(user.Name, user, (key, oldValue) => user);
+            }
+            AddConnectionIdToUser(user);
+        }
 
-                // Посылаем сообщение всем пользователям, кроме текущего
-                Clients.AllExcept(id).onNewUserConnected(id, name);
+        private void AddConnectionIdToUser(UserInfoHub user)
+        {
+            if (Users.ContainsKey(user.Name))
+            {
+                Users[user.Name].ConnectionsIdList.Add(Context.ConnectionId);
             }
         }
 
         // Отключение пользователя
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {
-            var item = Users.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (item != null)
+            if (stopCalled = true && Users[GetCurrentUserLoginName()].ConnectionsIdList.Count > 1)
             {
-                Users.Remove(item);
-                var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.Name);
+                DeleteCurrentConnectionIdInList();
             }
-
-            return base.OnDisconnected(stopCalled);
+            else
+            {
+                UserInfoHub removedUser;
+                Users.TryRemove(GetCurrentUserLoginName(), out removedUser);
+            }
+            return Clients.All.onlineUserCount(Users.Count, Users);
         }
+
+        private void DeleteCurrentConnectionIdInList()
+        {
+            int indexOfCurrentConnectionId = Users[GetCurrentUserLoginName()]
+                .ConnectionsIdList.FindIndex(s => s.Contains(Context.ConnectionId));
+
+            Users[GetCurrentUserLoginName()].ConnectionsIdList.RemoveAt(indexOfCurrentConnectionId);
+        }
+
+        private string GetCurrentUserLoginName()
+        {
+            return Context.Request.User.Identity.Name;
+        }
+
+
     }
 }
