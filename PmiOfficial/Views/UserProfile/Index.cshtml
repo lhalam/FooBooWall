@@ -85,12 +85,13 @@
             <hr />
             <script>
                 var userId = @ViewBag.User.Id;
+                var editUserUrl = '@Url.Action("Edit", "UserProfile")';
             </script>
             <p>Birthday: @ViewBag.User.Birthday</p>
-            <p>Mobile phone: </p>
-            <p>Skype:@ViewBag.User.Skype </p>
+            @*<p>Mobile phone: </p>
+            <p>Skype:@ViewBag.User.Skype </p>*@
             <p>Mail: @ViewBag.User.EMail</p>
-            <p>Hobbies: @ViewBag.User.Hobbies</p>
+            @*<p>Hobbies: @ViewBag.User.Hobbies</p>*@
         </div>
     </div>
 

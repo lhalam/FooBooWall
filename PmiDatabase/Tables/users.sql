@@ -8,6 +8,6 @@
 	PasswordHash	varchar(MAX) NULL DEFAULT '',
 	[BirthDate]			DATE DEFAULT '',
 	[SecurityStamp] VARCHAR(MAX) NULL DEFAULT '', 
-    [Image_id] INT NULL
+    [Image_id] INT NOT NULL
 )
 

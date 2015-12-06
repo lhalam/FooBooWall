@@ -41,7 +41,7 @@ namespace DataAccess.DAO
                 cmd.Parameters.Add("@loginProvider", System.Data.SqlDbType.VarChar, -1).Value = info.LoginProvider;
                 cmd.Parameters.Add("@providerKey", System.Data.SqlDbType.VarChar, -1).Value = info.ProviderKey;
                 await conn.OpenAsync();
-                await cmd.ExecuteNonQueryAsync();
+               var t =  await cmd.ExecuteNonQueryAsync();
             }
         }
 
@@ -73,8 +73,8 @@ namespace DataAccess.DAO
                         EMail = Convert(reader.GetValue(4)),
                         PasswordHash = Convert(reader.GetValue(5)),
                         Birthday = (DateTime)reader.GetValue(6),
-                        ImageId = (int)reader.GetValue(7),
-                        SecurityStamp = Convert(reader.GetValue(8))
+                        ImageId = (int)reader.GetValue(8),
+                        SecurityStamp = Convert(reader.GetValue(7))
                     };
                     return user;
                 }

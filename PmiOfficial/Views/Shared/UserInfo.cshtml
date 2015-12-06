@@ -1,7 +1,7 @@
 ﻿@model PmiOfficial.Models.UserInfo
 @if (Model.IsAuthenticated)
 {
-    <li><a href="UserProfile/?userID=@Model.Id">Hello @Model.Name</a></li>
+    <li><a href="@Url.Action("Index", "UserProfile", new { userID = Model.Id })">Hello @Model.Name</a></li>
     <li><a href="/logout">LogOut</a></li>
     <div id="chatBody" class="panel panel-primary panel-body well" style="position: fixed; bottom: 60px; left: 0px;">
         <div id="header"></div>
@@ -15,16 +15,34 @@
             <p><b>All users:</b></p>
         </div>
     </div>
+        <div id="divContainer">
+        <div id="chatMultUsersDiv" class="chatMultipleUsers">
+            <div class="title">
+                Logged Users
+            </div>
+            <div id="divusers" class="users">
+            </div>
+        </div>
+        <div id="toggleChatButtonDiv" class="toggleButton">
+            <button id="toggleChatButton" class="btn btn-default">
+                <span class="glyphicon glyphicon-minus"></span>
+            </button>
+        </div>
+        <input id="chatHhUserID" type="hidden" />
+        <input id="chatHhUserName" type="hidden" />
+    </div>
     <input id="hdId" type="hidden" />
     <input id="username" type="hidden" />
+    <script src="/Scripts/jquery-ui-1.11.4.min.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-    <script src="~/signalr/hubs"></script>
     <script>
-      userName = "@Model.Name";
+        userName = "@Model.Name";
+        loggedUserID = @Model.Id;
     </script>
 }
 else
 {
     <li>@Html.ActionLink("Sign in", "Index", "Login", new { area = "" }, null)</li>
     <li>@Html.ActionLink("Sign up", "Index", "Registration", new { area = "" }, null)</li>
+    
 }
