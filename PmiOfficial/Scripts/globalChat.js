@@ -157,20 +157,18 @@ function OpenPrivateChatWindow(chatHub, id, name) {
 
 function createPrivateChatWindow(chatHub, userId, ctrId, name) {
 
-    var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
-               '<div class="header">' +
-                  '<div  style="float:right;">' +
-                      '<img id="imgDelete"  style="cursor:pointer;" src="/Images/delete.png"/>' +
-                   '</div>' +
+    var div = '<div id="' + ctrId + '" class="ui-widget-content panel panel-primary draggable" rel="0">' +
+               '<div class="header panel-heading">' +
+                  '<span id="imgDelete" class="glyphicon glyphicon-remove pull-right"></span>' +
 
                    '<span class="selText" rel="0">' + name + '</span>' +
                '</div>' +
                '<div id="divMessage" class="messageArea">' +
 
                '</div>' +
-               '<div class="buttonBar">' +
-                  '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
-                  '<input id="btnSendMessage" class="submitButton button" type="button" value="Send"   />' +
+               '<div class="buttonBar panel-footer form-inline">' +
+                  '<input id="txtPrivateMessage" class="msgText form-control" type="text"   />' +
+                  '<input id="btnSendMessage" class="btn btn-primary" type="button" value="Send"   />' +
                '</div>' +
             '</div>';
     var $div = $(div);
