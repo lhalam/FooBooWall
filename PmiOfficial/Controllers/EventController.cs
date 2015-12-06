@@ -4,15 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Services;
+using DataAccess.DAO;
 
 namespace PmiOfficial.Controllers
 {
     public class EventController : Controller
     {
-        public ActionResult Index() 
+        private EventService _eventService = new EventService(new EventDAO());
+        private CommentService _commentsService = new CommentService(new EventCommentsDao());
+
+        public ActionResult Index(int? userId, int? eventId) 
         {
-            //ViewBag.Event = _eventService.GetEvent(eventId);
-           // ViewBag.Comments = _eventService.GetComments(eventId);
+            //uncomment when CommentsDao is implemented
+
+            //ViewBag.Event = _eventService.Get(eventId);
+            //ViewBag.Comments = _commentsService.GetEventComments(eventId);
+            //ViewBag.UserId = userId;
+
             Event dummyEvent = new Event();
 
             dummyEvent.Decription = "This is event example";
@@ -43,6 +52,11 @@ namespace PmiOfficial.Controllers
             c.Add(c2);
             ViewBag.Comments = c;
             return View();
+        }
+
+        public void AddComment(Comment comment)
+        {
+            _commentsService.Create(comment);
         }
     }
 }
