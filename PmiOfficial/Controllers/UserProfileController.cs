@@ -16,11 +16,11 @@ namespace PmiOfficial.Controllers
     public class UserProfileController : Controller
     {
         public IUserService UserService;
-        public IImageService ImagesService;
+        public IImageService _imagesService;
         public UserProfileController()
         {
             UserService = new UserService(new UserDAO());
-            ImagesService = new ImageService();
+            _imagesService = new ImageService();
         }
 
         // GET: UserProfile
@@ -30,6 +30,7 @@ namespace PmiOfficial.Controllers
             ImageDAO imageDAO = new ImageDAO();
 
             User user = UserService.Get(userId);
+            ViewBag.UserId = user.Id;
             ViewBag.User = user;
             List<UsefulLink> list = usefulLinkDAO.ReadAll();
             if (list.Count == 0)
@@ -50,18 +51,29 @@ namespace PmiOfficial.Controllers
                                                Url = x.Url
                                            };
             }
-            ViewBag.AvatarPath = ImagesService.Get(user.ImageId).Name;
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};
+
+            if (user.ImageId != 0)
+            {
+                var image = _imagesService.Get(user.ImageId);
+                if (!string.IsNullOrEmpty(image.PathToLocalImage))
+                {
+                    ViewBag.UserImage = ConvertLocalServerPathToUrl(image.PathToLocalImage);
+                }
+            }
 
             return View();
         }
 
         [HttpPost]
-        public void Edit(EditUserDTO userDto)
+        public ActionResult Edit(EditUserDTO userDto, System.Web.HttpPostedFileBase imageFile)
         {
-            UserService.Edit(userDto, new HttpServerUtilityWrapper(System.Web.HttpContext.Current.Server));
+            userDto.ImageFile = imageFile;
+            UserService.Edit(userDto, HttpContext.Server);
+
+            return RedirectToAction("Index", new { userId = userDto.Id });
         }
 
 
