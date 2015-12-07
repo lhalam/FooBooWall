@@ -41,7 +41,7 @@ namespace Services.Statistics
 
             for (int i = 0; i < hoursInDay; i++)
             {
-                string hourRangeName = String.Format("{0}:00 - {1}:59", i, i + 1);
+                string hourRangeName = String.Format("{0}:00 - {0}:59", i);
                 int eventCountHeldInHour = events.Count(u => u.Time.Hour == i);
                 result[hourRangeName] = eventCountHeldInHour;
             }

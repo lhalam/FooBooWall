@@ -4,8 +4,7 @@
 }
 @section Scripts{
     <!-- Fetch the image addition script -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+  
 
     <script src="~/Scripts/comment.js"></script>
 }
@@ -96,13 +95,13 @@
                 <div class="col-sm-6">
 
                     <i class="ion-ios-calendar"></i>
-                    <h3>@ViewBag.Event.Time.ToString("yyyy")<br>@ViewBag.Event.Time.ToString("MMMM, dd")</h3>
+                    <h3>@ViewBag.Event.Time.ToString("dd MMMM")<br>@ViewBag.Event.Time.ToString("yyyy")</h3>
 
                 </div>
                 <div class="col-sm-6">
 
                     <i class="ion-ios-location"></i>
-                    <h3>California<br>USA</h3>
+                    <h3>@ViewBag.Event.Location</h3>
 
                 </div>
             </div><!-- row -->
@@ -159,7 +158,7 @@
                 <div class="col-sm-3">
                     <h3 class="section-title">Event Location</h3>
                     <address>
-                        <p>Eardenia<br> The Grand Hall<br> House # 08, Road #52, Street<br> Phone: +1159t3764<br> Email: example@mail.com</p>
+                        <p>@ViewBag.Event.Location</p>
                     </address>
                 </div>
                 <div class="col-sm-9">
