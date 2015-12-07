@@ -13,7 +13,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "INSERT INTO PmiDatabase2.dbo.events(Name, Location, Description, Image_id, Organizer_id, Event_time)" +
+                const string sql = "INSERT INTO PmiDatabase.dbo.events(Name, Location, Description, Image_id, Organizer_id, Event_time)" +
                                    "VALUES(@param1, @param2, @param3, @param4, @param5, @param6)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.Text).Value = entity.Name;
@@ -105,9 +105,9 @@ namespace DataAccess.DAO
                             Name = (string)reader.GetValue(1),
                             Location = (string)reader.GetValue(2),
                             Decription = (string)reader.GetValue(3),
-                            ImageId = (int)reader.GetValue(4),
-                            OrganizerId = (int)reader.GetValue(5),
-                            Time = ((reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6])
+                            ImageId = (int)reader.GetValue(5),
+                            OrganizerId = (int)reader.GetValue(6),
+                            Time = (DateTime)reader.GetValue(4),
                         });
                     }
                 }

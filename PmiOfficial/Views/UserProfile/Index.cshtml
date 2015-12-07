@@ -9,6 +9,7 @@
 
 @section Scripts{
     <script src="~/Scripts/editUserController.js"></script>
+    <script src="~/Scripts/createEventController.js"></script>
     <script src="~/Scripts/UserProfile.js"></script>
     <script src="~/Scripts/user.profile.js"></script>
 }
@@ -22,7 +23,7 @@
             <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
         </div>
         <div class="col-md-4 img-profile-fotos">
-            <img src="https://pp.vk.me/c628627/v628627737/a31f/vj9H9uq3DY0.jpg" style="border: 5px solid #9E9E9E" />
+            <img src="@ViewBag.AvatarPath" style="border: 5px solid #9E9E9E" />
             <h3 class="userName">@ViewBag.User.FirstName @ViewBag.User.LastName</h3>
             <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
         </div>
@@ -76,18 +77,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel-default panel">
-                <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#editUserModal"></span></h3>
-                <hr />
-                <script>
-                    var userId = @ViewBag.User.Id;
-                    var editUserUrl = '@Url.Action("Edit", "UserProfile")';
-                </script>
-                <p>Birthday: @ViewBag.User.Birthday</p>
-                @*<p>Mobile phone: </p>*@
-                @*<p>Skype: @ViewBag.User.Skype </p>*@
-                <p>Skype: <a href="skype:@ViewBag.User.Skype?add">@ViewBag.User.Skype</a> </p> 
+    <div class="col-md-4">
+        <div class="panel-default panel">
+            <h3 style="text-align: center">About you <span class="pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#editUserModal"></span></h3>
+            <hr />
+            <script>
+                var userId = @ViewBag.User.Id;
+                var editUserUrl = '@Url.Action("Edit", "UserProfile")';
+                var createEventUrl = '@Url.Action("Create", "Event")';
+            </script>
+            <p>Birthday: @ViewBag.User.Birthday</p>
+            @*<p>Mobile phone: </p>*@
+            @*<p>Skype: @ViewBag.User.Skype </p>*@
+            <p>Skype: <a href="skype:@ViewBag.User.Skype?add">@ViewBag.User.Skype</a> </p>
             
                 <p>Mail: <a href="mailto:@ViewBag.User.EMail?add">@ViewBag.User.EMail</a> </p>
                 @*<p>Hobbies: @ViewBag.User.Hobbies</p>*@
@@ -146,12 +148,74 @@
 
         <div class="col-md-4">
             <div class="panel panel-default">
-                <h3 style="text-align: center">Gonna visit<span class="pull-right glyphicon glyphicon-edit"></span></h3>
+             
+                <!--<button type="button" class="btn btn-primary" id="ShowIventCalendar">Events Calendar</button>-->
+                <a href="/EventCalendar"><h3 style="text-align: center">Events Calendar<span class="pull-right glyphicon glyphicon-calendar"></span></h3></a>
                 <hr />
+                /EventCalendar
                 <!--calendar-->
 
             </div>
         </div>
+
+        <div class="container">
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Event</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Create Event</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-4">Name</div>
+                                <input type="text" class="form-control" id="eventName">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Location</div>
+                                <input type="text" class="form-control" id="eventLocation">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Date</div>
+                                <input type="text" class="form-control clsDatePicker" onclick="pickDate()" readonly="readonly" id="eventDateTime">
+
+                                <!--<input type="text" class="form-control clsDatePicker" onclick="pickDate()" id="Time">-->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Add Image</div>
+                                <div class="input-group image-preview">
+                                    <input type="text" class="form-control image-preview-filename" disabled="disabled">
+                                    <span class="input-group-btn">
+                                        <div class="btn btn-default image-preview-input">
+                                            <span class="glyphicon glyphicon-folder-open"></span>
+                                            <span class="image-preview-input-title">Browse</span>
+                                            <input type="file" accept="image/png, image/jpeg, image/gif" name="imageFile" id="eventImageId" />
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Description</div>
+                                <textarea type="text" class="form-control" rows="10" id="eventDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="createEventButton" class="btn btn-success">Create</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
     <div class="row timetable-row">
         <div class="col-md-offset-1 col-md-2 tasks-notes panel" style="background-color: #90CAF9">
@@ -205,5 +269,6 @@
             }
         </div>
     </div>
+
 </div>
     
