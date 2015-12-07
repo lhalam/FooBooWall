@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entities;
 using Services.DTO;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -12,5 +13,6 @@ namespace Services
         void Delete(int id);
 
         void Create(EventDTO eventDTO, int userId);
+        IEnumerable<Event> Get();
     }
 }
