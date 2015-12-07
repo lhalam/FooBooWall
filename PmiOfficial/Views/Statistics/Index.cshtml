@@ -7,10 +7,10 @@
 
     <!-- Fetch some values from ViewBag - these are later used in stats.page.js-->
     <script>
-        var userlabels = "@ViewBag.UserStatsLabels";
-        var userdata = "@ViewBag.UserStatsData";
+        var userlabels  = "@ViewBag.UserStatsLabels";
+        var userdata    = "@ViewBag.UserStatsData";
         var eventlabels = "@ViewBag.EventStatsLabels";
-        var eventdata = "@ViewBag.EventStatsData";
+        var eventdata   = "@ViewBag.EventStatsData";
     </script>
 
     <script src="~/Scripts/stats.page.js"></script>
@@ -35,12 +35,9 @@
                 Event Time Stats
             </div>
             <div class="panel-body">
-                <h3>No statistics since there aren't any events at all. Need to improve seeding</h3>
-                <!--
                 <div>
                     <canvas id="eventStatsCanvas"></canvas>
                 </div>
-                -->
             </div>
         </div>
     </div>

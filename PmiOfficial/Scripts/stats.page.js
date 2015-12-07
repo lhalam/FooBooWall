@@ -7,10 +7,9 @@ var userres = {
     }]
 };
 
-var userLineChart = new Chart(usercontext).Line(userres, { responsive: true });
+var userLineChart = new Chart(usercontext).Bar(userres, { responsive: true });
 
-/*
-var eventcontext =  $("#eventStatsCanvas").get(0).getContext("2d");
+var eventcontext = $("#eventStatsCanvas").get(0).getContext("2d");
 
 var eventres = {
     labels: eventlabels.split(", "),
@@ -19,5 +18,4 @@ var eventres = {
         data: eventdata.split(", ")
     }]
 };
-var eventLineChart = new Chart(eventcontext).Line(eventres, { responsive: true });
-*/
+var eventLineChart = new Chart(eventcontext).Bar(eventres, { responsive: true });
