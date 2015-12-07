@@ -21,7 +21,7 @@
             <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
         </div>
         <div class="col-md-4 img-profile-fotos">
-            <img src="https://pp.vk.me/c628627/v628627737/a31f/vj9H9uq3DY0.jpg" style="border: 5px solid #9E9E9E" />
+            <img src="@ViewBag.AvatarPath" style="border: 5px solid #9E9E9E" />
             <h3 class="userName">@ViewBag.User.FirstName @ViewBag.User.LastName</h3>
             <div class="fader"><button class="btn btn-default fotoChangeButton"><span class="glyphicon glyphicon-camera"></span></button></div>
         </div>
@@ -145,8 +145,11 @@
 
         <div class="col-md-4">
             <div class="panel panel-default">
-                <h3 style="text-align: center">Gonna visit<span class="pull-right glyphicon glyphicon-edit"></span></h3>
+             
+                <!--<button type="button" class="btn btn-primary" id="ShowIventCalendar">Events Calendar</button>-->
+                <a href="/EventCalendar"><h3 style="text-align: center">Events Calendar<span class="pull-right glyphicon glyphicon-calendar"></span></h3></a>
                 <hr />
+                /EventCalendar
                 <!--calendar-->
 
             </div>

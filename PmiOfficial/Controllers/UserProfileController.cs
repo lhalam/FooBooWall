@@ -8,22 +8,27 @@ using PmiOfficial.Models;
 using Services;
 using Services.DTO;
 using Services.ImageServices;
+using DataAccess.Entities;
 
 namespace PmiOfficial.Controllers
 {
     public class UserProfileController : Controller
     {
         public IUserService UserService;
+        public IImageService ImagesService;
 
         public UserProfileController()
         {
             UserService = new UserService(new UserDAO());
+            ImagesService = new ImageService();
         }
 
         // GET: UserProfile
         public ActionResult Index(int userId)
         {
-            ViewBag.User = UserService.Get(userId);
+            User user = UserService.Get(userId);
+            ViewBag.User = user;
+            ViewBag.AvatarPath = ImagesService.Get(user.ImageId).Name;
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};
@@ -54,7 +59,7 @@ namespace PmiOfficial.Controllers
             var url = new StringBuilder(localPath);
 
             url.Replace(@"\", @"/");
-
+            //перед тим йшл
             int index = localPath.IndexOf(ImageService.LOCAL_FOLDER_TO_SAVE_IMAGES);
 
             url.Remove(0, index);

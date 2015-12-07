@@ -1,6 +1,7 @@
 ﻿using DataAccess.Entities;
 using DataAccess.DAO;
 using Services.DTO;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -49,6 +50,11 @@ namespace Services
             e.Time = eventDTO.Time;
 
             _dao.Create(e);
+        }
+
+        public IEnumerable<Event> Get()
+        {
+            return _dao.ReadAll();
         }
     }
 }
