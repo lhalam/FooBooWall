@@ -9,26 +9,64 @@ using Services;
 using Services.DTO;
 using Services.ImageServices;
 using DataAccess.Entities;
+<<<<<<< HEAD
+using System.Linq;
+=======
+>>>>>>> df600a60b8f3b3e34b025c42f19c9381dc8dd3f5
 
 namespace PmiOfficial.Controllers
 {
     public class UserProfileController : Controller
     {
         public IUserService UserService;
+<<<<<<< HEAD
+=======
         public IImageService ImagesService;
+>>>>>>> df600a60b8f3b3e34b025c42f19c9381dc8dd3f5
 
         public UserProfileController()
         {
             UserService = new UserService(new UserDAO());
+<<<<<<< HEAD
+=======
             ImagesService = new ImageService();
+>>>>>>> df600a60b8f3b3e34b025c42f19c9381dc8dd3f5
         }
 
         // GET: UserProfile
         public ActionResult Index(int userId)
         {
+<<<<<<< HEAD
+            UsefulLinkDAO usefulLinkDAO = new UsefulLinkDAO();
+            ImageDAO imageDAO = new ImageDAO();
+
+            User user = UserService.Get(userId);
+            ViewBag.User = user;
+            List<UsefulLink> list = usefulLinkDAO.ReadAll();
+            if (list.Count == 0)
+            {
+                ViewBag.UsefulLinks = new List<UsefulLinkDTO>();
+            }
+            else
+            {
+                ViewBag.UsefulLinks = from x in list
+                                           where x.OwnerUserID == user.Id
+                                           select new UsefulLinkDTO
+                                           {
+                                               Id = x.Id,
+                                               Comment = x.Comment,
+                                               ImageUrl = imageDAO.Read(x.ImageId ?? 0).Name,
+                                               Name = x.Name,
+                                               OwnerUserID = x.OwnerUserID,
+                                               Url = x.Url
+                                           };
+            }
+            
+=======
             User user = UserService.Get(userId);
             ViewBag.User = user;
             ViewBag.AvatarPath = ImagesService.Get(user.ImageId).Name;
+>>>>>>> df600a60b8f3b3e34b025c42f19c9381dc8dd3f5
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};
@@ -68,6 +106,5 @@ namespace PmiOfficial.Controllers
 
             return url.ToString();
         }
-
     }
 }

@@ -11,7 +11,7 @@ Post-Deployment Script Template
 */
 
 INSERT INTO images(Name) 
-VALUES('https://i.ytimg.com/vi/GlcaoHxi5p4/maxresdefault.jpg' );
+VALUES('http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg' );
 INSERT INTO images(Name) 
 VALUES('https://pp.vk.me/c628627/v628627737/a321/2uk5TUqgz6E.jpg' );
 

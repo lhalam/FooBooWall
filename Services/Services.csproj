@@ -83,6 +83,7 @@
     <Compile Include="Auth\ExternalLoginData.cs" />
     <Compile Include="Auth\LoginViewModel.cs" />
     <Compile Include="DTO\EventDTO.cs" />
+    <Compile Include="DTO\UsefulLinkDTO.cs" />
     <Compile Include="Event\EventService.cs" />
     <Compile Include="Event\IEventService.cs" />
     <Compile Include="ImageServices\IImageService.cs" />
