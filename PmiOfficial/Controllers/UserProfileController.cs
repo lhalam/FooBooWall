@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using DataAccess.DAO;
 using Microsoft.AspNet.Identity;
@@ -6,67 +8,33 @@ using PmiOfficial.Models;
 using Services;
 using Services.DTO;
 using Services.ImageServices;
-using System.Text;
 
 namespace PmiOfficial.Controllers
 {
     public class UserProfileController : Controller
     {
-        public IUserService _userService;
-        private IImageService _imageService;
+        public IUserService UserService;
 
         public UserProfileController()
         {
-            _userService = new UserService(new UserDAO());
-            _imageService = new ImageService();
+            UserService = new UserService(new UserDAO());
         }
 
         // GET: UserProfile
         public ActionResult Index(int userId)
         {
-            var user = _userService.Get(userId);
-            ViewBag.UserId = userId;
-            ViewBag.User = user;
+            ViewBag.User = UserService.Get(userId);
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};
-            
-            if(user.ImageId != 0)
-            {
-                var image = _imageService.Get(user.ImageId);
-                if (!string.IsNullOrEmpty(image.PathToLocalImage))
-                {
-                    ViewBag.UserImage = ConvertLocalServerPathToUrl(image.PathToLocalImage);
-                }
-            }
-            
-            //ViewBag.User = new User
-            //{
-            //    FirstName = "Padus",
-            //    LastName = "Sofija",
-            //    Login = "PSofija",
-            //    EMail = "sofijaPadus@gmail.com",
-            //    Password = "qwertyqwerqwqrqw",
-            //    Image_ID = 1,
-            //    VK_ID = "vkiD",
-            //    FB_ID = "facebook",
-            //    Skype = "skype",
-            //    Hobbies = "hobbies",
-            //    Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
-            //        { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}
-            //    }
-            //};
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Edit(EditUserDTO userDto, System.Web.HttpPostedFileBase imageFile)
+        public void Edit(EditUserDTO userDto)
         {
-            userDto.ImageFile = imageFile;
-            _userService.Edit(userDto, HttpContext.Server);
-
-            return RedirectToAction("Index", new { userId = userDto.Id });
+            UserService.Edit(userDto, new HttpServerUtilityWrapper(System.Web.HttpContext.Current.Server));
         }
 
 

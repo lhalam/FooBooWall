@@ -1,5 +1,5 @@
-﻿﻿using DataAccess.Identity;
-﻿using DataAccess.Entities;
+﻿using DataAccess.Identity;
+using DataAccess.Entities;
 using DataAccess.DAO;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
+using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {

@@ -9,6 +9,7 @@ using DataAccess.DAO;
 using Services.DTO;
 using PmiOfficial.Models;
 using Microsoft.AspNet.Identity;
+using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {

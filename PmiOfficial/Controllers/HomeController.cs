@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using PmiOfficial.Filters;
 
 namespace PmiOfficial.Controllers
 {
