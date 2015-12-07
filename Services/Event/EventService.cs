@@ -2,6 +2,7 @@
 using DataAccess.DAO;
 using Services.DTO;
 using System.Collections.Generic;
+using Services.ImageServices;
 
 namespace Services
 {
@@ -11,7 +12,7 @@ namespace Services
 
         public EventService(EventDAO dao) 
         {
-            _dao = dao;        
+            _dao = dao;
         }
 
         public Event Get(int id)
@@ -43,9 +44,10 @@ namespace Services
             Event e = new Event();
 
             e.Id = eventDTO.Id;
-            e.ImageId = eventDTO.ImageId;
             e.Location = eventDTO.Location;
+            e.ImageId = eventDTO.ImageId;
             e.Name = eventDTO.Name;
+            e.Decription = eventDTO.Decription;
             e.OrganizerId = userId;
             e.Time = eventDTO.Time;
 

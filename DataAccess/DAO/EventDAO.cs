@@ -13,7 +13,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "INSERT INTO PmiDatabase2.dbo.events(Name, Location, Description, Image_id, Organizer_id, Event_time)" +
+                const string sql = "INSERT INTO PmiDatabase.dbo.events(Name, Location, Description, Image_id, Organizer_id, Event_time)" +
                                    "VALUES(@param1, @param2, @param3, @param4, @param5, @param6)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@param1", SqlDbType.Text).Value = entity.Name;

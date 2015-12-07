@@ -256,6 +256,7 @@
     <Content Include="Scripts\Calendar.js" />
     <Content Include="Scripts\chart.min.js" />
     <Content Include="Scripts\comment.js" />
+    <Content Include="Scripts\createEventController.js" />
     <Content Include="Scripts\editUserController.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
