@@ -6,7 +6,7 @@
     <link href="@Url.Content("~/Content/UserProfile.css")" rel="stylesheet" type="text/css"/>
 }
 
-@section Scripts{
+@section scripts{
     <script src="~/Scripts/editUserController.js"></script>
     <script src="~/Scripts/UserProfile.js"></script>
     <script src="~/Scripts/user.profile.js"></script>
@@ -41,6 +41,25 @@
                 </h3>
                 <!-- <button type="button" class="vcenter btn btn-default btn-lg pull-right glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModal"></button> -->
                 <hr />
+                @foreach(var x in ViewBag.UsefulLinks)
+                {
+                    <div class="UsefulLink" id="@x.Id">
+                        <h3 style="text-align: left">
+                        
+                            <h4>
+                                <a href="@x.Url" style="color: GrayText">
+                                    @x.Name
+                                </a>
+                                <span id="removeUsefulLink"class="pull-right glyphicon glyphicon-remove"  onclick="removeUsefulLink(@x.Id)"></span>
+
+                            </h4>
+                        <a href="@x.Url" style="color: GrayText">
+                            <img class="full" src="@x.ImageUrl" style="width: 100%; height: 30%"/>
+                        </a>
+                    </h3>
+                    <hr />
+                    </div>
+                }
             </div>
 
             <div class="modal fade" id="addUsefulLinkModal" role="dialog">
@@ -58,6 +77,10 @@
                             <div class="row">
                                 <div class="col-lg-4">Url</div>
                                 <input type="text" class="form-control" id="UsefulLinkUrl" value="">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Comment</div>
+                                <textarea type="text" class="form-control" rows="8" cols="50 id="UsefulLinkComment" value=""> comment...</textarea>
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">Image</div>

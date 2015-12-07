@@ -185,6 +185,7 @@
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\UsefulLinksController.cs" />
     <Compile Include="Controllers\VerificationController.cs" />
     <Compile Include="Filters\EnforceHttpsHandler.cs" />
     <Compile Include="Filters\RequireSecureConnectionAttribute.cs" />
