@@ -1,7 +1,41 @@
-﻿<div>
-    @*<div class="col-sm-4" align="left"><img src="https://popsicle2014.files.wordpress.com/2014/07/snoop-dogg-gggggga721eb54a9-290x595x58.gif" /> </div>*@
-    <div class="col-sm-4"><h1>Hi guys, It`s pmi 31 group</h1></div>
-    @*<div class="col-sm-4" align="right" ><img src="https://popsicle2014.files.wordpress.com/2014/07/snoop-dogg-gggggga721eb54a9-290x595x58.gif" /> </div>*@
-    @*<iframe hidden src="https://www.youtube.com/embed/bzIfaq6xKV8?autoplay=1"></iframe>*@
-</div>
+﻿@section AddToLayout
+{
+    <link href="@Url.Content("~/Content/style.css")" rel="stylesheet" type="text/css"/>
+}
+  
+@section Scripts{
+    <script src="~/Scripts/HomePage.js"></script>
+    <script src="~/Scripts/plugins.js"></script>
+    <script src="~/Scripts/main.js"></script>   
+}
 
+
+<div class="row" id="myColumns">
+    <div id="left_dog" hidden class="col-sm-2" align="left"><img src="https://popsicle2014.files.wordpress.com/2014/07/snoop-dogg-gggggga721eb54a9-290x595x58.gif" /> </div>
+    <div class="col">
+    <div class="slider">
+		<ul class="bxslider">
+			<li>
+				<div class="container">
+					<div class="info">
+						<h2>3 курс<br><a href="http://ami.lnu.edu.ua/students/schedule?subpage=group&id=293&semester=1"><span>Новий роклад</span></a></h2>
+					</div>
+				</div>
+				<!-- / content -->
+			</li>
+			<li>
+				<div class="container">
+					<div class="info">
+						<h2><a href="https://tjournal.ru/p/deep-bunny-hole#"><span>js і дівчата</span></a></h2>
+					</div>
+				</div>
+				<!-- / content -->
+			</li>
+		</ul>
+		<div class="bg-bottom"></div>
+	</div>
+
+    </div>
+    <div id="right_dog" hidden class="col-sm-2" align="right" ><img src="https://popsicle2014.files.wordpress.com/2014/07/snoop-dogg-gggggga721eb54a9-290x595x58.gif" /> </div>
+</div>
+<iframe id="snop_song" hidden src="//www.youtube.com/embed/KlujizeNNQM?rel=0"></iframe>
