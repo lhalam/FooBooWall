@@ -5,57 +5,12 @@
 /* 
  * 2.0 Global Style
  */
-html {
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-}
 
-body {
-  color: #4e4e4e;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.6;
-  position: relative;
-  -webkit-font-smoothing: antialiased;
-}
+
 
 div input{width: 100%;height: 100%;}
 
-a {
-  color: #000;
-}
-.thumbnail {
-    padding:0px;
-}
-.panel {
-	position:relative;
-}
-.panel>.panel-heading:after,.panel>.panel-heading:before{
-	position:absolute;
-	top:11px;left:-16px;
-	right:100%;
-	width:0;
-	height:0;
-	display:block;
-	content:" ";
-	border-color:transparent;
-	border-style:solid solid outset;
-	pointer-events:none;
-}
-.panel>.panel-heading:after{
-	border-width:7px;
-	border-right-color:#f7f7f7;
-	margin-top:1px;
-	margin-left:2px;
-}
-.panel>.panel-heading:before{
-	border-right-color:#ddd;
-	border-width:8px;
-}
-a:focus {
-  outline: none;
-}
+
 
 h1,
 h2,
@@ -70,10 +25,7 @@ p {
   margin: 0 0 30px;
 }
 
-ul li {
-  font-weight: 700;
-  margin-bottom: 10px;
-}
+
 
 .custom-list-icon, .list-arrow-right {
   list-style-type: none;
@@ -283,66 +235,6 @@ ul li {
 /* 
  * 4.0 Navigation
  */
-.navbar-custom {
-  border: 0;
-  margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #000;
-  -webkit-transition: all 0.2s linear 0s;
-          transition: all 0.2s linear 0s;
-}
-.navbar-custom .navbar-nav li {
-  margin: 0;
-}
-.navbar-custom .navbar-nav > li > a {
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 400;
-  border-bottom: 1px solid transparent;
-}
-.navbar-custom .navbar-nav > li > a:focus, .navbar-custom .navbar-nav > li > a:hover {
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.5);
-}
-.navbar-custom .navbar-nav > .active > a {
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.navbar-toggle {
-  border: 0;
-  border-radius: 0;
-  margin-top: 2px;
-}
-.navbar-toggle .icon-bar {
-  background-color: #fff;
-}
-
-.navbar-solid {
-  background-color: #000 !important;
-  padding: 0 !important;
-  -webkit-transition: all 0.2s linear 0s;
-          transition: all 0.2s linear 0s;
-}
-
-.site-branding {
-  float: left;
-  margin-top: 0;
-  margin-left: 10px;
-}
-.site-branding .logo {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  margin-right: 5px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-.site-branding .logo:focus, .site-branding .logo:hover {
-  text-decoration: none;
-}
-
 /* 
  * 5.0 Site Header
  */
