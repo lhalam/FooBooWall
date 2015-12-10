@@ -37,3 +37,14 @@ ALTER TABLE [usefulLinks]
 ADD CONSTRAINT [FK_Useful_Links_Image_id]
 FOREIGN KEY ([Image_id])
 REFERENCES [Images]([ID])
+GO
+ALTER TABLE [messages]
+ADD CONSTRAINT [FK_MessageAuthor_Id]
+FOREIGN KEY ([AuthorId])
+REFERENCES [Users]([ID])
+GO
+ALTER TABLE [messages]
+ADD CONSTRAINT [FK_MessageRecipient_Id]
+FOREIGN KEY ([RecipientId])
+REFERENCES [Users]([ID])
+

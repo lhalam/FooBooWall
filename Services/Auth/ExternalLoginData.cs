@@ -52,14 +52,14 @@ namespace Services.Auth
             }
 
             string userName = identity.FindFirstValue(ClaimTypes.Name);
-            string[] arr = userName.Split(' ');
+            string[] parsedLogin = userName.Split(new char[]{' '} , StringSplitOptions.RemoveEmptyEntries);
             return new ExternalLoginData
             {
                 LoginProvider = providerKeyClaim.Issuer,
                 ProviderKey = providerKeyClaim.Value,
                 UserName = userName,
-                FirstName = arr[0],
-                LastName = arr[1]
+                FirstName = parsedLogin[0],
+                LastName = parsedLogin[1]
             };
         }
     }

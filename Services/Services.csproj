@@ -88,6 +88,8 @@
     <Compile Include="Event\IEventService.cs" />
     <Compile Include="ImageServices\IImageService.cs" />
     <Compile Include="ImageServices\ImageService.cs" />
+    <Compile Include="Messages\IMessageService.cs" />
+    <Compile Include="Messages\MessageService.cs" />
     <Compile Include="Statistics\IStatService.cs" />
     <Compile Include="Statistics\StatService.cs" />
     <Compile Include="User\IUserService.cs" />
