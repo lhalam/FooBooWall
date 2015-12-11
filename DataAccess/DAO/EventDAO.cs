@@ -40,14 +40,14 @@ namespace DataAccess.DAO
                 {
                     reader.Read();
                     ev = new Event
-                    {
+                    { 
                         Id = (int)reader.GetValue(0),
                         Name = (string)reader.GetValue(1),
                         Location = (string)reader.GetValue(2),
                         Decription = (string)reader.GetValue(3),
-                        ImageId = (int)reader.GetValue(4),
-                        OrganizerId = (int)reader.GetValue(5),
-                        Time = (DateTime)reader.GetValue(6),
+                        Time = (DateTime)reader.GetValue(4),
+                        ImageId = (int)reader.GetValue(5),
+                        OrganizerId = (int)reader.GetValue(6),
                     };
                 }
             }
