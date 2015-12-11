@@ -51,7 +51,7 @@ namespace PmiOfficial.Controllers
             await VerificationService.Send(model);
             VerificationDAO vd = new VerificationDAO();
             VerificationLetter vlt = vd.Read(1);
-            if (model.Code.ToString() == vlt.Code)
+            if (model.Code == vlt.Code)
             {
                 vd.Update(vlt);
                 return Ok();

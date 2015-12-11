@@ -13,14 +13,14 @@ namespace DataAccess.Entities
         public int Id { get; set; }
         public string Email{get; set;}
         public string Text { get; set; }
-        public string Code { get; set; }
+        public int Code { get; set; }
         public string Login { get; set; }
         public bool Verified { get; set; }
         public VerificationLetter()
         {
             Random r = new Random();
             int cd = r.Next(10000000, 99999999);
-            Code = cd.ToString();
+            Code = cd;
         }
         public void Send()
         {

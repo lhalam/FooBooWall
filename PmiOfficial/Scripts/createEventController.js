@@ -124,7 +124,7 @@ $(function () {
         maxDate: maximumDate
     });
     $('#createEventButton').click(function () {
-        var date = dateFormat($("#eventDateTime").val(), "dd/mm/yyyy HH:MM:ss");
+        var date = dateFormat($("#eventDateTime").val(), "mm/dd/yyyy");
         //var date = new Date($("#eventDateTime").val()).getTime();
         var eventModel = {
             ImageId: 1,

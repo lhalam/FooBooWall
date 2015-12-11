@@ -107,7 +107,7 @@ $(function () {
             var wasAlreadyCreated = true;
             if ($('#' + ctrId).length == 0) {
                 wasAlreadyCreated = false;
-                createPrivateChatWindow(chat, fromUserName, ctrId, chatWindowID);
+                createPrivateChatWindow(chat, ctrId, chatWindowID);
             }
             if ($('#' + ctrId).is(':hidden'))
             {
