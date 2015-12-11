@@ -17,7 +17,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                int code = int.Parse(entity.Code);
+                int code = entity.Code;
                 string email = entity.Email;
                 string sql = "DELETE FROM Verification; INSERT INTO Verification(Id,Code,Email,Verified) "+
                     "VALUES(1,"  + code  + "," + "'" + email + "'" + "," +"0)";
@@ -29,7 +29,7 @@ namespace DataAccess.DAO
                 cmd.ExecuteNonQuery();
             }
         }
-        public override VerificationLetter  Read(int id)
+        public override VerificationLetter Read(int id)
         {
             VerificationLetter vlt = null;
             using (SqlConnection connection = GetConnection())
@@ -45,7 +45,7 @@ namespace DataAccess.DAO
                    vlt = new VerificationLetter
                     {
                         Id = id,
-                        Code = Convert(reader["Code"]),
+                        Code = (int)reader["Code"],
                         Email = Convert(reader["Email"]),
                         Verified = (bool)(reader["Verified"]),
                     };
