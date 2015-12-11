@@ -1,6 +1,4 @@
-﻿
-
-var saveEditedUser = function () {
+﻿var checkEditedUser = function () {
     var editedUser = {
         Id: userId,
         FirstName: $("#FirstName").val(),
@@ -10,22 +8,16 @@ var saveEditedUser = function () {
         SkypeName: $("#SkypeName").val()
     }
 
-    if (checkValid(editedUser)) {
-        $.post(editUserUrl, editedUser)
-          .success(function (data) {
-              alert("User was edited successfully!");
-              window.location.reload(true);
-          });
-    } else {
-        alert("Wrong input!");
-    }
-}
-
-var checkValid = function (editedUser) {
     var emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     var result = editedUser.FirstName.length > 0 &&
                  editedUser.LastName.length > 0 &&
                  emailRegexp.test(editedUser.EMail);
+
+    if (result) {
+        $("#BirthDate").val(editedUser.Birthday);
+    }
+
+
     return result;
 }
 

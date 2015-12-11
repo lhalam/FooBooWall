@@ -125,22 +125,17 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Edit info</h4>
                 </div>
-                @using (Html.BeginForm("Edit", "UserProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Edit", "UserProfile", FormMethod.Post, new {onsubmit = "return checkEditedUser();", enctype = "multipart/form-data" }))
                 {
-                    <div class="modal-body">
-                        <input type="hidden" name="Id" value="@ViewBag.UserId" />
-                        <div class="row">
-                            <div class="col-lg-4">First name</div>
-                            <input type="text" class="form-control" id="FirstName" name="FirstName" value="@ViewBag.User.FirstName">
-                        </div>
                         <div class="modal-body">
+                            <input type="hidden" name="Id" value="@ViewBag.UserId" />
                             <div class="row">
                                 <div class="col-lg-4">First name</div>
-                                <input type="text" class="form-control" id="FirstName" value="@ViewBag.User.FirstName">
+                                <input type="text" class="form-control" id="FirstName" name="FirstName" value="@ViewBag.User.FirstName">
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">Last name</div>
-                                <input type="text" class="form-control" id="LastName" value="@ViewBag.User.LastName">
+                                <input type="text" class="form-control" id="LastName" name="LastName" value="@ViewBag.User.LastName">
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">Email</div>
@@ -148,11 +143,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">Skype</div>
-                                <input type="text" class="form-control" id="SkypeName" value="@ViewBag.User.Skype">
+                                <input type="text" class="form-control" id="SkypeName" name="SkypeName" value="@ViewBag.User.Skype">
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">Birth date</div>
-                                <input type="text" class="form-control clsDatePicker" onclick="pickDate()" readonly="readonly" id="BirthDate" value="@ViewBag.User.Birthday.Date">
+                                <input type="text" class="form-control clsDatePicker" readonly="readonly" id="BirthDate" name="Birthday" value="@ViewBag.User.Birthday.Date">
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">Change Image</div>
@@ -171,7 +166,7 @@
                             <button type="submit" id="editUserSubmit" class="btn btn-success">Save</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
-                    </div>
+  
                 }
                 </div>
             </div>
