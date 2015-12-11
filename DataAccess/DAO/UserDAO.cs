@@ -215,6 +215,41 @@ namespace DataAccess.DAO
             return pass;
         }
 
+        public User GetUserByEmail(string email)
+        {
+            User user = null;
+            using (SqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string sql = "SELECT * FROM users WHERE Email = @param1";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = email;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+
+                        user = new User
+                        {
+                            Id = (int)reader["id"],
+                            FirstName = Convert(reader["FirstName"]),
+                            LastName = Convert(reader["LastName"]),
+                            Login = Convert(reader["Login"]),
+                            EMail = Convert(reader["Email"]),
+                            PasswordHash = Convert(reader["PasswordHash"]),
+                            Birthday = (reader["BirthDate"] is DBNull) ? DateTime.Now : (DateTime)reader["BirthDate"],
+                            SecurityStamp = Convert(reader["SecurityStamp"]),
+                            Skype = Convert(reader["SkypeName"]),
+                            ImageId = (int)reader["Image_id"]
+                        };
+                    }
+
+                    return user;
+                }
+            }
+        }
+
         public bool UserWithSpecifiedLoginExists(string login)
         {
             bool result;

@@ -61,22 +61,18 @@ namespace PmiOfficial.Controllers
         [Route("Account/Login")]
         public async Task<IHttpActionResult> Login([FromBody] LoginModel model)
         {
+            string urlBase = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+            string rightPartUrl = "/Login/Index";
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     SignIn(user);
-                    string urlBase = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-                    return Redirect(urlBase);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                    return BadRequest(ModelState);
+                    rightPartUrl = "";
                 }
             }
-            return BadRequest(ModelState);
+            return Redirect(urlBase + rightPartUrl);
         }
         
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
