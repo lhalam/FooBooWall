@@ -17,7 +17,9 @@ namespace Services.ImageServices
         {
             ".jpeg",
             ".png",
-            ".jpg"
+            ".jpg",
+            ".bmp",
+            ".gif"
         };
 
         private AbstractDAO<Image> imageDAO;

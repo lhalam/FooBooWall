@@ -137,7 +137,6 @@ $(function () {
         if (checkEvent(eventModel)) {
             $.post(createEventUrl, eventModel)
               .success(function (data) {
-                  alert("Event was added successfully!");
                   window.location.reload(true);
               });
         }
