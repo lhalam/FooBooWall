@@ -16,16 +16,15 @@ namespace DataAccess.DAO
                 connection.Open();
                 string sql = "INSERT INTO comments(Event_id, Author_id, Comment_time, Comment)" +
                     " OUTPUT Inserted.ID " +
-                    "VALUES(@param1, @param2, @param3, @param4)";
+                    "VALUES(@Event_id, @Author_id, @Comment_time, @Comment)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = entity.EventId;
-                cmd.Parameters.Add("@param2", SqlDbType.Int).Value = entity.AuthorId;
-                cmd.Parameters.Add("@param3", SqlDbType.Date).Value = entity.WritingDate;
-                cmd.Parameters.Add("@param4", SqlDbType.Text).Value = entity.Text ?? SqlString.Null;
-                cmd.Parameters.Add("@param5", SqlDbType.Int).Value = entity.Id;
+                cmd.Parameters.Add("@Event_id", SqlDbType.Int).Value = entity.EventId;
+                cmd.Parameters.Add("@Author_id", SqlDbType.Int).Value = entity.AuthorId;
+                cmd.Parameters.Add("@Comment_time", SqlDbType.Date).Value = entity.WritingDate;
+                cmd.Parameters.Add("@Comment", SqlDbType.Text).Value = entity.Text ?? SqlString.Null;
+                cmd.Parameters.Add("@param5", SqlDbType.Int).Value = entity.Id; // TODO: try to comment this and see if anything changes
                 cmd.CommandType = CommandType.Text;
                 entity.Id = (int)cmd.ExecuteScalar();
-
             }
         }
 
@@ -34,9 +33,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "DELETE FROM comments WHERE Id = @param1";
+                string sql = "DELETE FROM comments WHERE Id = @Id";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = entity.Id;
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = entity.Id;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -48,19 +47,18 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT * FROM comments WHERE id = @param1";
+                string sql = "SELECT * FROM comments WHERE id = @id";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = id;
+                cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
-
                     comment = new Comment
                     {
                         Id = id,
-                        EventId = (int)reader.GetValue(1),
-                        AuthorId = (int)reader.GetValue(2),
-                        WritingDate = (reader.GetValue(3) is DBNull) ? DateTime.Now : (DateTime)reader[3]
+                        EventId = (int)reader["Event_id"],
+                        AuthorId = (int)reader["Author_id"],
+                        WritingDate = (reader["Comment_time"] is DBNull) ? DateTime.Now : (DateTime)reader["Comment_time"]
                     };
                 }
             }
@@ -72,14 +70,14 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "UPDATE comments SET Event_id = @param1, Author_id = @param2, Comment_time = @param3," +
-                    " Comment = @param4 WHERE Id = @param5";
+                string sql = "UPDATE comments SET Event_id = @Event_id, Author_id = @Author_id, Comment_time = @Comment_time," +
+                    " Comment = @Comment WHERE Id = @Id";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = entity.EventId;
-                cmd.Parameters.Add("@param2", SqlDbType.Int).Value = entity.AuthorId;
-                cmd.Parameters.Add("@param3", SqlDbType.Date).Value = entity.WritingDate;
-                cmd.Parameters.Add("@param4", SqlDbType.Text).Value = entity.Text ?? SqlString.Null;
-                cmd.Parameters.Add("@param5", SqlDbType.Int).Value = entity.Id;
+                cmd.Parameters.Add("@Event_id", SqlDbType.Int).Value = entity.EventId;
+                cmd.Parameters.Add("@Author_id", SqlDbType.Int).Value = entity.AuthorId;
+                cmd.Parameters.Add("@Comment_time", SqlDbType.Date).Value = entity.WritingDate;
+                cmd.Parameters.Add("@Comment", SqlDbType.Text).Value = entity.Text ?? SqlString.Null;
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = entity.Id;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -99,11 +97,10 @@ namespace DataAccess.DAO
                     {
                         Comment comment = new Comment
                         {
-                            Id = (int)reader.GetValue(0),
-                            EventId = (int)reader.GetValue(1),
-                            AuthorId = (int)reader.GetValue(2),
-                            WritingDate = (reader.GetValue(3) is DBNull) ? DateTime.Now : (DateTime)reader[3]
-                    
+                            Id = (int)reader["Id"],
+                            EventId = (int)reader["Event_id"],
+                            AuthorId = (int)reader["Author_id"],
+                            WritingDate = (reader["Comment_time"] is DBNull) ? DateTime.Now : (DateTime)reader["Comment_time"]            
                         };
                         list.Add(comment);
                     }

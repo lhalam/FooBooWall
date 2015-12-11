@@ -28,6 +28,7 @@ namespace PmiOfficial.Controllers
             ViewBag.EventStatsData = String.Join(", ", eventStats.Values);
 
             return View();
+
         }
     }
 }

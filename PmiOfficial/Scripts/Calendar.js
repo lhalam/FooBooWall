@@ -5,8 +5,8 @@
             events: httpData,
             eventClick: function (calEvent, jsEvent, view) {
                 location.href = '/Event?eventId=' + calEvent.id + '&userId=' + loggedUserID;
-
-            }
+            },
+            eventColor: '#378006'
         });
     });
     
