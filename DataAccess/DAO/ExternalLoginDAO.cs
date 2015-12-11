@@ -66,15 +66,16 @@ namespace DataAccess.DAO
                     await reader.ReadAsync();
                     User user = new User
                     {
-                        Id = (int)reader.GetValue(0),
-                        FirstName = Convert(reader.GetValue(1)),
-                        LastName = Convert(reader.GetValue(2)),
-                        Login = (string)reader.GetValue(3),
-                        EMail = Convert(reader.GetValue(4)),
-                        PasswordHash = Convert(reader.GetValue(5)),
-                        Birthday = (DateTime)reader.GetValue(6),
-                        ImageId = (int)reader.GetValue(10),
-                        SecurityStamp = Convert(reader.GetValue(7))
+                        Id = (int)reader["id"],
+                        FirstName = Convert(reader["FirstName"]),
+                        LastName = Convert(reader["LastName"]),
+                        Login = Convert(reader["Login"]),
+                        EMail = Convert(reader["Email"]),
+                        PasswordHash = Convert(reader["PasswordHash"]),
+                        Birthday = (reader["BirthDate"] is DBNull) ? DateTime.Now : (DateTime)reader["BirthDate"],
+                        SecurityStamp = Convert(reader["SecurityStamp"]),
+                        Skype = Convert(reader["SkypeName"]),
+                        ImageId = (int)reader["Image_id"]
                     };
                     return user;
                 }
@@ -101,7 +102,7 @@ namespace DataAccess.DAO
                 while(await reader.ReadAsync())
                 {
                     UserLoginInfo currInfo = 
-                        new UserLoginInfo((string)reader[0], (string)reader[1]);
+                        new UserLoginInfo((string)reader["LoginProvider"], (string)reader["ProviderKey"]);
                     result.Add(currInfo);
                 }
 

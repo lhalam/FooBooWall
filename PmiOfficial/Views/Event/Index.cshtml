@@ -144,9 +144,12 @@
                     </div><!-- /col-sm-4 -->
                     <button type="
                             button" class="btn btn-primary" id="commentbutton">Add</button>
-                    <input id="eventidinfo" value="@ViewBag.Event.Id" style="display: none;">
-                    
-                    <input id="useridinfo"  value="@ViewBag.UserId" style="display: none;">
+                    <script>
+                        
+                        var AddCommentUrl = '@Url.Action("AddComment", "Event")';
+                    </script>
+                    <input id="eventidinfo"type="number" value="@ViewBag.Event.Id" style="display: none;">
+                    <input id="useridinfo" type="number" value="@ViewBag.UserId" style="display: none;">
                     </div><!-- container -->
                 </div>
           </div>

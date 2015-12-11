@@ -14,14 +14,14 @@ namespace DataAccess.DAO
             {
                 connection.Open();
                 const string sql = "INSERT INTO PmiDatabase.dbo.events(Name, Location, Description, Image_id, Organizer_id, Event_time)" +
-                                   "VALUES(@param1, @param2, @param3, @param4, @param5, @param6)";
+                                   "VALUES(@Name, @Location, @Description, @Image_id, @Organizer_id, @Event_time)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Text).Value = entity.Name;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 200).Value = entity.Location;
-                cmd.Parameters.Add("@param3", SqlDbType.Text).Value = entity.Decription;
-                cmd.Parameters.Add("@param4", SqlDbType.Int).Value = entity.ImageId;
-                cmd.Parameters.Add("@param5", SqlDbType.Int).Value = entity.OrganizerId;
-                cmd.Parameters.Add("@param6", SqlDbType.DateTime).Value = entity.Time;
+                cmd.Parameters.Add("@Name", SqlDbType.Text).Value = entity.Name;
+                cmd.Parameters.Add("@Location", SqlDbType.VarChar, 200).Value = entity.Location;
+                cmd.Parameters.Add("@Description", SqlDbType.Text).Value = entity.Decription;
+                cmd.Parameters.Add("@Image_id", SqlDbType.Int).Value = entity.ImageId;
+                cmd.Parameters.Add("@Organizer_id", SqlDbType.Int).Value = entity.OrganizerId;
+                cmd.Parameters.Add("@Event_time", SqlDbType.DateTime).Value = entity.Time;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -33,21 +33,21 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM PmiDatabase.dbo.events WHERE id = @param1";
+                const string sql = "SELECT * FROM PmiDatabase.dbo.events WHERE id = @id";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = id;
+                cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
                     ev = new Event
                     {
-                        Id = (int)reader.GetValue(0),
-                        Name = (string)reader.GetValue(1),
-                        Location = (string)reader.GetValue(2),
-                        Decription = (string)reader.GetValue(3),
-                        ImageId = (int)reader.GetValue(4),
-                        OrganizerId = (int)reader.GetValue(5),
-                        Time = (DateTime)reader.GetValue(6),
+                        Id = (int)reader["id"],
+                        Name = Convert(reader["Name"]),
+                        Location = Convert(reader["Location"]),
+                        Decription = Convert(reader["Description"]),
+                        ImageId = (int)reader["Image_id"],
+                        OrganizerId = (int)reader["Organizer_id"],
+                        Time = (reader["Event_time"] is DBNull) ? DateTime.Now : (DateTime)reader["Event_time"]
                     };
                 }
             }
@@ -59,16 +59,16 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "UPDATE PmiDatabase.dbo.events SET Name = @param1, Location = @param2, Description = @param3,"
-                                   + " Image_id = @param4, Organizer_id = @param5, Event_time = @param6 WHERE ID = @param7";
+                const string sql = "UPDATE PmiDatabase.dbo.events SET Name = @Name, Location = @Location, Description = @Description,"
+                                   + " Image_id = @Image_id, Organizer_id = @Organizer_id, Event_time = @Event_time WHERE ID = @ID";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Text).Value = entity.Name;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 200).Value = entity.Location;
-                cmd.Parameters.Add("@param3", SqlDbType.Text).Value = entity.Decription;
-                cmd.Parameters.Add("@param4", SqlDbType.Int).Value = entity.ImageId;
-                cmd.Parameters.Add("@param5", SqlDbType.Int).Value = entity.OrganizerId;
-                cmd.Parameters.Add("@param6", SqlDbType.DateTime).Value = entity.Time;
-                cmd.Parameters.Add("@param7", SqlDbType.Int).Value = entity.Id;
+                cmd.Parameters.Add("@Name", SqlDbType.Text).Value = entity.Name;
+                cmd.Parameters.Add("@Location", SqlDbType.VarChar, 200).Value = entity.Location;
+                cmd.Parameters.Add("@Description", SqlDbType.Text).Value = entity.Decription;
+                cmd.Parameters.Add("@Image_id", SqlDbType.Int).Value = entity.ImageId;
+                cmd.Parameters.Add("@Organizer_id", SqlDbType.Int).Value = entity.OrganizerId;
+                cmd.Parameters.Add("@Event_time", SqlDbType.DateTime).Value = entity.Time;
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = entity.Id;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -79,9 +79,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "DELETE FROM PmiDatabase.dbo.events WHERE ID = @param1";
+                const string sql = "DELETE FROM PmiDatabase.dbo.events WHERE ID = @ID";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.Id;
+                cmd.Parameters.Add("@ID", SqlDbType.VarChar, 255).Value = entity.Id;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -101,13 +101,13 @@ namespace DataAccess.DAO
                     {
                         result.Add(new Event
                         {
-                            Id = (int)reader.GetValue(0),
-                            Name = (string)reader.GetValue(1),
-                            Location = (string)reader.GetValue(2),
-                            Decription = (string)reader.GetValue(3),
-                            ImageId = (int)reader.GetValue(5),
-                            OrganizerId = (int)reader.GetValue(6),
-                            Time = (DateTime)reader.GetValue(4),
+                            Id = (int)reader["id"],
+                            Name = Convert(reader["Name"]),
+                            Location = Convert(reader["Location"]),
+                            Decription = Convert(reader["Description"]),
+                            ImageId = (int)reader["Image_id"],
+                            OrganizerId = (int)reader["Organizer_id"],
+                            Time = (reader["Event_time"] is DBNull) ? DateTime.Now : (DateTime)reader["Event_time"]
                         });
                     }
                 }
@@ -121,22 +121,22 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM PmiDatabase.dbo.events WHERE Organizer_id = @param1";
+                const string sql = "SELECT * FROM PmiDatabase.dbo.events WHERE Organizer_id = @Organizer_id";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = userId;
+                cmd.Parameters.Add("@Organizer_id", SqlDbType.Int).Value = userId;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Event ev = new Event
                         {
-                            Id = (int)reader.GetValue(0),
-                            Name = (string)reader.GetValue(1),
-                            Location = (string)reader.GetValue(2),
-                            Decription = (string)reader.GetValue(3),
-                            ImageId = (int)reader.GetValue(4),
-                            OrganizerId = (int)reader.GetValue(5),
-                            Time = (DateTime)reader.GetValue(6),
+                            Id = (int)reader["id"],
+                            Name = Convert(reader["Name"]),
+                            Location = Convert(reader["Location"]),
+                            Decription = Convert(reader["Description"]),
+                            ImageId = (int)reader["Image_id"],
+                            OrganizerId = (int)reader["Organizer_id"],
+                            Time = (reader["Event_time"] is DBNull) ? DateTime.Now : (DateTime)reader["Event_time"]
                         };
                         list.Add(ev);
                     }

@@ -17,15 +17,15 @@ namespace DataAccess.DAO
                 connection.Open();
                 string sql =  "INSERT INTO users(FirstName, LastName, Login, Email, PasswordHash, BirthDate, Image_id, SecurityStamp, SkypeName)" +
                     " OUTPUT Inserted.ID " +
-                    "VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @SecurityStamp, @SkypeName)";
+                    "VALUES(@FirstName, @LastName, @Login, @Email, @PasswordHash, @BirthDate, @Image_id, @SecurityStamp, @SkypeName)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
-                cmd.Parameters.Add("@param3", SqlDbType.VarChar, 255).Value = entity.Login;
-                cmd.Parameters.Add("@param4", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
-                cmd.Parameters.Add("@param5", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
-                cmd.Parameters.Add("@param6", SqlDbType.DateTime).Value = entity.Birthday;
-                cmd.Parameters.Add("@param7", SqlDbType.Int).Value = entity.ImageId;
+                cmd.Parameters.Add("@FirstName", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
+                cmd.Parameters.Add("@LastName", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
+                cmd.Parameters.Add("@Login", SqlDbType.VarChar, 255).Value = entity.Login;
+                cmd.Parameters.Add("@Email", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
+                cmd.Parameters.Add("@PasswordHash", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
+                cmd.Parameters.Add("@BirthDate", SqlDbType.DateTime).Value = entity.Birthday;
+                cmd.Parameters.Add("@Image_id", SqlDbType.Int).Value = entity.ImageId;
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.Parameters.Add("@SkypeName", SqlDbType.VarChar, 120).Value = entity.Skype ?? SqlString.Null;
                 cmd.CommandType = CommandType.Text;
@@ -39,9 +39,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT * FROM users WHERE id = @param1";
+                string sql = "SELECT * FROM users WHERE id = @id";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = id;
+                cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
@@ -49,17 +49,15 @@ namespace DataAccess.DAO
                     user = new User
                     {
                         Id = id,
-                        FirstName = Convert(reader.GetValue(1)),
-                        LastName = Convert(reader.GetValue(2)),
-                        Login = Convert(reader.GetValue(3)),
-                        EMail = Convert(reader.GetValue(4)),
-                        PasswordHash = Convert(reader.GetValue(5)),
-                        Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
-                        SecurityStamp = Convert(reader.GetValue(7)),
-
-                        Skype = Convert(reader.GetValue(8)),
-
-                        ImageId = (int)reader.GetValue(10)
+                        FirstName = Convert(reader["FirstName"]),
+                        LastName = Convert(reader["LastName"]),
+                        Login = Convert(reader["Login"]),
+                        EMail = Convert(reader["Email"]),
+                        PasswordHash = Convert(reader["PasswordHash"]),
+                        Birthday = (reader["BirthDate"] is DBNull) ? DateTime.Now : (DateTime)reader["BirthDate"],
+                        SecurityStamp = Convert(reader["SecurityStamp"]),
+                        Skype = Convert(reader["SkypeName"]),
+                        ImageId = (int)reader["Image_id"]
                     };
                 }
             }
@@ -71,19 +69,19 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "UPDATE users SET FirstName = @param1, LastName = @param2, Email = @param3," +
-                    " PasswordHash = @param4, BirthDate = @param5, Image_id = @param6, " +
-                    " SecurityStamp = @SecurityStamp, SkypeName = @SkypeName WHERE Login = @param7";
+                string sql = "UPDATE users SET FirstName = @FirstName, LastName = @LastName, Email = @Email," +
+                    " PasswordHash = @PasswordHash, BirthDate = @BirthDate, Image_id = @Image_id, " +
+                    " SecurityStamp = @SecurityStamp, SkypeName = @SkypeName WHERE Login = @Login";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
-                cmd.Parameters.Add("@param3", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
-                cmd.Parameters.Add("@param4", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
-                cmd.Parameters.Add("@param5", SqlDbType.Date).Value = entity.Birthday;
-                cmd.Parameters.Add("@param6", SqlDbType.Int).Value = entity.ImageId;
-                cmd.Parameters.Add("@param7", SqlDbType.VarChar, 255).Value = entity.Login;
+                cmd.Parameters.Add("@FirstName", SqlDbType.VarChar, 255).Value = entity.FirstName ?? SqlString.Null;
+                cmd.Parameters.Add("@LastName", SqlDbType.VarChar, 255).Value = entity.LastName ?? SqlString.Null;
+                cmd.Parameters.Add("@Email", SqlDbType.VarChar, 255).Value = entity.EMail ?? SqlString.Null;
+                cmd.Parameters.Add("@PasswordHash", SqlDbType.VarChar, -1).Value = entity.PasswordHash ?? SqlString.Null;
+                cmd.Parameters.Add("@BirthDate", SqlDbType.Date).Value = entity.Birthday;
+                cmd.Parameters.Add("@Image_id", SqlDbType.Int).Value = entity.ImageId;
                 cmd.Parameters.Add("@SecurityStamp", SqlDbType.VarChar, -1).Value = entity.SecurityStamp ?? SqlString.Null;
                 cmd.Parameters.Add("@SkypeName", SqlDbType.VarChar, 120).Value = entity.Skype ?? SqlString.Null;
+                cmd.Parameters.Add("@Login", SqlDbType.VarChar, 255).Value = entity.Login;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -94,9 +92,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "DELETE FROM users WHERE Login = @param1";
+                string sql = "DELETE FROM users WHERE Login = @Login";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.Login;
+                cmd.Parameters.Add("@Login", SqlDbType.VarChar, 255).Value = entity.Login;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
@@ -116,13 +114,16 @@ namespace DataAccess.DAO
                     {
                         result.Add(new User
                         {
-                            Id = (int)reader.GetValue(0),
-                            FirstName = Convert(reader.GetValue(1)),
-                            LastName = Convert(reader.GetValue(2)),
-                            Login = (string)reader.GetValue(3),
-                            EMail = Convert(reader.GetValue(4)),
-                            PasswordHash = Convert(reader.GetValue(5)),
-                            Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6]
+                            Id = (int)reader["id"],
+                            FirstName = Convert(reader["FirstName"]),
+                            LastName = Convert(reader["LastName"]),
+                            Login = Convert(reader["Login"]),
+                            EMail = Convert(reader["Email"]),
+                            PasswordHash = Convert(reader["PasswordHash"]),
+                            Birthday = (reader["BirthDate"] is DBNull) ? DateTime.Now : (DateTime)reader["BirthDate"],
+                            SecurityStamp = Convert(reader["SecurityStamp"]),
+                            Skype = Convert(reader["SkypeName"]),
+                            ImageId = (int)reader["Image_id"]
                         });
                     }
                 }
@@ -135,27 +136,26 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT * FROM users WHERE Login = @param1 AND PasswordHash = @param2";
+                string sql = "SELECT * FROM users WHERE Login = @Login AND PasswordHash = @PasswordHash";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
-                cmd.Parameters.Add("@param2", SqlDbType.VarChar, -1).Value = passwordHash ?? SqlString.Null;
+                cmd.Parameters.Add("@Login", SqlDbType.VarChar, 255).Value = login;
+                cmd.Parameters.Add("@PasswordHash", SqlDbType.VarChar, -1).Value = passwordHash ?? SqlString.Null;
                 User user;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
                     user = new User
                     {
-                        Id = (int)reader.GetValue(0),
-                        FirstName = Convert(reader.GetValue(1)),
-                        LastName = Convert(reader.GetValue(2)),
-                        Login = (string)reader.GetValue(3),
-                        EMail = Convert(reader.GetValue(4)),
-                        PasswordHash = Convert(reader.GetValue(5)),
-                        Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
-                        SecurityStamp = Convert(reader.GetValue(7)),
-                        Skype = Convert(reader.GetValue(8)),
-                        ImageId = (int)reader.GetValue(10)             
-
+                        Id = (int)reader["id"],
+                        FirstName = Convert(reader["FirstName"]),
+                        LastName = Convert(reader["LastName"]),
+                        Login = Convert(reader["Login"]),
+                        EMail = Convert(reader["Email"]),
+                        PasswordHash = Convert(reader["PasswordHash"]),
+                        Birthday = (reader["BirthDate"] is DBNull) ? DateTime.Now : (DateTime)reader["BirthDate"],
+                        SecurityStamp = Convert(reader["SecurityStamp"]),
+                        Skype = Convert(reader["SkypeName"]),
+                        ImageId = (int)reader["Image_id"]
                     };
                 }
                 return user;
@@ -179,17 +179,16 @@ namespace DataAccess.DAO
 
                         user = new User
                         {
-                            Id = (int)reader.GetValue(0),
-                            FirstName = Convert(reader.GetValue(1)),
-                            LastName = Convert(reader.GetValue(2)),
-                            Login = (string)reader.GetValue(3),
-                            EMail = Convert(reader.GetValue(4)),
-                            PasswordHash = Convert(reader.GetValue(5)),
-                            Birthday = (reader.GetValue(6) is DBNull) ? DateTime.Now : (DateTime)reader[6],
-                            SecurityStamp = Convert(reader.GetValue(7)),
-                            Skype = Convert(reader.GetValue(8)),
-                            ImageId = (int)reader.GetValue(10)
-
+                            Id = (int)reader["id"],
+                            FirstName = Convert(reader["FirstName"]),
+                            LastName = Convert(reader["LastName"]),
+                            Login = Convert(reader["Login"]),
+                            EMail = Convert(reader["Email"]),
+                            PasswordHash = Convert(reader["PasswordHash"]),
+                            Birthday = (reader["BirthDate"] is DBNull) ? DateTime.Now : (DateTime)reader["BirthDate"],
+                            SecurityStamp = Convert(reader["SecurityStamp"]),
+                            Skype = Convert(reader["SkypeName"]),
+                            ImageId = (int)reader["Image_id"]
                         };
                     }
 
@@ -204,13 +203,13 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT PasswordHash FROM users WHERE login = @param1";
+                string sql = "SELECT PasswordHash FROM users WHERE Login = @Login";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
+                cmd.Parameters.Add("@Login", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
-                    pass = (string)reader.GetValue(0);
+                    pass = Convert(reader["PasswordHash"]);
                 }
             }
             return pass;
@@ -222,9 +221,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT * FROM users WHERE login = @param1";
+                string sql = "SELECT * FROM users WHERE Login = @Login";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = login;
+                cmd.Parameters.Add("@Login", SqlDbType.VarChar, 255).Value = login;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     result = reader.HasRows;                   

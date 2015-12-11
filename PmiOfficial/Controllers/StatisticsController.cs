@@ -21,10 +21,14 @@ namespace PmiOfficial.Controllers
 
             ViewBag.UserStatsLabels = String.Join(", ", userStats.Keys);;
             ViewBag.UserStatsData = String.Join(", ", userStats.Values);
+
             var eventStats = _statService.GetHourlyEventStats();
+
             ViewBag.EventStatsLabels = String.Join(", ", eventStats.Keys);
             ViewBag.EventStatsData = String.Join(", ", eventStats.Values);
-                        return View();
+
+            return View();
+
         }
     }
 }

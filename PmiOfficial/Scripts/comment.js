@@ -2,19 +2,23 @@
 $(function () {
     $("#commentbutton").click(function () {
         if (validateComment()) {
-            $.post("/api/Event/AddComment",
-                {
-                    EventId: $("#eventidinfo").val(),
-                    UserId: $("#useridinfo").val(),
-                    Text: $("#newcomment").val()
-                });
-            alert("User registered successfully!");
-            document.location.href = ""; 
+            var newComment =
+            {
+                UserId: $("#useridinfo").val(),
+                EventId: $("#eventidinfo").val(),
+                //UserId:userId,
+                //EventId:eventId,
+                Text: $("#newcomment").val(),
+            };
+            $.post(AddCommentUrl, newComment).success(function (data) {
+            alert("Comment added successfully!")
+            });
+           // document.location.href = ""; 
         }
     })
 });
 
-   
+ 
 function validateComment() {
     if ($("#newcomment").val().length ==0) {
         return false;

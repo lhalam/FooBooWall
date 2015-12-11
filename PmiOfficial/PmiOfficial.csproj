@@ -316,8 +316,6 @@
     <Content Include="Views\EventCalendar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="UsersImages\" />
     <Folder Include="Views\AccountTest\" />
   </ItemGroup>
   <ItemGroup>

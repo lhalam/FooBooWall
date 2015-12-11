@@ -35,9 +35,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT * FROM Verification WHERE id = @param1";
+                string sql = "SELECT * FROM Verification WHERE id = @id";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.Int).Value = id;
+                cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     reader.Read();
@@ -45,9 +45,9 @@ namespace DataAccess.DAO
                    vlt = new VerificationLetter
                     {
                         Id = id,
-                        Code = Convert(reader.GetValue(1).ToString()),
-                        Email = Convert(reader.GetValue(2)),
-                        Verified = (bool)(reader.GetValue(3)),
+                        Code = Convert(reader["Code"]),
+                        Email = Convert(reader["Email"]),
+                        Verified = (bool)(reader["Verified"]),
                     };
                 }
             }
@@ -69,9 +69,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "DELETE FROM Verification WHERE Email = @param1";
+                string sql = "DELETE FROM Verification WHERE Email = @Email";
                 SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 255).Value = entity.Email;
+                cmd.Parameters.Add("@Email", SqlDbType.VarChar, 255).Value = entity.Email;
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
             }
