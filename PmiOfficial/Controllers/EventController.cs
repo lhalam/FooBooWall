@@ -39,16 +39,8 @@ namespace PmiOfficial.Controllers
             return RedirectToAction("Index", "UserProfile", new { userId = currentUserId });
         }
 
-        public class CommentData
-        {
-            public int UserId { get; set; }
-            public int EventId { get; set; }
-            public string Text { get; set; }
-        }
-
         [HttpPost]
-        //[Route("Event/AddComment")]
-        public ActionResult AddComment(CommentData data)
+        public ActionResult AddComment(AddCommentDTO data)
         {
             Comment a = new Comment { AuthorId = data.UserId, EventId = data.EventId, WritingDate = DateTime.Now, Text = data.Text };
             _commentsService.Create(a);
