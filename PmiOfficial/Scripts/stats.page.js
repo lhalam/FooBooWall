@@ -9,7 +9,6 @@ var userres = {
 
 var userLineChart = new Chart(usercontext).Line(userres, { responsive: true });
 
-/*
 var eventcontext =  $("#eventStatsCanvas").get(0).getContext("2d");
 
 var eventres = {
@@ -20,4 +19,3 @@ var eventres = {
     }]
 };
 var eventLineChart = new Chart(eventcontext).Line(eventres, { responsive: true });
-*/
