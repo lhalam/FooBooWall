@@ -92,7 +92,7 @@ namespace PmiOfficial.Hubs
 
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {
-            if (Users[GetCurrentUserLoginName()].ConnectionsIdList.Count > 1)
+            if (Users.ContainsKey(GetCurrentUserLoginName()) && Users[GetCurrentUserLoginName()].ConnectionsIdList.Count > 1)
             {
                 DeleteCurrentConnectionIdInList();
             }

@@ -99,7 +99,7 @@ namespace DataAccess.DAO
                 string commandString = "SELECT " + (amount.HasValue ? "TOP(@amount) " : String.Empty ) +
                    "* FROM messages WHERE (RecipientId = @firstId AND AuthorId = @secondId) " +
                    "OR (RecipientId = @secondId AND AuthorId = @firstId) " +
-                   " ORDER BY DateTime DESC ";
+                   " ORDER BY DateTime ";
                 SqlCommand cmd = new SqlCommand(commandString, connection);
                 cmd.Parameters.Add("@firstId", SqlDbType.Int).Value = firstUser;
                 cmd.Parameters.Add("@secondId", SqlDbType.Int).Value = secondUser;
