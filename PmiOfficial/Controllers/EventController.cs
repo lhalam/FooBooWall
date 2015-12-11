@@ -39,10 +39,21 @@ namespace PmiOfficial.Controllers
             return RedirectToAction("Index", "UserProfile", new { userId = currentUserId });
         }
 
-        [HttpPost]
-        public void AddComment(Comment comment)
+        public class CommentData
         {
-            _commentsService.Create(comment);
+            public int UserId { get; set; }
+            public int EventId { get; set; }
+            public string Text { get; set; }
         }
+
+        [HttpPost]
+        //[Route("Event/AddComment")]
+        public ActionResult AddComment(CommentData data)
+        {
+            Comment a = new Comment { AuthorId = data.UserId, EventId = data.EventId, WritingDate = DateTime.Now, Text = data.Text };
+            _commentsService.Create(a);
+            return Index(a.AuthorId, a.EventId);
+        }
+
     }
 }
