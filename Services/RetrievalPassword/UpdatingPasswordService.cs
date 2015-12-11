@@ -49,7 +49,7 @@ namespace Services.RetrievalPassword
         {
             VerificationDAO verDao = new VerificationDAO();
             VerificationLetter letter = verDao.Read(1);
-            bool areSame = (letter.Code == code);
+            bool areSame = (letter.Code.ToString() == code);
             if (areSame)
             {
                 letter.Verified = true;
