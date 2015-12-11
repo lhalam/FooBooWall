@@ -89,7 +89,9 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string sql = "SELECT * FROM comments";
+                const string sql = "SELECT c.Id AS Id, c.Event_id AS Event_id, c.Author_id AS Author_id, " +
+                    "c.Comment_time AS Comment_time, u.Name AS AuthorName, i.Name AS ImageName FROM comments c INNER JOIN users u ON c.Author_id = u.ID " +
+                 " INNER JOIN Events e ON c.Event_id = e.ID INNER JOIN Images i ON e.Image_id = i.ID";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -100,7 +102,9 @@ namespace DataAccess.DAO
                             Id = (int)reader["Id"],
                             EventId = (int)reader["Event_id"],
                             AuthorId = (int)reader["Author_id"],
-                            WritingDate = (reader["Comment_time"] is DBNull) ? DateTime.Now : (DateTime)reader["Comment_time"]            
+                            WritingDate = (reader["Comment_time"] is DBNull) ? DateTime.Now : (DateTime)reader["Comment_time"],
+                            AuthorName = Convert(reader["AuthorName"]),
+                            ImageName = Convert(reader["ImageName"])
                         };
                         list.Add(comment);
                     }
