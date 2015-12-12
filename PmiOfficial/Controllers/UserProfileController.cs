@@ -87,7 +87,6 @@ namespace PmiOfficial.Controllers
             var url = new StringBuilder(localPath);
 
             url.Replace(@"\", @"/");
-            //перед тим йшл
             int index = localPath.IndexOf(ImageService.LOCAL_FOLDER_TO_SAVE_IMAGES);
 
             url.Remove(0, index);

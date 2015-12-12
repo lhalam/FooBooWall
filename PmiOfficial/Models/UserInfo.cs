@@ -18,7 +18,7 @@ namespace PmiOfficial.Models
 
         public DateTime ConnectedTime { get; set; }
 
-        public List<string> ConnectionsIdList = new List<string>();
+        public HashSet<string> ConnectionsIdList = new HashSet<string>();
 
         public int UserId { get; set; }
     }
