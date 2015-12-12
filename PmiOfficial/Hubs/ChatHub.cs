@@ -44,7 +44,8 @@ namespace PmiOfficial.Hubs
             };
 
             AddOrUpdateUserInDictionary(user);
-            return Clients.All.onlineUserCount(Users.Count);
+            Clients.All.onlineUserCount(Users.Count);
+            return base.OnConnected();
         }
 
         private void AddOrUpdateUserInDictionary(UserInfoHub user)
@@ -54,37 +55,40 @@ namespace PmiOfficial.Hubs
                 Users.AddOrUpdate(user.Name, user, (key, oldValue) => user);
                  Clients.AllExcept(Context.ConnectionId).onNewUserConnected(user.UserId, user.Name);
             }
-            AddConnectionIdToUser(user);
-        }
 
-        private void AddConnectionIdToUser(UserInfoHub user)
-        {
-            if (Users.ContainsKey(user.Name))
+            lock (user.ConnectionsIdList)
             {
-                Users[user.Name].ConnectionsIdList.Add(Context.ConnectionId);
+                user.ConnectionsIdList.Add(Context.ConnectionId);
             }
-
             Clients.Caller.onConnected(user.UserId, user.Name, UsersList);
         }
+
+ 
 
         public void SendPrivateMessage(string toUserName, string message)
         {
 
             string fromUserId = Context.ConnectionId;
-
-            var toUser = Users[toUserName];
-            var fromUser = Users[GetCurrentUserLoginName()];
+            UserInfoHub toUser, fromUser;
+            Users.TryGetValue(toUserName, out toUser);
+            Users.TryGetValue(GetCurrentUserLoginName(), out fromUser);
 
             if (toUser != null && fromUser != null)
             {
-                foreach (var id in toUser.ConnectionsIdList)
+                lock(toUser.ConnectionsIdList)
                 {
-                    Clients.Client(id).sendPrivateMessage(fromUser.Name, fromUser.Name, message);
+                    foreach (var id in toUser.ConnectionsIdList)
+                    {
+                        Clients.Client(id).sendPrivateMessage(fromUser.Name, fromUser.Name, message);
+                    }
                 }
-
-                foreach (var id in fromUser.ConnectionsIdList)
+                
+                lock(fromUser.ConnectionsIdList)
                 {
-                    Clients.Client(id).sendPrivateMessage(fromUser.Name, toUser.Name, message);
+                    foreach (var id in fromUser.ConnectionsIdList)
+                    {
+                        Clients.Client(id).sendPrivateMessage(fromUser.Name, toUser.Name, message);
+                    }
                 }
             }
 
@@ -92,30 +96,32 @@ namespace PmiOfficial.Hubs
 
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {
-            if (Users.ContainsKey(GetCurrentUserLoginName()) && Users[GetCurrentUserLoginName()].ConnectionsIdList.Count > 1)
+            UserInfoHub user;
+            Users.TryGetValue(GetCurrentUserLoginName(), out user);
+            if(user != null)
             {
-                DeleteCurrentConnectionIdInList();
+                lock(user.ConnectionsIdList)
+                {
+                    if (user.ConnectionsIdList.Count > 1)
+                    {
+                        user.ConnectionsIdList.RemoveWhere(id => id.Equals(Context.ConnectionId));
+                    }
+                    else
+                    {
+                        UserInfoHub removedUser;
+                        Users.TryRemove(GetCurrentUserLoginName(), out removedUser);
+                        Clients.All.onUserDisconnected(GetUserId(), GetCurrentUserLoginName());
+                    }
+                }
             }
-            else
-            {
-                UserInfoHub removedUser;
-                Users.TryRemove(GetCurrentUserLoginName(), out removedUser);
-                Clients.All.onUserDisconnected(GetUserId(), GetCurrentUserLoginName());
-            }
-            return Clients.All.onlineUserCount(Users.Count);
+            
+            Clients.All.onlineUserCount(Users.Count);
+            return base.OnDisconnected(stopCalled);
         }
 
         private int GetUserId()
         {
             return Context.User.Identity.GetUserId<int>();
-        }
-
-        private void DeleteCurrentConnectionIdInList()
-        {
-            int indexOfCurrentConnectionId = Users[GetCurrentUserLoginName()]
-                .ConnectionsIdList.FindIndex(s => s.Contains(Context.ConnectionId));
-
-            Users[GetCurrentUserLoginName()].ConnectionsIdList.RemoveAt(indexOfCurrentConnectionId);
         }
 
         private string GetCurrentUserLoginName()
