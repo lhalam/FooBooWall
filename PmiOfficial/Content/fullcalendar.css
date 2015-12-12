@@ -7,7 +7,7 @@
 
 .fc {
 	direction: ltr;
-	text-align: left;
+	text-align:center;
 }
 
 .fc-rtl {
@@ -694,19 +694,19 @@ a.fc-more:hover {
 
 /* the things within each left/right/center section */
 .fc .fc-toolbar > * > * { /* extra precedence to override button border margins */
-	float: left;
+    text-align:center;
 	margin-left: .75em;
 }
 
 /* the first thing within each left/center/right section */
 .fc .fc-toolbar > * > :first-child { /* extra precedence to override button border margins */
-	margin-left: 0;
+	margin-left: 250px;
 }
 	
 /* title text */
 
 .fc-toolbar h2 {
-	margin: 0;
+    text-align:center;
 }
 
 /* button layering (for border precedence) */
@@ -807,6 +807,7 @@ a.fc-more:hover {
 
 .fc-ltr .fc-basic-view .fc-day-number {
 	text-align: right;
+    background-color: #D1C4E9;
 }
 
 .fc-rtl .fc-basic-view .fc-day-number {
@@ -1066,4 +1067,32 @@ be a descendant of the grid when it is being dragged.
 
 .fc-time-grid-event .fc-resizer:after {
 	content: "=";
+}
+
+div.fc-content:hover{
+    cursor: pointer;
+}
+
+h2:hover{
+    text-align:center;
+}
+
+th{
+    background-color:#673AB7;
+    color:aliceblue;
+}
+
+#prev-month-btn{
+    position: absolute;
+    left: 505px;
+    top: 110px;
+    background-color:#EDE7F6;
+}
+
+#next-month-btn{
+    position: absolute;
+    left: 782px;
+    top: 110px;
+    background-color:#EDE7F6;
+
 }

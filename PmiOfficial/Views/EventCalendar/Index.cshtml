@@ -1,28 +1,31 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+ViewBag.Title = "Index";
 }
 
 <div class="container">
+    <br><br>
     <div class="row">
-        <br><br>
-        <div class="col-md-8 col-md-offset-2"  id="calendar">
+        <div class="col-md-8 col-md-offset-2" id="calendar">
         </div>
-       </div>
+        <button id="prev-month-btn" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
+        <button id="next-month-btn" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>            
+        <br><br>
     </div>
+</div>
    
         
 @section Scripts{
 
 
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/fullcalendar.js"></script>
-    <script src="~/Scripts/Calendar.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/fullcalendar.js"></script>
+<script src="~/Scripts/Calendar.js"></script>
 }
 
 
 @section AddToLayout
 {
-    <link href="~/Content/fullcalendar.css" rel="stylesheet" />
-    <link href="~/Content/fullcalendar.print.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.print.css" rel="stylesheet" />
 }
