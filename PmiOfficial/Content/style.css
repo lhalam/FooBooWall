@@ -57,12 +57,12 @@ input[type=checkbox], input[type=radio] {
 	cursor: pointer;
 }
 
-button, input[type=button], input[type=image], 
+/*button, input[type=button], input[type=image], 
 input[type=reset], input[type=submit] {
 	padding: 0;
 	overflow: visible;
 	cursor: pointer;
-}
+}*/
 
 button::-moz-focus-inner, 
 input[type=button]::-moz-focus-inner, 
@@ -862,7 +862,7 @@ h1 {
 	padding: 65px 0 0 0;
 }
 
-a.btn,
+/*a.btn,
 .btn {
 	color: #7d8797;
 	border-radius: 4px;
@@ -873,7 +873,7 @@ a.btn,
 	display: inline-block;
 	padding: 0 21px;
 	border: none;
-}
+}*/
 
 a.btn.blue,
 .btn.blue {

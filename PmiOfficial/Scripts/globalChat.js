@@ -1,5 +1,5 @@
 ﻿$(function () {
-    if (userName)
+    if (typeof userName != 'undefined')
     {
         // Ссылка на автоматически-сгенерированный прокси хаба
         var chat = $.connection.chatHub;
@@ -7,6 +7,9 @@
         chat.client.addMessage = function (name, message) {
             // Добавление сообщений на веб-страницу 
             $('#globalChat').find('#divMessage').append('<div class="message"><span>' + name + '</span>: ' + message + '</div>');
+
+            var height = $('#globalChat').find('#divMessage')[0].scrollHeight;
+            $('#globalChat').find('#divMessage').scrollTop(height);
         };
 
         // Добавляем нового пользователя
@@ -19,9 +22,21 @@
             $('#globalSendMessage').click(function () {
                 if ($('#globalMessage').val() != '') {
                     // Вызываем у хаба метод Send
-                    chat.server.send($('#username').val(), $('#globalMessage').val());
-                    $('#globalMessage').val('');
+                    var messageModel = {
+                        SenderName: $('#chatHhUserName').val(),
+                        Text: $('#globalMessage').val()
+                    };
+                    $.post('/api/Message/sendGlobal', messageModel)
+                    .done(function () {
+                        chat.server.send($('#username').val(), $('#globalMessage').val());
+                        $('#globalMessage').val('');
+                    });
                 }
+            });
+
+            $.get('/api/Message/getGlobal')
+            .done(function (data) {
+                AppendMessageHistory(data, '#globalChat')
             });
         });
     }
@@ -34,7 +49,7 @@ function htmlEncode(value) {
 }
 
 $(function () {
-    if (userName) {
+    if (typeof userName != 'undefined') {
         var chat = $.connection.chatHub;
 
 
@@ -47,6 +62,8 @@ $(function () {
                         stop: function () {
                         }
                     });
+                var height = $('#globalChat').find('#divMessage')[0].scrollHeight;
+                $('#globalChat').find('#divMessage').scrollTop(height);
             });
             $('#globalChat').find('#imgDelete').click(function () {
                 $('#globalChat').hide();
@@ -73,10 +90,10 @@ $(function () {
         }
 
         chat.client.onUserDisconnected = function (id, userName) {
-            $('#' + userName).remove();
+            $("[id='" + userName + "']").remove();
 
-            var ctrId = 'private_' + userName;
-            $('#' + ctrId).remove();
+            var ctrId = "[id='private_" + userName + "']";
+            $(ctrId).remove();
             var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
             $(disc).hide();
             $('#divusers').prepend(disc);
@@ -85,20 +102,24 @@ $(function () {
 
         chat.client.sendPrivateMessage = function (fromUserName, chatWindowID, message) {
 
-            var ctrId = 'private_' + chatWindowID;
+            var ctrId = "[id='private_" + chatWindowID + "']";
 
-            if ($('#' + ctrId).length == 0) {
-                createPrivateChatWindow(chat, fromUserName, ctrId, chatWindowID);
+            var wasAlreadyCreated = true;
+            if ($(ctrId).length == 0) {
+                wasAlreadyCreated = false;
+                createPrivateChatWindow(chat, ctrId, chatWindowID);
             }
-            if ($('#' + ctrId).is(':hidden'))
+            if ($(ctrId).is(':hidden'))
             {
-                $('#' + ctrId).show();
+                $(ctrId).show();
             }
-            $('#' + ctrId).find('#divMessage').append('<div class="message"><span>' + fromUserName + '</span>: ' + message + '</div>');
+            
+            if (wasAlreadyCreated) {
+                $(ctrId).find('#divMessage').append('<div class="message"><span>' + fromUserName + '</span>: ' + message + '</div>');
 
-            var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
-            $('#' + ctrId).find('#divMessage').scrollTop(height);
-
+                var height = $(ctrId).find('#divMessage')[0].scrollHeight;
+                $(ctrId).find('#divMessage').scrollTop(height);
+            }
         }
 
         $.connection.hub.start().done(function () {
@@ -120,16 +141,19 @@ function AddUser(chatHub, id, name) {
     var userName = $('#chatHhUserName').val();
     var code = "";
     if (userName == name) {
-
         code = $('<div class="loginUser">' + name + "</div>");
     }
     else {
-        code = $('<a id="' + name + '" class="user" >' + name + '<a>');
-        $(code).click(function () {
-            var id = $(this).attr('id');
-            if (userName != name)
-                OpenPrivateChatWindow(chatHub, id, name);
-        });
+        if ($("[id='" + name + "']").length == 0) {
+            code = $('<a id="' + name + '" class="user" >' + name + '<a>');
+            $(code).click(function () {
+                if (userName != name)
+                    OpenPrivateChatWindow(chatHub, name);
+            });
+        }
+        else {
+            return;
+        }
     }
     $("#divusers").append(code);
 }
@@ -152,20 +176,20 @@ function registerEvents(chatHub) {
     });
 }
 
-function OpenPrivateChatWindow(chatHub, id, name) {
-    var ctrId = 'private_' + name;
-    if ($('#' + ctrId).length > 0) {
-        if ($('#' + ctrId).is(':hidden')) {
-            $('#' + ctrId).show();
+function OpenPrivateChatWindow(chatHub, name) {
+    var ctrId = "[id='private_" + name + "']"
+    if ($(ctrId).length > 0) {
+        if ($(ctrId).is(':hidden')) {
+            $(ctrId).show();
         }
         return;
     }
-    createPrivateChatWindow(chatHub, id, ctrId, name);
+    createPrivateChatWindow(chatHub, ctrId, name);
 }
 
-function createPrivateChatWindow(chatHub, userId, ctrId, name) {
+function createPrivateChatWindow(chatHub, ctrId, name) {
 
-    var div = '<div id="' + ctrId + '" class="ui-widget-content panel panel-primary draggable" rel="0">' +
+    var div = '<div id="private_' + name + '" class="ui-widget-content panel panel-primary draggable" rel="0">' +
                '<div class="header panel-heading">' +
                   '<span id="imgDelete" class="glyphicon glyphicon-remove pull-right"></span>' +
 
@@ -182,7 +206,7 @@ function createPrivateChatWindow(chatHub, userId, ctrId, name) {
     var $div = $(div);
     // DELETE BUTTON IMAGE
     $div.find('#imgDelete').click(function () {
-        $('#' + ctrId).hide();
+        $(ctrId).hide();
     });
     // Send Button event
     $div.find("#btnSendMessage").click(function () {
@@ -190,9 +214,16 @@ function createPrivateChatWindow(chatHub, userId, ctrId, name) {
         $textBox = $div.find("#txtPrivateMessage");
         var msg = $textBox.val();
         if (msg.length > 0) {
-
-            chatHub.server.sendPrivateMessage(name, msg);
-            $textBox.val('');
+            messageModel = {
+                SenderName: $('#chatHhUserName').val(),
+                RecepientName: name,
+                Text: msg
+            };
+            $.post("/api/Message/sendPrivate", messageModel)
+            .done(function (response) {
+                chatHub.server.sendPrivateMessage(name, msg);
+                $textBox.val('');
+            });
         }
     });
     // Text Box event
@@ -201,7 +232,23 @@ function createPrivateChatWindow(chatHub, userId, ctrId, name) {
             $div.find("#btnSendMessage").click();
         }
     });
+
+    var senderName = name;
+    var recepientName = $('#chatHhUserName').val();
+    $.get('/api/Message/getPrivate?senderName=' + senderName + '&recepientName=' + recepientName)
+    .done(function (data) {
+        AppendMessageHistory(data, ctrId);
+    });
     AddDivToContainer($div);
+}
+
+function AppendMessageHistory(messages, ctrId) {
+    messages.forEach(function (message) {
+        $(ctrId).find('#divMessage').append('<div class="message"><span>' + message.SenderName + '</span>: ' + message.Text + '</div>');
+    });
+
+    var height = $(ctrId).find('#divMessage')[0].scrollHeight;
+    $(ctrId).find('#divMessage').scrollTop(height);
 }
 
 function AddDivToContainer($div) {

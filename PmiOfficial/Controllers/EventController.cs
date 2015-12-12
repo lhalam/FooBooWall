@@ -40,9 +40,12 @@ namespace PmiOfficial.Controllers
         }
 
         [HttpPost]
-        public void AddComment(Comment comment)
+        public ActionResult AddComment(AddCommentDTO data)
         {
-            _commentsService.Create(comment);
+            Comment a = new Comment { AuthorId = data.UserId, EventId = data.EventId, WritingDate = DateTime.Now, Text = data.Text };
+            _commentsService.Create(a);
+            return Index(a.AuthorId, a.EventId);
         }
+
     }
 }

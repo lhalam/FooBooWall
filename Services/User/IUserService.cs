@@ -7,6 +7,7 @@ namespace Services
     {
         User Get(int id);
 
+        User GetByLoginName(string login);
         void Edit(EditUserDTO user, System.Web.HttpServerUtilityBase serverObj);
     }
 }

@@ -124,7 +124,7 @@ $(function () {
         maxDate: maximumDate
     });
     $('#createEventButton').click(function () {
-        var date = dateFormat($("#eventDateTime").val(), "dd/mm/yyyy HH:MM:ss");
+        var date = dateFormat($("#eventDateTime").val(), "mm/dd/yyyy");
         //var date = new Date($("#eventDateTime").val()).getTime();
         var eventModel = {
             ImageId: 1,
@@ -137,7 +137,6 @@ $(function () {
         if (checkEvent(eventModel)) {
             $.post(createEventUrl, eventModel)
               .success(function (data) {
-                  alert("Event was added successfully!");
                   window.location.reload(true);
               });
         }

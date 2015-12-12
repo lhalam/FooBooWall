@@ -22,7 +22,7 @@ namespace DataAccess.DAO
                     "VALUES(@dateTime, @text, @author, @recipient)";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add("@dateTime", SqlDbType.DateTime).Value = entity.Time;
-                cmd.Parameters.Add("@text", SqlDbType.VarChar, -1).Value = entity.Text;
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, -1).Value = entity.Text;
                 cmd.Parameters.Add("@author", SqlDbType.Int).Value = entity.AuthorId;
                 cmd.Parameters.Add("@recipient", SqlDbType.Int).Value = entity.RecipientId ?? SqlInt32.Null;
                 cmd.CommandType = CommandType.Text;
@@ -99,7 +99,7 @@ namespace DataAccess.DAO
                 string commandString = "SELECT " + (amount.HasValue ? "TOP(@amount) " : String.Empty ) +
                    "* FROM messages WHERE (RecipientId = @firstId AND AuthorId = @secondId) " +
                    "OR (RecipientId = @secondId AND AuthorId = @firstId) " +
-                   " ORDER BY DateTime DESC ";
+                   " ORDER BY DateTime ";
                 SqlCommand cmd = new SqlCommand(commandString, connection);
                 cmd.Parameters.Add("@firstId", SqlDbType.Int).Value = firstUser;
                 cmd.Parameters.Add("@secondId", SqlDbType.Int).Value = secondUser;

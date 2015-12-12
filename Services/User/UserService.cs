@@ -8,10 +8,10 @@ namespace Services
 {
     public class UserService : IUserService
     {
-        readonly AbstractDAO<User> _dao;
+        readonly UserDAO _dao;
         private readonly IImageService _imageService;
 
-        public UserService(AbstractDAO<User> dao)
+        public UserService(UserDAO dao)
         {
             _dao = dao;
             _imageService = new ImageService();
@@ -20,6 +20,11 @@ namespace Services
         public User Get(int id)
         {
             return _dao.Read(id);
+        }
+
+        public User GetByLoginName(string login)
+        {
+            return _dao.GetUserByLogin(login);
         }
 
         public void Edit(EditUserDTO userDto, System.Web.HttpServerUtilityBase serverObj)

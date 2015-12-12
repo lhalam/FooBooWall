@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Comment\CommentService.cs" />
     <Compile Include="Comment\ICommentService.cs" />
+    <Compile Include="DTO\AddCommentDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\EditUserDTO.cs" />
     <Compile Include="Auth\AuthService.cs" />
@@ -90,6 +91,10 @@
     <Compile Include="ImageServices\ImageService.cs" />
     <Compile Include="Messages\IMessageService.cs" />
     <Compile Include="Messages\MessageService.cs" />
+    <Compile Include="RetrievalPassword\EmailCodeModel.cs" />
+    <Compile Include="RetrievalPassword\EmailModelForRetrieval.cs" />
+    <Compile Include="RetrievalPassword\NewPasswordModel.cs" />
+    <Compile Include="RetrievalPassword\UpdatingPasswordService.cs" />
     <Compile Include="Statistics\IStatService.cs" />
     <Compile Include="Statistics\StatService.cs" />
     <Compile Include="User\IUserService.cs" />
