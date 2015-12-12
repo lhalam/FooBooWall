@@ -17,40 +17,34 @@ namespace PmiOfficial.Controllers
     {
         public IUserService UserService;
         public IImageService _imagesService;
+        public IUsefulLinkService _usefulLinkService;
         public UserProfileController()
         {
             UserService = new UserService(new UserDAO());
             _imagesService = new ImageService();
+            _usefulLinkService = new UsefulLinkService(new UsefulLinkDAO());
         }
 
         // GET: UserProfile
         public ActionResult Index(int userId)
         {
-            UsefulLinkDAO usefulLinkDAO = new UsefulLinkDAO();
             ImageDAO imageDAO = new ImageDAO();
 
             User user = UserService.Get(userId);
             ViewBag.UserId = user.Id;
             ViewBag.User = user;
-            List<UsefulLink> list = usefulLinkDAO.ReadAll();
+            List<UsefulLink> list = _usefulLinkService.ReadAll();
             if (list.Count == 0)
             {
-                ViewBag.UsefulLinks = new List<UsefulLinkDTO>();
+                ViewBag.UsefulLinks = new List<UsefulLink>();
             }
             else
             {
                 ViewBag.UsefulLinks = from x in list
                                            where x.OwnerUserID == user.Id
-                                           select new UsefulLinkDTO
-                                           {
-                                               Id = x.Id,
-                                               Comment = x.Comment,
-                                               ImageUrl = imageDAO.Read(x.ImageId ?? 0).Name,
-                                               Name = x.Name,
-                                               OwnerUserID = x.OwnerUserID,
-                                               Url = x.Url
-                                           };
+                                           select x;
             }
+            ViewBag.DefaultUsefulLinkImage = UsefulLinkService.DEFAULT_USEFUL_LINK_IMAGE_URL;
             ViewBag.User.Hobbies = "hobbies";
             ViewBag.User.Plans = new Dictionary<string, List<string>>{ { "Monday", new List<string> { "Rest", "ЧМ" } },
                     { "Tuesday", new List<string> {"Movie" } }, {"Wednesday", new List<string>()}, {"Thursday", new List<string>() }, {"Friday", new List<string>()}};

@@ -159,3 +159,17 @@ p{
 .image-preview-input-title {
     margin-left: 2px;
 }
+
+#errors {
+    color: red;
+    text-align: center;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+#removeUsefulLink {
+    cursor: pointer;
+}
