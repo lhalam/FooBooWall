@@ -159,3 +159,22 @@ p{
 .image-preview-input-title {
     margin-left: 2px;
 }
+
+.eventButton{
+    color: white;
+    opacity: 0.8;
+    background-color: #006064;
+    padding: 0 15px;
+    -webkit-transition: all ease-out 10s;
+    -o-transition: all ease-out 10s;
+    -moz-transition: all ease-out 10s;
+    transition: all ease 10s;
+    transition-duration: 0.5s;
+}
+
+.eventButton:hover{
+    position: relative;
+    top: -2px;
+    z-index: 1000;
+    box-shadow: 0 0 7px rgba(0,0,0, .4);
+}

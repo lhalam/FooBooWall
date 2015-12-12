@@ -19,7 +19,7 @@
 --------------------------------------------------------------------------------------------------*/
 
 .fc-event {
-	background: #fff !important;
+	background: #B39DDB;
 	color: #000 !important;
 	page-break-inside: avoid;
 }
@@ -32,14 +32,14 @@
 /* Table & Day-Row Restyling
 --------------------------------------------------------------------------------------------------*/
 
-th,
+
 td,
 hr,
 thead,
 tbody,
 .fc-row {
 	border-color: #ccc !important;
-	background: #fff !important;
+	background: #EDE7F6;
 }
 
 /* kill the overlaid, absolutely-positioned common components */
