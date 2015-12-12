@@ -79,6 +79,7 @@
     <Compile Include="Comment\ICommentService.cs" />
     <Compile Include="DTO\AddCommentDTO.cs" />
     <Compile Include="DTO\CommentDTO.cs" />
+    <Compile Include="DTO\EditUsefulLinkDTO.cs" />
     <Compile Include="DTO\EditUserDTO.cs" />
     <Compile Include="Auth\AuthService.cs" />
     <Compile Include="Auth\ExternalLoginData.cs" />
@@ -97,6 +98,9 @@
     <Compile Include="RetrievalPassword\UpdatingPasswordService.cs" />
     <Compile Include="Statistics\IStatService.cs" />
     <Compile Include="Statistics\StatService.cs" />
+    <Compile Include="UsefulLink\IUsefulLinkService.cs" />
+    <Compile Include="UsefulLink\UsefulLinkResult.cs" />
+    <Compile Include="UsefulLink\UsefulLinkService.cs" />
     <Compile Include="User\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\UserService.cs" />

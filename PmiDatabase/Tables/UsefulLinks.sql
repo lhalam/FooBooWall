@@ -4,6 +4,6 @@
 	[Name] varchar(255),
 	[User_id] INT NOT NULL,
 	[Url] VARCHAR(120) NOT NULL,
-	[Image_id] INT NULL,
+	[Image_Url] VARCHAR(MAX) NULL,
 	[Comment] TEXT NULL
 )

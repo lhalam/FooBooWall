@@ -3,51 +3,36 @@
 }
 
 var saveAddedUsefulLink = function () {
-
-    var UsefulLinkName = document.getElementById("UsefulLinkName").value;
-    var UsefulLinkUrl = document.getElementById("UsefulLinkUrl").value;
-    var UsefulLinkImageUrl = document.getElementById("UsefulLinkImageUrl").value;
-    var UsefulLinkCommentNode = document.getElementById("UsefulLinkComment");
-    //var UsefulLinkComment = UsefulLinkCommentNode.value;
-
     var usefulLinkToAdd =
         {
             OwnerUserID: userId,
-            Name: document.getElementById("UsefulLinkName").value,
-            Url: document.getElementById("UsefulLinkUrl").value,
-            ImageUrl: document.getElementById("UsefulLinkImageUrl").value,
-            //Comment: document.getElementById("UsefulLinkComment").value
+            Name: $("#UsefulLinkName").val(),
+            Url: $("#UsefulLinkUrl").val(),
+            ImageUrl: $("#UsefulLinkImageUrl").val(),
+            Comment: $("#UsefulLinkComment").val()
         };
-    $.post("api/UsefulLinks/AddUsefulLink", usefulLinkToAdd)
-      .success(onSuccessfullUsefulLinkAdding());
-    //loggedUserID
+    $.post("api/UsefulLinks/AddUsefulLink", usefulLinkToAdd).success(onSuccessfullUsefulLinkAdding).fail(onFailedUsefulLinkAdding);
 }
 
 var onSuccessfullUsefulLinkAdding = function () {
-    alert("Useful link was added successfully!");
+    $("#errors").empty();
     window.location.reload(true);
 }
 
+var onFailedUsefulLinkAdding = function (error) {
+    var errors = [];
+    for (var key in error.responseJSON.ModelState) {
+        for (var i = 0; i < error.responseJSON.ModelState[key].length; i++) {
+            errors.push(error.responseJSON.ModelState[key][i])
+        }
+    }
+    var message = errors.join('<br />');
+    $("#errors").html(message);
+}
+
 var removeUsefulLink = function (id) {
-    //$.ajax({
-    //    url: url,
-    //    type: 'DELETE',
-    //    success: callback,
-    //    data: data,
-    //    contentType: type
-    //});
     $.post("api/UsefulLinks/RemoveUsefulLink/" + id, id).success(
         function(){
             window.location.reload(true);
         });
 }
-
-/*$(document).ready(function () {
-    $('#UsefulLinkImageUrl').change(function () {
-        $('#UsefulLinkImage').src = this.value;
-    });
-});*/
-
-/*var usefulLinkImageUrlChanged = function () {
-    ("#UsefulLinkImage").src = ("#UsefulLinkImageUrl").valueOf();
-}*/

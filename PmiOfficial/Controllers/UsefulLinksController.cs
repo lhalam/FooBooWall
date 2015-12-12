@@ -7,13 +7,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DataAccess.DAO;
+using Services;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace PmiOfficial.Controllers
 {
     public class UsefulLinksController : ApiController
     {
-        UsefulLinkDAO usefulLinkDAO = new UsefulLinkDAO();
-        ImageDAO imageDAO = new ImageDAO();
+        private readonly UsefulLinkService _usefulLinkService = new UsefulLinkService(new UsefulLinkDAO());
         
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -28,20 +30,50 @@ namespace PmiOfficial.Controllers
         }
 
         // POST api/<controller>
-        public void AddUsefulLink([FromBody]UsefulLinkDTO entity)
+        public IHttpActionResult AddUsefulLink([FromBody]UsefulLinkDTO entity)
         {
-            //Image newImg = new Image { Name = "UsefulLink", PathToLocalImage = entity.ImageUrl };
-            //imageDAO.Create(newImg);
-            UsefulLink usefulLink = new UsefulLink
+            if (!this.ModelState.IsValid)
             {
-                Comment = entity.Comment,
-                Id = entity.Id,
-                ImageId = 1/*newImg.Id*/,
-                Name = entity.Name,
-                OwnerUserID = entity.OwnerUserID,
-                Url = entity.Url
-            };
-            usefulLinkDAO.Create(usefulLink);
+                return BadRequest(this.ModelState);
+            }
+            UsefulLinkResult res = _usefulLinkService.Create(entity);
+            if (res.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return GetErrorResult(res);
+            }
+        }
+
+        private IHttpActionResult GetErrorResult(UsefulLinkResult result)
+        {
+            if (result == null)
+            {
+                return InternalServerError();
+            }
+
+            if (!result.Succeeded)
+            {
+                if (result.Errors != null)
+                {
+                    foreach (string error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    // No ModelState errors are available to send, so just return an empty BadRequest.
+                    return BadRequest();
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return null;
         }
 
         // PUT api/<controller>/5
@@ -52,7 +84,7 @@ namespace PmiOfficial.Controllers
         // DELETE api/<controller>/5
         public void RemoveUsefulLink(int id)
         {
-            usefulLinkDAO.Delete(new UsefulLink { Id = id });
+            _usefulLinkService.Delete(new UsefulLinkDTO() { Id = id });
         }
     }
 }

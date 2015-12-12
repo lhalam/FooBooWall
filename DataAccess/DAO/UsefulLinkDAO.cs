@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,13 +18,13 @@ namespace DataAccess.DAO
             {
                 connection.Open();
                 string sql =
-                    "INSERT INTO usefulLinks(User_Id, Url, Image_Id, Comment, Name)" +
+                    "INSERT INTO usefulLinks(User_Id, Url, Image_Url, Comment, Name)" +
                     " OUTPUT Inserted.Id " +
-                    "VALUES(@User_Id, @Url, @Image_Id, @Comment, @Name)";
+                    "VALUES(@User_Id, @Url, @Image_Url, @Comment, @Name);";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add(new SqlParameter("@User_Id", entity.OwnerUserID));
                 cmd.Parameters.Add(new SqlParameter("@Url", entity.Url ?? SqlString.Null));
-                cmd.Parameters.Add(new SqlParameter("@Image_Id", entity.ImageId ?? SqlInt32.Null));
+                cmd.Parameters.Add(new SqlParameter("@Image_Url", entity.ImageUrl ?? SqlString.Null));
                 cmd.Parameters.Add(new SqlParameter("@Comment", entity.Comment ?? SqlString.Null));
                 cmd.Parameters.Add(new SqlParameter("@Name", entity.Name ?? SqlString.Null));
                 cmd.CommandType = CommandType.Text;
@@ -40,7 +39,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "SELECT * FROM usefulLinks WHERE Id = @Id";
+                string sql = "SELECT * FROM usefulLinks WHERE Id = @Id;";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add(new SqlParameter("@Id", id));
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -52,7 +51,7 @@ namespace DataAccess.DAO
                         Name = Convert(reader["Name"]),
                         OwnerUserID = (int) reader["User_Id"],
                         Url = Convert(reader["Url"]),
-                        ImageId = (int) reader["Image_Id"],
+                        ImageUrl = Convert(reader["Image_Url"]),
                         Comment = Convert(reader["Comment"])
                     };
                 }
@@ -65,12 +64,12 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "UPDATE usefulLinks SET OwnerUserID = @OwnerUserID, Url = @Url, ImageId = @ImageId," +
-                             " Comment = @Comment, Name = @Name WHERE Id = @Id";
+                string sql = "UPDATE usefulLinks SET OwnerUserID = @OwnerUserID, Url = @Url, ImageUrl = @ImageUrl," +
+                             " Comment = @Comment, Name = @Name WHERE Id = @Id;";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add(new SqlParameter("@OwnerUserID", entity.OwnerUserID));
                 cmd.Parameters.Add(new SqlParameter("@Url", entity.Url));
-                cmd.Parameters.Add(new SqlParameter("@ImageId", entity.ImageId));
+                cmd.Parameters.Add(new SqlParameter("@Image_Url", entity.ImageUrl));
                 cmd.Parameters.Add(new SqlParameter("@Comment", Convert(entity.Comment)));
                 cmd.Parameters.Add(new SqlParameter("@Name", entity.Name));
                 cmd.Parameters.Add(new SqlParameter("@Id", entity.Id));
@@ -84,7 +83,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                string sql = "DELETE FROM usefulLinks WHERE Id = @Id";
+                string sql = "DELETE FROM usefulLinks WHERE Id = @Id;";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add(new SqlParameter("@Id", entity.Id));
                 cmd.CommandType = CommandType.Text;
@@ -98,7 +97,7 @@ namespace DataAccess.DAO
             using (SqlConnection connection = GetConnection())
             {
                 connection.Open();
-                const string commandString = "SELECT * FROM usefulLinks";
+                const string commandString = "SELECT * FROM usefulLinks;";
                 SqlCommand cmd = new SqlCommand(commandString, connection);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -110,7 +109,7 @@ namespace DataAccess.DAO
                             Name = Convert(reader["Name"]),
                             OwnerUserID = (int)reader["User_Id"],
                             Url = Convert(reader["Url"]),
-                            ImageId = (int)reader["Image_Id"],
+                            ImageUrl = Convert(reader["Image_Url"]),
                             Comment = Convert(reader["Comment"])
                         };
                         result.Add(usefulLink);

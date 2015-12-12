@@ -75,25 +75,34 @@
                             <div class="col-lg-4">Useful Link Name</div>
                             <input type="text" class="form-control" id="UsefulLinkName" value="">
                         </div>
-                        <div class="row">
-                            <div class="col-lg-4">Url</div>
-                            <input type="text" class="form-control" id="UsefulLinkUrl" value="">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-4">Useful Link Name</div>
+                                <input type="text" class="form-control" id="UsefulLinkName" value="">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Url</div>
+                                <input type="text" class="form-control" id="UsefulLinkUrl" value="">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Comment</div>
+                                <textarea type="text" class="form-control" rows="8" cols="50" id="UsefulLinkComment" value=""></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">Image</div>
+                                <input type="text" class="form-control" id="UsefulLinkImageUrl" value="" onkeyup="usefulLinkImageUrlChanged()">
+                            </div>
+                            <div class="row">
+                                <img class="form-control" id="UsefulLinkImage" src="@ViewBag.DefaultUsefulLinkImage" onerror="if (this.src != @ViewBag.DefaultUsefulLinkImage) this.src = @ViewBag.DefaultUsefulLinkImage;">
+                            </div>
+                            <div class="row">
+                                <div id="errors"></div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-4">Comment</div>
-                            <textarea type="text" class="form-control" rows="8" cols="50 id="UsefulLinkComment" value=""> comment...</textarea>
+                        <div class="modal-footer">
+                            <button type="button" id="addUsefulLinkSubmit" onclick="saveAddedUsefulLink();" class="btn btn-success" >Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-4">Image</div>
-                            <input type="text" class="form-control" id="UsefulLinkImageUrl" value="" onkeyup="usefulLinkImageUrlChanged()">
-                        </div>
-                        <div class="row">
-                            <img class="form-control" id="UsefulLinkImage" src="http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg" onerror="if (this.src != 'http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg') this.src = 'http://www.joomlack.fr/images/demos/demo2/on-top-of-earth.jpg';">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="addUsefulLinkSubmit" onclick="saveAddedUsefulLink();" class="btn btn-success" data-dismiss="modal">Save</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
