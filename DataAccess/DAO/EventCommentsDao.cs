@@ -90,7 +90,7 @@ namespace DataAccess.DAO
             {
                 connection.Open();
                 const string sql = "SELECT c.Id AS Id, c.Event_id AS Event_id, c.Author_id AS Author_id, " +
-                    "c.Comment_time AS Comment_time, u.Name AS AuthorName, i.Name AS ImageName FROM comments c INNER JOIN users u ON c.Author_id = u.ID " +
+                    "c.Comment_time AS Comment_time, concat(u.FirstName, ' ', u.LastName) AS AuthorName, i.Name AS ImageName FROM comments c INNER JOIN users u ON c.Author_id = u.ID " +
                  " INNER JOIN Events e ON c.Event_id = e.ID INNER JOIN Images i ON e.Image_id = i.ID";
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 using (SqlDataReader reader = cmd.ExecuteReader())
